@@ -3,6 +3,7 @@ public class Tick {
     
     private int timestamp;
     private String type;
+    private String parentType;
     
     /**
      * @param timestamp
@@ -12,17 +13,20 @@ public class Tick {
 
         this.timestamp = 0;
         this.type = "";
+        this.parentType = "";
         
     }
 
     /**
      * @param timestamp
      * @param type
+     * @param parentType
      */
-    public Tick(int timestamp, String type) {
+    public Tick(int timestamp, String type, String parentType) {
 
         this.timestamp = timestamp;
         this.type = type;
+        this.parentType = parentType;
         
     }
 
@@ -60,5 +64,19 @@ public class Tick {
         this.type = type;
         
     }
+
+	/**
+	 * @return the parentType
+	 */
+	public String getParentType() {
+		return parentType;
+	}
+
+	/**
+	 * @param parentType the parentType to set
+	 */
+	public void setParentType(String parentType) {
+		this.parentType = parentType;
+	}
 
 }
