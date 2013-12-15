@@ -42,23 +42,22 @@ public class Sequence {
 		List<String> typesOfAB	= new ArrayList<String>();
 		List<String> typesOfB 	= new ArrayList<String>();
 		
-		
-		for (int i = 0; i < previousSequence.getConcatenatedTypeNames().length; i++) {
+		String[] tmpS = previousSequence.getConcatenatedTypeNames();		
+		for (int i = 0; i < tmpS.length; i++) {
 			
-			String tmpS = previousSequence.getConcatenatedTypeNames()[i];
-			allTypesOfB.add(tmpS);
+			allTypesOfB.add(tmpS[i]);
 			
 		}
 		
-		for (int i = 0; i < typeNames.length; i++) {			// look at each type of A
+		for (int i = 0; i < typeNames.length; i++) {		// look at each type of A
 			
-			if (allTypesOfB.contains(typeNames[i])) {	// if contained in B
+			if (allTypesOfB.contains(typeNames[i])) {		// if contained in B
 				
 				typesOfAB.add(typeNames[i]);				// add to List of Types which are contained in A and B
 				
 			} else {
 				
-				typesOfA.add(typeNames[i]);				// else it is one of the Types that are only in A
+				typesOfA.add(typeNames[i]);					// else it is one of the Types that are only in A
 				
 			}
 		}
@@ -178,14 +177,13 @@ public class Sequence {
      * @return the concatenatedTypeNames
      */
     public String[] getConcatenatedTypeNames() {
-    	String[] concatenatedTypeNames = new String[newbornTypes.length + growingTypes.length];
-    	concatenatedTypeNames = newbornTypes;
-    	int offset = newbornTypes.length;
-    	for (int i = 0; i < concatenatedTypeNames.length-offset ; i++) {
-    		concatenatedTypeNames[i+offset] = growingTypes[i];
-		}
+    	int concatLength = newbornTypes.length + growingTypes.length;
+    	String[] concatenatedTypeNames = new String[concatLength];
+
+    	System.arraycopy(newbornTypes, 0, concatenatedTypeNames, 0, newbornTypes.length);
+    	System.arraycopy(growingTypes, 0, concatenatedTypeNames, newbornTypes.length, growingTypes.length);
     	
-        return concatenatedTypeNames;
+    	return concatenatedTypeNames;
     }
     
 
