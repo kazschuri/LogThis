@@ -48,7 +48,34 @@ public class Frame {
 		return typesOfThisFrame;
 	}
 
-
+	/**
+	 * @return the parentTypesOfThisFrame
+	 */
+	public String[] getParentTypes() {
+		
+		String[] parentTypesOfThisFrame = new String[this.tickArray.length];
+		
+		for (int i=0; i<this.tickArray.length; i++) {
+			
+			parentTypesOfThisFrame[i] = (this.tickArray[i].getParentType()); 
+		}
+		
+		return parentTypesOfThisFrame;
+	}
+	/**
+	 * @return the concatenatedTypesOfThisFrame
+	 */
+	public String[] getConcatenatedTypes() {
+		
+		String[] concatenatedTypesOfThisFrame = new String[this.tickArray.length];
+		
+		for (int i=0; i<this.tickArray.length; i++) {
+			
+			concatenatedTypesOfThisFrame[i] = (this.tickArray[i].getConcatenatedTypes()); 
+		}
+		
+		return concatenatedTypesOfThisFrame;
+	}
 	/**
 	 * @return the timestampsOfThisFrame
 	 */
@@ -90,8 +117,8 @@ public class Frame {
 			
 			decision = true;
 			
-			String[] typesOfFrameA = this.getTypes();
-			String[] typesOfFrameB = frameB.getTypes();
+			String[] typesOfFrameA = this.getConcatenatedTypes();
+			String[] typesOfFrameB = frameB.getConcatenatedTypes();
 			
 			for (int i = 0; i < sizeOfFrameA; i++) {
 				

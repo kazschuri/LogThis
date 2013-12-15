@@ -24,7 +24,7 @@ public class ReadFile
 			
 			String[] parts = line.split(";",-1);
 			int tmpTimestamp = Integer.parseInt(parts[0]);
-			Tick tmpTick = new Tick(tmpTimestamp, parts[1]);
+			Tick tmpTick = new Tick(tmpTimestamp, parts[1], parts[2]);
 			tmpTickList.add(tmpTick);
 			
 		}
@@ -109,7 +109,7 @@ public class ReadFile
 				int sequenceLength		= listOfFrames.size();
 				int[][] timestampArray	= new int[sequenceLength][frameSize]; 
 				
-				String[] typeArray		= frameA.getTypes();
+				String[] typeArray		= frameA.getConcatenatedTypes();
 				
 				for (int j=0; j<sequenceLength; j++){		// for every Frame on the listOfFrames
 					
