@@ -30,8 +30,6 @@ public class SequenceAgeingAnalyzer {
 		}
 		Map<String,Integer> countMap = new HashMap<String,Integer>();
 		for (int j = 0; j < sequences.length-1; j++) {
-			String tmpToBe;
-			
 			
 			System.out.println("_________________________________________________________________________");
 			System.out.println();
@@ -39,7 +37,7 @@ public class SequenceAgeingAnalyzer {
 			System.out.println();
 			
 			if (sameTypes[j].length!=0){
-				System.out.println("Die Typen haben sich nicht verändert:");
+				System.out.println("Growing Types:");
 				
 				for (int k = 0; k < sameTypes[j].length; k++) {
 					if(countMap.containsKey(sameTypes[j][k])){
@@ -55,13 +53,8 @@ public class SequenceAgeingAnalyzer {
 			}
 				
 			if (newTypes[j].length!=0){
-				if (newTypes[j].length==1){
-					tmpToBe = "ist";
-				} else {
-					tmpToBe = "sind";
-				}
 				
-				System.out.println("Neu dazugekommen "+tmpToBe+": ");
+				System.out.println("Newborn Types: ");
 				
 				for (int k = 0; k < newTypes[j].length; k++) {
 					if(countMap.containsKey(newTypes[j][k])){
@@ -76,13 +69,8 @@ public class SequenceAgeingAnalyzer {
 			}
 			
 			if (oldTypes[j].length!=0){
-				if (oldTypes[j].length==1){
-					tmpToBe = "hat";
-				} else {
-					tmpToBe = "haben";
-				}
 				
-				System.out.println("Verabschiedet "+tmpToBe+" sich dagegen:");
+				System.out.println("Dying Types:");
 				
 				for (int k = 0; k < oldTypes[j].length; k++) {
 					System.out.println(" - "+oldTypes[j][k]+" ("+countMap.get(oldTypes[j][k])+")");
