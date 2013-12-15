@@ -2,7 +2,6 @@
 public class Scene {
     
     private Sequence[] sequences;
-    private AgeingSequence[] ageingSequences;
     private int numberOfFrames;
 
     /**
@@ -54,22 +53,5 @@ public class Scene {
         this.sequences = sequences;
         
     }
-
-	
-    /**
-	 * @return the ageingSequences
-	 */
-	public AgeingSequence[] getAgeingSequences() {
-		return ageingSequences;
-	}
-
-	
-	/**
-	 * @param ageingSequences the ageingSequences to set
-	 */
-	public void setAgeingSequences(AgeingSequence[] ageingSequences) {
-		this.ageingSequences = ageingSequences;
-	}
-    
     
 }
