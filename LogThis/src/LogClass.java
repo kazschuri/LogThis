@@ -21,6 +21,7 @@ public class LogClass {
 			}
 			
 			SequenceAgeingAnalyzer.cutAndDiff(input);
+			System.out.println(input.info());
 			
 		} catch (IOException e)
 		{
