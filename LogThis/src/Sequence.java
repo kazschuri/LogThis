@@ -8,6 +8,8 @@ public class Sequence {
     private String[] growingTypes;
     private String[] dyingTypes;
     private int[][] timestamps;
+    private int firstTimestamp;
+    private int lastTimestamp;
     private int numberOfFrames;
     
     
@@ -34,6 +36,25 @@ public class Sequence {
 	 */
 	public Sequence(String[] typeNames, int[][] timestamps, Sequence previousSequence) {
 		this.timestamps = timestamps;
+		this.firstTimestamp = timestamps[0][0];
+		
+		int tmpLength = timestamps.length;
+		this.lastTimestamp = timestamps[tmpLength-1][timestamps[tmpLength-1].length-1];
+		for (int i = 0; i < tmpLength; i++) {
+			
+			if (this.firstTimestamp > timestamps[i][0]) {
+			
+				this.firstTimestamp = timestamps[i][0];	
+			
+			}
+			
+			if (this.lastTimestamp > timestamps[i][timestamps[i].length-1]){
+				
+				this.lastTimestamp = timestamps[i][timestamps[i].length-1];
+			}
+						
+		}
+		 
 		this.numberOfFrames = this.timestamps.length;
 		
 		List<String> allTypesOfB	= new ArrayList<String>();
@@ -87,75 +108,6 @@ public class Sequence {
 		this.dyingTypes = arrayOfB;
 		
 	}
-
-
-//	/**
-//	 * compare two Sequences A.diff(B) and return
-//	 * three Arrays of Types
-//	 * 
-//	 * First: Types only found in A
-//	 * Second: Types found in both
-//	 * Third: Types only found in B
-//	 * 
-//	 * @param sequenceB the sequence with which to compare for difference
-//	 * @return the arraysOfDifference 
-//	 */
-//	public String[][] diff ( Sequence sequenceB ) {
-//		
-//		List<String> typesOfAList	= new ArrayList<String>();
-//		List<String> typesOfBList	= new ArrayList<String>();
-//		
-//		List<String> typesOfA	= new ArrayList<String>();
-//		List<String> typesOfAB	= new ArrayList<String>();
-//		List<String> typesOfB 	= new ArrayList<String>();
-//		
-//		for (int i = 0; i < this.getTypeNames().length; i++) {
-//			
-//			typesOfAList.add(this.getTypeNames()[i]);
-//			
-//		}
-//		
-//		for (int i = 0; i < sequenceB.getTypeNames().length; i++) {
-//			
-//			typesOfBList.add(sequenceB.getTypeNames()[i]);
-//			
-//		}
-//		
-//		for (int i = 0; i < typesOfAList.size(); i++) {			// look at each element of oldTypeList
-//			
-//			if (typesOfBList.contains(typesOfAList.get(i))) {	// if contained in newTypeList
-//				
-//				typesOfAB.add(typesOfAList.get(i));				// add to List with elements that stay the same
-//				
-//			} else {
-//				
-//				typesOfA.add(typesOfAList.get(i));				// else it is one of the elements that are only in old list
-//				
-//			}
-//		}
-//		
-//		for (int i = 0; i < typesOfBList.size(); i++) {			
-//			
-//			if (!typesOfAB.contains(typesOfBList.get(i))) {		// find elements that are in new but not in same
-//				
-//				typesOfB.add(typesOfBList.get(i));				// they are from the new sequence
-//				
-//			}
-//		}
-//		
-//		String[][] arraysOfDifference = new String[3][];
-//		
-//		arraysOfDifference[0] = new String[typesOfA.size()];
-//		arraysOfDifference[1] = new String[typesOfAB.size()];
-//		arraysOfDifference[2] = new String[typesOfB.size()];
-//
-//		arraysOfDifference[0] = typesOfA.toArray(arraysOfDifference[0]);
-//		arraysOfDifference[1] = typesOfAB.toArray(arraysOfDifference[1]);
-//		arraysOfDifference[2] = typesOfB.toArray(arraysOfDifference[2]);
-//		
-//		return arraysOfDifference;
-//		
-//	}
 
 
 	/**
@@ -241,6 +193,42 @@ public class Sequence {
 	 */
 	public void setNumberOfFrames(int numberOfFrames) {
 		this.numberOfFrames = numberOfFrames;
+	}
+
+
+
+	/**
+	 * @return the firstTimestamp
+	 */
+	public int getFirstTimestamp() {
+		return firstTimestamp;
+	}
+
+
+
+	/**
+	 * @param firstTimestamp the firstTimestamp to set
+	 */
+	public void setFirstTimestamp(int firstTimestamp) {
+		this.firstTimestamp = firstTimestamp;
+	}
+
+
+
+	/**
+	 * @return the lastTimestamp
+	 */
+	public int getLastTimestamp() {
+		return lastTimestamp;
+	}
+
+
+
+	/**
+	 * @param lastTimestamp the lastTimestamp to set
+	 */
+	public void setLastTimestamp(int lastTimestamp) {
+		this.lastTimestamp = lastTimestamp;
 	}
     
     
