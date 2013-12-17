@@ -40,11 +40,13 @@ public class SequenceAgeingAnalyzer {
 				
 				for (int k = 0; k < growingTypes[j].length; k++) {	
 					if(countMap.containsKey(growingTypes[j][k])){ 	// if key is available
-						// TODO put variable instead of 1
+						
 						countMap.put(growingTypes[j][k], countMap.get(growingTypes[j][k])+sizeOfSequence);	// add x to value at key
+					
 					} else {
-						// TODO put variable instead of 1
+					
 						countMap.put(growingTypes[j][k], sizeOfSequence);		// otherwise create new key with value x					
+					
 					}
 					
 					System.out.println(" - "+growingTypes[j][k]+" ("+countMap.get(growingTypes[j][k])+")");
@@ -58,16 +60,20 @@ public class SequenceAgeingAnalyzer {
 				System.out.println("Newborn Types: ");
 				
 				for (int k = 0; k < newbornTypes[j].length; k++) {
+					
 					if(countMap.containsKey(newbornTypes[j][k])){	// if key is available
-						// TODO put variable instead of 1
+
 						countMap.put(newbornTypes[j][k], countMap.get(newbornTypes[j][k])+sizeOfSequence);	// add x to value at key
+					
 					} else {
-						// TODO put variable instead of 1
+					
 						countMap.put(newbornTypes[j][k], sizeOfSequence);		// otherwise create new key with value x
+
 					}
 					
 					System.out.println(" - "+newbornTypes[j][k]+" ("+countMap.get(newbornTypes[j][k])+")");
 				}
+				
 				System.out.println();
 			}
 			
@@ -76,13 +82,12 @@ public class SequenceAgeingAnalyzer {
 				System.out.println("Dying Types:");
 				
 				for (int k = 0; k < dyingTypes[j].length; k++) {
+				
 					System.out.println(" - "+dyingTypes[j][k]+" ("+countMap.get(dyingTypes[j][k])+")");
-					
-						countMap.put(dyingTypes[j][k], 0);
+					countMap.put(dyingTypes[j][k], 0);
 					
 				}
 			}
 		}
 	}
-	
 }
