@@ -5,8 +5,8 @@ public class ReadFile
 {
 	public static Scene reader() throws IOException
 	{
-		FileReader fr = new FileReader("file//LogManager-short.dat");
-//		FileReader fr = new FileReader("file/LogManager-long.dat");
+//		FileReader fr = new FileReader("file//LogManager-short.dat");
+		FileReader fr = new FileReader("file/LogManager-long.dat");
 		BufferedReader br = new BufferedReader(fr);
 		
 		String line = "";

@@ -13,14 +13,21 @@ public class LogClass {
 			System.out.println(input.info());
 			
 			for (int i = 0; i < input.getSequences().length; i++) {
+				
 				if (i % 25 == 0) {
+				
 					System.out.println();
+				
 				}
+				
 				System.out.print(input.getSequences()[i].getNumberOfFrames()+", ");
 				
 			}
 			
-			SequenceAgeingAnalyzer.cutAndDiff(input);
+			System.out.println();
+			
+			SequenceAgeingAnalyzer.diffOutput(input);
+			System.out.println();
 			System.out.println(input.info());
 			
 		} catch (IOException e)

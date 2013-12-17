@@ -15,7 +15,6 @@ public class Sequence {
     
 	public Sequence() {
 		String[] nullTypeArray = {""};
-//		this.typeNames = nullTypeArray;
 		this.newbornTypes = nullTypeArray;
 		this.growingTypes = nullTypeArray;
 		this.dyingTypes = nullTypeArray;
