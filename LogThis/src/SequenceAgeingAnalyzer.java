@@ -13,12 +13,12 @@ public class SequenceAgeingAnalyzer {
 		
 		Sequence[] sequences = scene.getSequences();
 		
-		String[][] dyingTypes = new String[sequences.length-1][];
-		String[][] growingTypes = new String[sequences.length-1][];
-		String[][] newbornTypes = new String[sequences.length-1][];
+		String[][] dyingTypes = new String[sequences.length][];
+		String[][] growingTypes = new String[sequences.length][];
+		String[][] newbornTypes = new String[sequences.length][];
 				
 		
-		for (int i = 0; i < sequences.length-1; i++) {
+		for (int i = 0; i < sequences.length; i++) {
 			
 			dyingTypes[i] = sequences[i].getDyingTypes();
 			growingTypes[i] = sequences[i].getGrowingTypes();
@@ -26,13 +26,13 @@ public class SequenceAgeingAnalyzer {
 			
 		}
 		Map<String,Integer> countMap = new HashMap<String,Integer>();
-		for (int j = 0; j < sequences.length-1; j++) {
+		for (int j = 0; j < sequences.length; j++) {
 			
 			int sizeOfSequence = sequences[j].getNumberOfFrames();
 			
 			System.out.println("_________________________________________________________________________");
 			System.out.println();
-			System.out.println("Sequence "+j+" ("+sizeOfSequence+" Frames) zu Sequence "+(j+1)+":");
+			System.out.println("Sequence "+(j-1)+" zu Sequence "+j+" ("+sizeOfSequence+" Frames):");
 			System.out.println();
 			
 			if (growingTypes[j].length!=0){
@@ -41,11 +41,11 @@ public class SequenceAgeingAnalyzer {
 				for (int k = 0; k < growingTypes[j].length; k++) {	
 					if(countMap.containsKey(growingTypes[j][k])){ 	// if key is available
 						
-						countMap.put(growingTypes[j][k], countMap.get(growingTypes[j][k])+sizeOfSequence);	// add x to value at key
+						countMap.put(growingTypes[j][k], countMap.get(growingTypes[j][k])+sizeOfSequence);	// add sizeOfSequence to age
 					
 					} else {
 					
-						countMap.put(growingTypes[j][k], sizeOfSequence);		// otherwise create new key with value x					
+						countMap.put(growingTypes[j][k], sizeOfSequence);		// otherwise create new key with age of sizeOfSequence					
 					
 					}
 					
@@ -63,11 +63,11 @@ public class SequenceAgeingAnalyzer {
 					
 					if(countMap.containsKey(newbornTypes[j][k])){	// if key is available
 
-						countMap.put(newbornTypes[j][k], countMap.get(newbornTypes[j][k])+sizeOfSequence);	// add x to value at key
+						countMap.put(newbornTypes[j][k], countMap.get(newbornTypes[j][k])+sizeOfSequence);	// add sizeOfSequence to age
 					
 					} else {
 					
-						countMap.put(newbornTypes[j][k], sizeOfSequence);		// otherwise create new key with value x
+						countMap.put(newbornTypes[j][k], sizeOfSequence);		// otherwise create new key with age of sizeOfSequence
 
 					}
 					
