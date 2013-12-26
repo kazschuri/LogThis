@@ -4,7 +4,6 @@ import java.io.IOException;
 public class LogClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Scene input;
 		try 
@@ -26,9 +25,12 @@ public class LogClass {
 			
 			System.out.println();
 			
-			input.showAgeingOf();
+			//input.showAgeingOf();
 			System.out.println();
 			System.out.println(input.info());
+			String[] filter = {"situation", "activity", "action"};
+//			String[] filter = {"situation"};
+			input.includeOnly(filter).showAgeingOf();
 			
 		} catch (IOException e)
 		{

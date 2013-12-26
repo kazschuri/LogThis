@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -15,12 +17,27 @@ public class Scene {
     public Scene(Sequence[] sequences) {
     	
         this.sequences = sequences;
-        numberOfFrames = 0;
+        this.numberOfFrames = 0;
         for (int i = 0; i < sequences.length; i++) {
-			numberOfFrames += sequences[i].getNumberOfFrames();
+			this.numberOfFrames += sequences[i].getNumberOfFrames();
 		}
-        startTime = sequences[0].getFirstTimestamp();
-        endTime = sequences[sequences.length-1].getLastTimestamp();
+        this.startTime = sequences[0].getFirstTimestamp();
+        this.endTime = sequences[sequences.length-1].getLastTimestamp();
+    }
+    
+    /**
+     * @param sequences
+     * @param frameCountOfAllSequences
+     * @param startingTimeOfScene
+     * @param endingTimeOfScene
+     */
+    public Scene(Sequence[] sequences, int frameCountOfAllSequences, int startingTimeOfScene, int endingTimeOfScene) {
+    	
+        this.sequences = sequences;
+        this.numberOfFrames = frameCountOfAllSequences;
+        this.startTime = startingTimeOfScene;
+        this.endTime = endingTimeOfScene;
+        
     }
 
     /**
@@ -125,6 +142,61 @@ public class Scene {
 		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
 	}
     
+	/**
+	 * @return the filteredScene
+	 * 
+	 * @param 
+	 */
+	public Scene includeOnly(String[] filter){
+		
+		Sequence[] originalSequences = this.getSequences();
+		List<Sequence> sequenceList = new ArrayList<Sequence>();
+		Sequence[] filteredSequences = new Sequence[originalSequences.length];
+		
+		for (int i = 0; i < originalSequences.length; i++) {
+			String[] tmpNewbornTypes = containsPartsOf(originalSequences[i].getNewbornTypes(), filter);
+			String[] tmpGrowingTypes = containsPartsOf(originalSequences[i].getGrowingTypes(), filter);
+			String[] tmpDyingTypes = containsPartsOf(originalSequences[i].getDyingTypes(), filter);
+			
+			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getTimestamps(), originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
+			sequenceList.add(tmpSequence);
+		}
+
+		if (originalSequences.length != sequenceList.size()) {
+		
+			System.out.println("ALARM Ungleiche Größe!");
+		}
+		
+		filteredSequences = sequenceList.toArray(filteredSequences);
+		
+		Scene filteredScene = new Scene(filteredSequences, this.getNumberOfFrames(), this.getStartTime(), this.getEndTime());
+		
+		return filteredScene;
+		
+	}
+	private static String[] containsPartsOf(String[] oldArray, String[] filter){
+		
+		List<String> typeList = new ArrayList<String>();
+		
+		for (int i = 0; i < oldArray.length; i++) {
+			
+			for (int j = 0; j < filter.length; j++) {
+			
+				if (oldArray[i].endsWith(filter[j])){
+					
+					typeList.add(oldArray[i]);
+					break;
+				}
+				
+			}
+			
+		}
+		String[] typeArray = new String[typeList.size()]; 
+		typeArray = typeList.toArray(typeArray);
+		
+		return typeArray;
+	}
+	
     /**
      * @return the sequence at index
      */
