@@ -26,7 +26,7 @@ public class LogClass {
 			
 			System.out.println();
 			
-			SequenceAgeingAnalyzer.diffOutput(input);
+			input.showAgeingOf();
 			System.out.println();
 			System.out.println(input.info());
 			
