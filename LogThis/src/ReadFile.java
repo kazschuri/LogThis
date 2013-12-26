@@ -5,6 +5,8 @@ public class ReadFile
 {
 	public static Scene reader() throws IOException
 	{
+		long startTime = System.currentTimeMillis();
+		
 //		FileReader fr = new FileReader("file//LogManager-short.dat");
 		FileReader fr = new FileReader("file/LogManager-long.dat");
 		BufferedReader br = new BufferedReader(fr);
@@ -137,6 +139,7 @@ public class ReadFile
 		
 		Scene sceneOfInput = new Scene(sequenceArray);
 		
+		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to read log");
 		return sceneOfInput;
 	}
 }

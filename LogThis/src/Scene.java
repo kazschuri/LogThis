@@ -32,7 +32,7 @@ public class Scene {
     	int numberOfSequences = this.sequences.length;
     	String generalInformation = "Scene of " + numberOfFrames + " Frames in "+ numberOfSequences + " Sequences\r\n";
     	generalInformation += "Starting at " + this.startTime + " and ending at " + this.endTime + " this Scene is ";
-    	generalInformation += (this.endTime - this.startTime) + " units long\r\n";
+    	generalInformation += (this.endTime - this.startTime) + " timeunits long\r\n";
     	generalInformation += "That calculates to " + (this.endTime - this.startTime)/numberOfSequences + " timeunits per Sequence and "; 
     	generalInformation += (this.endTime - this.startTime)/numberOfFrames + " timeunits per Frame."; 
     	return generalInformation;
@@ -42,7 +42,7 @@ public class Scene {
 	 * output the difference between the sequences of a scene
 	 */
 	public void showAgeingOf(){
-		
+		long startTime = System.currentTimeMillis();
 		Sequence[] sequences = this.getSequences();
 		
 		String[][] dyingTypes = new String[sequences.length][];
@@ -121,6 +121,8 @@ public class Scene {
 				}
 			}
 		}
+		System.out.println();
+		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
 	}
     
     /**

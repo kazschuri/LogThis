@@ -26,9 +26,29 @@ public class Sequence {
 		this.numberOfFrames = 0;
 	}
 	
-	
+	/**
+	 * Sequence constructor with all parameters as input
+	 * @param newbornTypes
+	 * @param growingTypes
+	 * @param dyingTypes
+	 * @param timestamps
+	 * @param firstTimestamp
+	 * @param lastTimestamp
+	 * @param numberOfFrames
+	 */
+	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, int[][] timestamps, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
+		this.newbornTypes 	= newbornTypes;
+		this.growingTypes	= growingTypes;
+		this.dyingTypes		= dyingTypes;
+		this.timestamps		= timestamps;
+		this.firstTimestamp	= firstTimestamp;
+		this.lastTimestamp	= lastTimestamp;
+		this.numberOfFrames	= numberOfFrames;
+		
+	}
 
     /**
+     * Sequence constructor that infers the ageing of Types and Timestamps from previous Sequence
 	 * @param typeNames
 	 * @param timestamps
 	 * @param previousSequence
