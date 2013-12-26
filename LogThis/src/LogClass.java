@@ -30,7 +30,8 @@ public class LogClass {
 			System.out.println(input.info());
 			String[] filter = {"situation", "activity", "action"};
 //			String[] filter = {"situation"};
-			input.includeOnly(filter).showAgeingOf();
+//			input.includeOnly(filter).showAgeingOf();
+			input.excludeFromScene(filter).showAgeingOf();
 			
 		} catch (IOException e)
 		{

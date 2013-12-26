@@ -143,9 +143,9 @@ public class Scene {
 	}
     
 	/**
-	 * @return the filteredScene
+	 * @param filter with context to include
 	 * 
-	 * @param 
+	 * @return the filteredScene
 	 */
 	public Scene includeOnly(String[] filter){
 		
@@ -187,6 +187,65 @@ public class Scene {
 					typeList.add(oldArray[i]);
 					break;
 				}
+				
+			}
+			
+		}
+		String[] typeArray = new String[typeList.size()]; 
+		typeArray = typeList.toArray(typeArray);
+		
+		return typeArray;
+	}
+	/**
+	 * @param filter with context to include
+	 * 
+	 * @return the filteredScene
+	 */
+	public Scene excludeFromScene(String[] filter){
+		
+		Sequence[] originalSequences = this.getSequences();
+		List<Sequence> sequenceList = new ArrayList<Sequence>();
+		Sequence[] filteredSequences = new Sequence[originalSequences.length];
+		
+		for (int i = 0; i < originalSequences.length; i++) {
+			String[] tmpNewbornTypes = doesNotContainPartsOf(originalSequences[i].getNewbornTypes(), filter);
+			String[] tmpGrowingTypes = doesNotContainPartsOf(originalSequences[i].getGrowingTypes(), filter);
+			String[] tmpDyingTypes = doesNotContainPartsOf(originalSequences[i].getDyingTypes(), filter);
+			
+			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getTimestamps(), originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
+			sequenceList.add(tmpSequence);
+		}
+
+		if (originalSequences.length != sequenceList.size()) {
+		
+			System.out.println("ALARM Ungleiche Größe!");
+		}
+		
+		filteredSequences = sequenceList.toArray(filteredSequences);
+		
+		Scene filteredScene = new Scene(filteredSequences, this.getNumberOfFrames(), this.getStartTime(), this.getEndTime());
+		
+		return filteredScene;
+		
+	}
+	private static String[] doesNotContainPartsOf(String[] oldArray, String[] filter){
+		
+		List<String> typeList = new ArrayList<String>();
+		
+		for (int i = 0; i < oldArray.length; i++) {
+			boolean typeNotIncluded = true;
+			for (int j = 0; j < filter.length; j++) {
+			
+				if (oldArray[i].endsWith(filter[j])){
+					
+					typeNotIncluded = false;
+					
+				}
+				
+			}
+			if (typeNotIncluded) {
+				
+				typeList.add(oldArray[i]);
 				
 			}
 			
