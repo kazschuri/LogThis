@@ -30,9 +30,10 @@ public class LogClass {
 			System.out.println(input.info());
 			String[] filter = {"situation", "activity", "action"};
 //			String[] filter = {"situation"};
-//			input.includeOnly(filter).showAgeingOf();
-			input.excludeFromScene(filter).showAgeingOf();
-			
+//			String[] filter = {""};
+//			input.filterScene(filter, true).showAgeingOf();
+			input.filterScene(filter,false).showAgeingOf();
+
 		} catch (IOException e)
 		{
 			System.out.print("Something wrong with input File");

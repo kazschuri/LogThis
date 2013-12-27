@@ -144,20 +144,33 @@ public class Scene {
     
 	/**
 	 * @param filter with context to include
+	 * @param includeFilter which determines, if the filter is included or excluded
 	 * 
 	 * @return the filteredScene
 	 */
-	public Scene includeOnly(String[] filter){
+	public Scene filterScene(String[] filter, boolean includeFilter){
 		
 		Sequence[] originalSequences = this.getSequences();
 		List<Sequence> sequenceList = new ArrayList<Sequence>();
 		Sequence[] filteredSequences = new Sequence[originalSequences.length];
 		
 		for (int i = 0; i < originalSequences.length; i++) {
-			String[] tmpNewbornTypes = containsPartsOf(originalSequences[i].getNewbornTypes(), filter);
-			String[] tmpGrowingTypes = containsPartsOf(originalSequences[i].getGrowingTypes(), filter);
-			String[] tmpDyingTypes = containsPartsOf(originalSequences[i].getDyingTypes(), filter);
-			
+			String[] tmpNewbornTypes;
+			String[] tmpGrowingTypes;
+			String[] tmpDyingTypes;
+			if (includeFilter) {
+				
+				tmpNewbornTypes = containsPartsOf(originalSequences[i].getNewbornTypes(), filter);
+				tmpGrowingTypes = containsPartsOf(originalSequences[i].getGrowingTypes(), filter);
+				tmpDyingTypes = containsPartsOf(originalSequences[i].getDyingTypes(), filter);
+				
+			}else {
+				
+				tmpNewbornTypes = doesNotContainPartsOf(originalSequences[i].getNewbornTypes(), filter);
+				tmpGrowingTypes = doesNotContainPartsOf(originalSequences[i].getGrowingTypes(), filter);
+				tmpDyingTypes = doesNotContainPartsOf(originalSequences[i].getDyingTypes(), filter);
+				
+			}
 			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getTimestamps(), originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
 			sequenceList.add(tmpSequence);
 		}
@@ -195,38 +208,6 @@ public class Scene {
 		typeArray = typeList.toArray(typeArray);
 		
 		return typeArray;
-	}
-	/**
-	 * @param filter with context to include
-	 * 
-	 * @return the filteredScene
-	 */
-	public Scene excludeFromScene(String[] filter){
-		
-		Sequence[] originalSequences = this.getSequences();
-		List<Sequence> sequenceList = new ArrayList<Sequence>();
-		Sequence[] filteredSequences = new Sequence[originalSequences.length];
-		
-		for (int i = 0; i < originalSequences.length; i++) {
-			String[] tmpNewbornTypes = doesNotContainPartsOf(originalSequences[i].getNewbornTypes(), filter);
-			String[] tmpGrowingTypes = doesNotContainPartsOf(originalSequences[i].getGrowingTypes(), filter);
-			String[] tmpDyingTypes = doesNotContainPartsOf(originalSequences[i].getDyingTypes(), filter);
-			
-			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getTimestamps(), originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
-			sequenceList.add(tmpSequence);
-		}
-
-		if (originalSequences.length != sequenceList.size()) {
-		
-			System.out.println("ALARM Ungleiche Größe!");
-		}
-		
-		filteredSequences = sequenceList.toArray(filteredSequences);
-		
-		Scene filteredScene = new Scene(filteredSequences, this.getNumberOfFrames(), this.getStartTime(), this.getEndTime());
-		
-		return filteredScene;
-		
 	}
 	private static String[] doesNotContainPartsOf(String[] oldArray, String[] filter){
 		
