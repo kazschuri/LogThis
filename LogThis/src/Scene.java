@@ -143,36 +143,22 @@ public class Scene {
 	}
     
 	/**
-	 * @param filter with context to include
-	 * @param includeFilter which determines, if the filter is included or excluded
+	 * @param filter the filter to use
+	 * @param containsFilter include or exclude filter arguments
 	 * 
-	 * @return the filteredScene
+	 * @return the filteredSequence
 	 */
-	public Scene filterScene(String[] filter, boolean includeFilter){
+	public Scene filterScene(String[] filter, boolean containsFilter){
 		
 		Sequence[] originalSequences = this.getSequences();
 		List<Sequence> sequenceList = new ArrayList<Sequence>();
 		Sequence[] filteredSequences = new Sequence[originalSequences.length];
 		
 		for (int i = 0; i < originalSequences.length; i++) {
-			String[] tmpNewbornTypes;
-			String[] tmpGrowingTypes;
-			String[] tmpDyingTypes;
-			if (includeFilter) {
-				
-				tmpNewbornTypes = containsPartsOf(originalSequences[i].getNewbornTypes(), filter);
-				tmpGrowingTypes = containsPartsOf(originalSequences[i].getGrowingTypes(), filter);
-				tmpDyingTypes = containsPartsOf(originalSequences[i].getDyingTypes(), filter);
-				
-			}else {
-				
-				tmpNewbornTypes = doesNotContainPartsOf(originalSequences[i].getNewbornTypes(), filter);
-				tmpGrowingTypes = doesNotContainPartsOf(originalSequences[i].getGrowingTypes(), filter);
-				tmpDyingTypes = doesNotContainPartsOf(originalSequences[i].getDyingTypes(), filter);
-				
-			}
-			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
+			
+			Sequence tmpSequence = originalSequences[i].filterSequence(filter, containsFilter);
 			sequenceList.add(tmpSequence);
+			
 		}
 
 		if (originalSequences.length != sequenceList.size()) {
@@ -186,55 +172,6 @@ public class Scene {
 		
 		return filteredScene;
 		
-	}
-	private static String[] containsPartsOf(String[] oldArray, String[] filter){
-		
-		List<String> typeList = new ArrayList<String>();
-		
-		for (int i = 0; i < oldArray.length; i++) {
-			
-			for (int j = 0; j < filter.length; j++) {
-			
-				if (oldArray[i].endsWith(filter[j])){
-					
-					typeList.add(oldArray[i]);
-					break;
-				}
-				
-			}
-			
-		}
-		String[] typeArray = new String[typeList.size()]; 
-		typeArray = typeList.toArray(typeArray);
-		
-		return typeArray;
-	}
-	private static String[] doesNotContainPartsOf(String[] oldArray, String[] filter){
-		
-		List<String> typeList = new ArrayList<String>();
-		
-		for (int i = 0; i < oldArray.length; i++) {
-			boolean typeNotIncluded = true;
-			for (int j = 0; j < filter.length; j++) {
-			
-				if (oldArray[i].endsWith(filter[j])){
-					
-					typeNotIncluded = false;
-					
-				}
-				
-			}
-			if (typeNotIncluded) {
-				
-				typeList.add(oldArray[i]);
-				
-			}
-			
-		}
-		String[] typeArray = new String[typeList.size()]; 
-		typeArray = typeList.toArray(typeArray);
-		
-		return typeArray;
 	}
 	
     /**
