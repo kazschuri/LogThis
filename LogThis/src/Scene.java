@@ -171,7 +171,7 @@ public class Scene {
 				tmpDyingTypes = doesNotContainPartsOf(originalSequences[i].getDyingTypes(), filter);
 				
 			}
-			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getTimestamps(), originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
+			Sequence tmpSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, originalSequences[i].getFirstTimestamp(), originalSequences[i].getLastTimestamp(), originalSequences[i].getNumberOfFrames());
 			sequenceList.add(tmpSequence);
 		}
 

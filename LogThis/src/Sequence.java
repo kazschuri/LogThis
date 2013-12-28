@@ -7,7 +7,6 @@ public class Sequence {
     private String[] newbornTypes;
     private String[] growingTypes;
     private String[] dyingTypes;
-    private int[][] timestamps;
     private int firstTimestamp;
     private int lastTimestamp;
     private int numberOfFrames;
@@ -19,10 +18,8 @@ public class Sequence {
 		this.growingTypes = nullTypeArray;
 		this.dyingTypes = nullTypeArray;
 		
-		int[][] nullTimeStamps = new int[1][];
-		int[] nullArray = {0,0};
-		nullTimeStamps[0] = nullArray;
-		this.timestamps = nullTimeStamps;
+		this.firstTimestamp = 0;
+		this.lastTimestamp = 0;
 		this.numberOfFrames = 0;
 	}
 	
@@ -36,11 +33,10 @@ public class Sequence {
 	 * @param lastTimestamp
 	 * @param numberOfFrames
 	 */
-	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, int[][] timestamps, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
+	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
 		this.newbornTypes 	= newbornTypes;
 		this.growingTypes	= growingTypes;
 		this.dyingTypes		= dyingTypes;
-		this.timestamps		= timestamps;
 		this.firstTimestamp	= firstTimestamp;
 		this.lastTimestamp	= lastTimestamp;
 		this.numberOfFrames	= numberOfFrames;
@@ -54,7 +50,6 @@ public class Sequence {
 	 * @param previousSequence
 	 */
 	public Sequence(String[] typeNames, int[][] timestamps, Sequence previousSequence) {
-		this.timestamps = timestamps;
 		this.firstTimestamp = timestamps[0][0];
 		
 		int tmpLength = timestamps.length;
@@ -74,7 +69,7 @@ public class Sequence {
 						
 		}
 		 
-		this.numberOfFrames = this.timestamps.length;
+		this.numberOfFrames = timestamps.length;
 		
 		List<String> allTypesOfB	= new ArrayList<String>();
 		
@@ -127,21 +122,6 @@ public class Sequence {
 		this.dyingTypes = arrayOfB;
 		
 	}
-
-
-	/**
-     * @return the timestamps
-     */
-    public int[][] getTimestamps() {
-        return timestamps;
-    }
-
-    /**
-     * @param timestamps the timestamps to set
-     */
-    public void setTimestamps(int[][] timestamps) {
-        this.timestamps = timestamps;
-    }
 
 
     /**
