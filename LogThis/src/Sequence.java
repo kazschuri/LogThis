@@ -148,63 +148,44 @@ public class Sequence {
 		String[] tmpNewbornTypes;
 		String[] tmpGrowingTypes;
 		String[] tmpDyingTypes;
-		if (containsFilter) {
 			
-			tmpNewbornTypes = containsPartsOf(this.getNewbornTypes(), filter);
-			tmpGrowingTypes = containsPartsOf(this.getGrowingTypes(), filter);
-			tmpDyingTypes = containsPartsOf(this.getDyingTypes(), filter);
+		tmpNewbornTypes = containsPartsOf(this.getNewbornTypes(), filter, containsFilter);
+		tmpGrowingTypes = containsPartsOf(this.getGrowingTypes(), filter, containsFilter);
+		tmpDyingTypes = containsPartsOf(this.getDyingTypes(), filter, containsFilter);
 			
-		}else {
-			
-			tmpNewbornTypes = doesNotContainPartsOf(this.getNewbornTypes(), filter);
-			tmpGrowingTypes = doesNotContainPartsOf(this.getGrowingTypes(), filter);
-			tmpDyingTypes = doesNotContainPartsOf(this.getDyingTypes(), filter);
-			
-		}
 		Sequence filteredSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, this.getFirstTimestamp(), this.getLastTimestamp(), this.getNumberOfFrames());
 
 		return filteredSequence;
 		
 	}
     
-	private static String[] containsPartsOf(String[] oldArray, String[] filter){
+	private static String[] containsPartsOf(String[] oldArray, String[] filter, boolean containsFilter){
 		
 		List<String> typeList = new ArrayList<String>();
 		
 		for (int i = 0; i < oldArray.length; i++) {
 			
-			for (int j = 0; j < filter.length; j++) {
-			
-				if (oldArray[i].endsWith(filter[j])){
-					
-					typeList.add(oldArray[i]);
-					break;
-				}
-				
-			}
-			
-		}
-		String[] typeArray = new String[typeList.size()]; 
-		typeArray = typeList.toArray(typeArray);
-		
-		return typeArray;
-	}
-	private static String[] doesNotContainPartsOf(String[] oldArray, String[] filter){
-		
-		List<String> typeList = new ArrayList<String>();
-		
-		for (int i = 0; i < oldArray.length; i++) {
 			boolean typeNotIncluded = true;
+			
 			for (int j = 0; j < filter.length; j++) {
 			
 				if (oldArray[i].endsWith(filter[j])){
 					
-					typeNotIncluded = false;
+					if (containsFilter) {
+						
+						typeList.add(oldArray[i]);
+						break;
+						
+					}else {
+						
+						typeNotIncluded = false;
+						
+					}
 					
 				}
 				
 			}
-			if (typeNotIncluded) {
+			if (typeNotIncluded && !containsFilter) {
 				
 				typeList.add(oldArray[i]);
 				
@@ -216,6 +197,7 @@ public class Sequence {
 		
 		return typeArray;
 	}
+
 
     /**
 	 * @return the newbornTypes

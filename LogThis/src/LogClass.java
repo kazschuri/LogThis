@@ -31,8 +31,8 @@ public class LogClass {
 			String[] filter = {"situation", "activity", "action"};
 //			String[] filter = {"situation"};
 //			String[] filter = {""};
-			input.filterScene(filter, true).showAgeingOf();
-//			input.filterScene(filter,false).showAgeingOf();
+//			input.filterScene(filter, true).showAgeingOf();
+			input.filterScene(filter,false).showAgeingOf();
 
 		} catch (IOException e)
 		{
