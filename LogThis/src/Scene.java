@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Scene {
@@ -16,13 +14,13 @@ public class Scene {
      */
     public Scene(Sequence[] sequences) {
     	
-        this.sequences = sequences;
+        this.sequences		= sequences;
         this.numberOfFrames = 0;
         for (int i = 0; i < sequences.length; i++) {
 			this.numberOfFrames += sequences[i].getNumberOfFrames();
 		}
-        this.startTime = sequences[0].getFirstTimestamp();
-        this.endTime = sequences[sequences.length-1].getLastTimestamp();
+        this.startTime	= sequences[0].getFirstTimestamp();
+        this.endTime	= sequences[sequences.length-1].getLastTimestamp();
     }
     
     /**
@@ -33,16 +31,16 @@ public class Scene {
      */
     public Scene(Sequence[] sequences, int frameCountOfAllSequences, int startingTimeOfScene, int endingTimeOfScene) {
     	
-        this.sequences = sequences;
-        this.numberOfFrames = frameCountOfAllSequences;
-        this.startTime = startingTimeOfScene;
-        this.endTime = endingTimeOfScene;
+        this.sequences 		= sequences;
+        this.numberOfFrames	= frameCountOfAllSequences;
+        this.startTime		= startingTimeOfScene;
+        this.endTime 		= endingTimeOfScene;
         
     }
 
     /**
      * 
-     * @return
+     * @return generalInformation about the Sequence
      */
     public String info(){
     	
@@ -62,19 +60,18 @@ public class Scene {
 		long startTime = System.currentTimeMillis();
 		Sequence[] sequences = this.getSequences();
 		
-		String[][] dyingTypes = new String[sequences.length][];
+		String[][] dyingTypes	= new String[sequences.length][];
 		String[][] growingTypes = new String[sequences.length][];
 		String[][] newbornTypes = new String[sequences.length][];
 				
 		
 		for (int i = 0; i < sequences.length; i++) {
 			
-			dyingTypes[i] = sequences[i].getDyingTypes();
+			dyingTypes[i]	= sequences[i].getDyingTypes();
 			growingTypes[i] = sequences[i].getGrowingTypes();
 			newbornTypes[i] = sequences[i].getNewbornTypes();
 			
 		}
-		Map<String,Integer> countMap = new HashMap<String,Integer>();
 		for (int j = 0; j < sequences.length; j++) {
 			
 			int sizeOfSequence = sequences[j].getNumberOfFrames();
@@ -88,17 +85,8 @@ public class Scene {
 				System.out.println("Growing Types:");
 				
 				for (int k = 0; k < growingTypes[j].length; k++) {	
-					if(countMap.containsKey(growingTypes[j][k])){ 	// if key is available
-						
-						countMap.put(growingTypes[j][k], countMap.get(growingTypes[j][k])+sizeOfSequence);	// increase age by sizeOfSequence
-					
-					} else {
-					
-						countMap.put(growingTypes[j][k], sizeOfSequence);		// otherwise create new key with age equal to sizeOfSequence					
-					
-					}
-					
-					System.out.println(" - "+growingTypes[j][k]+" ("+countMap.get(growingTypes[j][k])+")");
+										
+					System.out.println(" - "+growingTypes[j][k]+ " ("+sequences[j].getTypeToAgeMap().get(growingTypes[j][k])+")");
 					
 				}
 				System.out.println();
@@ -110,17 +98,7 @@ public class Scene {
 				
 				for (int k = 0; k < newbornTypes[j].length; k++) {
 					
-					if(countMap.containsKey(newbornTypes[j][k])){	// if key is available
-
-						countMap.put(newbornTypes[j][k], countMap.get(newbornTypes[j][k])+sizeOfSequence);	// increase age by sizeOfSequence
-					
-					} else {
-					
-						countMap.put(newbornTypes[j][k], sizeOfSequence);		// otherwise create new key with age equal to sizeOfSequence
-
-					}
-					
-					System.out.println(" - "+newbornTypes[j][k]+" ("+countMap.get(newbornTypes[j][k])+")");
+					System.out.println(" - "+newbornTypes[j][k]+" ("+sequences[j].getTypeToAgeMap().get(newbornTypes[j][k])+")");
 				}
 				
 				System.out.println();
@@ -132,8 +110,7 @@ public class Scene {
 				
 				for (int k = 0; k < dyingTypes[j].length; k++) {
 				
-					System.out.println(" - "+dyingTypes[j][k]+" ("+countMap.get(dyingTypes[j][k])+")");
-					countMap.put(dyingTypes[j][k], 0);
+					System.out.println(" - "+dyingTypes[j][k]+" ("+sequences[j].getTypeToAgeMap().get(dyingTypes[j][k])+")");
 					
 				}
 			}
@@ -141,7 +118,7 @@ public class Scene {
 		System.out.println();
 		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
 	}
-    
+
 	/**
 	 * @param filter the filter to use
 	 * @param containsFilter include or exclude filter arguments
@@ -150,9 +127,9 @@ public class Scene {
 	 */
 	public Scene filterScene(String[] filter, boolean containsFilter){
 		
-		Sequence[] originalSequences = this.getSequences();
-		List<Sequence> sequenceList = new ArrayList<Sequence>();
-		Sequence[] filteredSequences = new Sequence[originalSequences.length];
+		Sequence[] originalSequences	= this.getSequences();
+		List<Sequence> sequenceList		= new ArrayList<Sequence>();
+		Sequence[] filteredSequences	= new Sequence[originalSequences.length];
 		
 		for (int i = 0; i < originalSequences.length; i++) {
 			

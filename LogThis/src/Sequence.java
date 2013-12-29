@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Sequence {
@@ -7,20 +9,24 @@ public class Sequence {
     private String[] newbornTypes;
     private String[] growingTypes;
     private String[] dyingTypes;
+    private Map<String,Integer> typeToAgeMap = new HashMap<String,Integer>();
+    
     private int firstTimestamp;
     private int lastTimestamp;
     private int numberOfFrames;
     
     
+    
 	public Sequence() {
 		String[] nullTypeArray = {""};
-		this.newbornTypes = nullTypeArray;
-		this.growingTypes = nullTypeArray;
-		this.dyingTypes = nullTypeArray;
+		this.newbornTypes	= nullTypeArray;
+		this.growingTypes	= nullTypeArray;
+		this.dyingTypes		= nullTypeArray;
+		this.typeToAgeMap.put("", 0);
 		
-		this.firstTimestamp = 0;
-		this.lastTimestamp = 0;
-		this.numberOfFrames = 0;
+		this.firstTimestamp	= 0;
+		this.lastTimestamp	= 0;
+		this.numberOfFrames	= 0;
 	}
 	
 	/**
@@ -28,15 +34,17 @@ public class Sequence {
 	 * @param newbornTypes
 	 * @param growingTypes
 	 * @param dyingTypes
+	 * @param typeToAgeMap
 	 * @param timestamps
 	 * @param firstTimestamp
 	 * @param lastTimestamp
 	 * @param numberOfFrames
 	 */
-	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
+	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, Map<String,Integer> typeToAgeMap, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
 		this.newbornTypes 	= newbornTypes;
 		this.growingTypes	= growingTypes;
 		this.dyingTypes		= dyingTypes;
+		this.typeToAgeMap	= typeToAgeMap;
 		this.firstTimestamp	= firstTimestamp;
 		this.lastTimestamp	= lastTimestamp;
 		this.numberOfFrames	= numberOfFrames;
@@ -109,17 +117,46 @@ public class Sequence {
 		}
 		
 		
-		String[] arrayOfA = new String[typesOfA.size()];
-		String[] arrayOfAB  = new String[typesOfAB.size()];
-		String[] arrayOfB  = new String[typesOfB.size()];
+		String[] arrayOfA	= new String[typesOfA.size()];
+		String[] arrayOfAB	= new String[typesOfAB.size()];
+		String[] arrayOfB	= new String[typesOfB.size()];
 		
-		arrayOfA = typesOfA.toArray(arrayOfA);
-		arrayOfAB = typesOfAB.toArray(arrayOfAB);
-		arrayOfB = typesOfB.toArray(arrayOfB);
+		arrayOfA	= typesOfA.toArray(arrayOfA);
+		arrayOfAB	= typesOfAB.toArray(arrayOfAB);
+		arrayOfB	= typesOfB.toArray(arrayOfB);
 		
-		this.newbornTypes = arrayOfA;
-		this.growingTypes = arrayOfAB;
-		this.dyingTypes = arrayOfB;
+		this.newbornTypes	= arrayOfA;
+		this.growingTypes	= arrayOfAB;
+		this.dyingTypes		= arrayOfB;
+		
+		if (this.growingTypes.length!=0){
+			
+			for (int i = 0; i < growingTypes.length; i++) {	
+				
+				// increase age from previousSequence by numberOfFrames	
+				typeToAgeMap.put(growingTypes[i], previousSequence.getTypeToAgeMap().get(growingTypes[i])+numberOfFrames);	
+
+			}
+		}
+			
+		if (newbornTypes.length!=0){
+			
+			for (int i = 0; i < newbornTypes.length; i++) {
+				
+				// create new key with age equal to numberOfFrames
+				typeToAgeMap.put(newbornTypes[i], numberOfFrames);
+				
+			}
+		}
+		
+		if (dyingTypes.length!=0){
+			
+			for (int i = 0; i < dyingTypes.length; i++) {
+				// keep age of previousSequence. Type doesn't age any more
+				typeToAgeMap.put(dyingTypes[i], previousSequence.getTypeToAgeMap().get(dyingTypes[i]));
+				
+			}
+		}
 		
 	}
 
@@ -149,11 +186,11 @@ public class Sequence {
 		String[] tmpGrowingTypes;
 		String[] tmpDyingTypes;
 			
-		tmpNewbornTypes = containsPartsOf(this.getNewbornTypes(), filter, containsFilter);
-		tmpGrowingTypes = containsPartsOf(this.getGrowingTypes(), filter, containsFilter);
-		tmpDyingTypes = containsPartsOf(this.getDyingTypes(), filter, containsFilter);
+		tmpNewbornTypes	= containsPartsOf(this.getNewbornTypes(), filter, containsFilter);
+		tmpGrowingTypes	= containsPartsOf(this.getGrowingTypes(), filter, containsFilter);
+		tmpDyingTypes	= containsPartsOf(this.getDyingTypes(), filter, containsFilter);
 			
-		Sequence filteredSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, this.getFirstTimestamp(), this.getLastTimestamp(), this.getNumberOfFrames());
+		Sequence filteredSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, this.getTypeToAgeMap(), this.getFirstTimestamp(), this.getLastTimestamp(), this.getNumberOfFrames());
 
 		return filteredSequence;
 		
@@ -185,6 +222,7 @@ public class Sequence {
 				}
 				
 			}
+			
 			if (typeNotIncluded && !containsFilter) {
 				
 				typeList.add(oldArray[i]);
@@ -192,6 +230,7 @@ public class Sequence {
 			}
 			
 		}
+		
 		String[] typeArray = new String[typeList.size()]; 
 		typeArray = typeList.toArray(typeArray);
 		
@@ -239,6 +278,20 @@ public class Sequence {
 	 */
 	public void setDyingTypes(String[] dyingTypes) {
 		this.dyingTypes = dyingTypes;
+	}
+
+	/**
+	 * @return the typeToAgeMap
+	 */
+	public Map<String, Integer> getTypeToAgeMap() {
+		return typeToAgeMap;
+	}
+
+	/**
+	 * @param typeToAgeMap the typeToAgeMap to set
+	 */
+	public void setTypeToAgeMap(Map<String, Integer> typeToAgeMap) {
+		this.typeToAgeMap = typeToAgeMap;
 	}
 
 	/**

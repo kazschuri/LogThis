@@ -28,17 +28,17 @@ public class LogClass {
 			//input.showAgeingOf();
 			System.out.println();
 			System.out.println(input.info());
-			String[] filter = {"situation", "activity", "action"};
+//			String[] filter = {"situation", "activity", "action"};
 //			String[] filter = {"situation"};
-//			String[] filter = {""};
-//			input.filterScene(filter, true).showAgeingOf();
-			input.filterScene(filter,false).showAgeingOf();
+			String[] filter = {""};
+			input.filterScene(filter, true).showAgeingOf();
+//			input.filterScene(filter,false).showAgeingOf();
 
 		} catch (IOException e)
 		{
 			System.out.print("Something wrong with input File");
 		}
-		
+		LogGUI.guiing();
 		
 	}
 
