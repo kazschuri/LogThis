@@ -9,6 +9,14 @@ public class Scene {
     private int startTime;
     private int endTime;
 
+    public Scene(){
+    	Sequence tmpSeq		= new Sequence();
+    	Sequence[] tmpSequences = {tmpSeq};
+    	this.sequences		= tmpSequences;
+    	this.numberOfFrames = 0;
+    	this.startTime		= 0;
+    	this.endTime		= 0;
+    }
     /**
      * @param sequences
      */

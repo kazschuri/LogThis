@@ -5,40 +5,42 @@ public class LogClass {
 
 	public static void main(String[] args) {
 		
-		Scene input;
-		try 
-		{ 
+		Scene input = new Scene();
+		
+		try { 
+			
 			input = ReadFile.reader();
 			System.out.println(input.info());
 			
-			for (int i = 0; i < input.getSequences().length; i++) {
-				
-				if (i % 25 == 0) {
-				
-					System.out.println();
-				
-				}
-				
-				System.out.print(input.getSequences()[i].getNumberOfFrames()+", ");
-				
+		} catch (IOException e) {
+			
+			System.out.print("Something wrong with input File");
+			
+		}
+		
+		for (int i = 0; i < input.getSequences().length; i++) {
+			
+			if (i % 25 == 0) {
+			
+				System.out.println();
+			
 			}
 			
-			System.out.println();
+			System.out.print(input.getSequences()[i].getNumberOfFrames()+", ");
 			
-			//input.showAgeingOf();
-			System.out.println();
-			System.out.println(input.info());
-//			String[] filter = {"situation", "activity", "action"};
-//			String[] filter = {"situation"};
-			String[] filter = {""};
-			input.filterScene(filter, true).showAgeingOf();
-//			input.filterScene(filter,false).showAgeingOf();
-
-		} catch (IOException e)
-		{
-			System.out.print("Something wrong with input File");
 		}
-		LogGUI.guiing();
+		
+		System.out.println();
+		
+		//input.showAgeingOf();
+		System.out.println();
+		System.out.println(input.info());
+//		String[] filter = {"situation", "activity", "action"};
+//		String[] filter = {"situation"};
+		String[] filter = {""};
+		input.filterScene(filter, true).showAgeingOf();
+//		input.filterScene(filter,false).showAgeingOf();
+//		LogGUI.guiing();
 		
 	}
 
