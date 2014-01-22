@@ -174,6 +174,66 @@ public class Sequence {
     	return concatenatedTypeNames;
     }
     
+    /**
+     * Do two consecutive sequences have the same types, first one can have newborn and dying, second can have only growing
+     * N + G == G
+     * 
+     * @param secondSequence the Sequence to compare to
+     * @return decision if Sequences are equal
+     * 
+     */
+    public boolean equalTo(Sequence secondSequence){
+    	
+    	boolean decision = false;
+    	
+    	if (secondSequence.getDyingTypes().length == 0) {							// secondSequence can have no dying types, since they die from newborn or growing of firstSequence
+    		
+    		if (secondSequence.getNewbornTypes().length == 0) {						// secondSequence can have no newborn types, since they add to newborn and growing of firstSequence 
+			
+	    		String[] tmpTypes = containsPartsOf (this.getConcatenatedTypeNames() , secondSequence.getGrowingTypes(), true); // all growing types of secondSequence that are included in newborn and growing of firstSequence
+	    		
+	    		if (tmpTypes.length == secondSequence.getGrowingTypes().length) {	// if included types and growing are same number, they must be equal, according to the other ifs
+	    			decision = true;												// so sequences are equal
+				}
+    		}
+		}
+    	
+    	return decision;
+    }
+    
+    /**
+     * 
+     * @param firstSetOfTypes the first Set of Types to compare
+     * @param secondSetOfTypes the second Set of Types to compare
+     * @return decision if Type sets are equal
+     * 
+     */
+    private boolean equalTypes(String[] firstSetOfTypes, String[] secondSetOfTypes){
+    	
+    	boolean decision = true;
+    	
+    	if (firstSetOfTypes.length == secondSetOfTypes.length) {
+		
+    		for (int i = 0; i < firstSetOfTypes.length; i++) {
+    			
+    			if (firstSetOfTypes[i].compareTo(secondSetOfTypes[i]) !=0 ) {
+				
+    				decision = false;
+    				break;
+    				
+				} else {
+					
+					decision = true;
+					
+				}
+			}
+		} else {
+			
+			decision = false;
+			
+		}
+    	return decision;
+    }
 	/**
 	 * @param filter the filter to use
 	 * @param containsFilter include or exclude filter arguments
@@ -196,26 +256,34 @@ public class Sequence {
 		
 	}
     
+	/**
+	 * checks if array of types includes or excludes filter
+	 *  
+	 * @param oldArray the oldArray which is to check
+	 * @param filter the filter with the types to look for (or the ending parts of types)
+	 * @param containsFilter the flag which decides, if filter should look for types included or excluded
+	 * @return list of types filtered
+	 */
 	private static String[] containsPartsOf(String[] oldArray, String[] filter, boolean containsFilter){
 		
 		List<String> typeList = new ArrayList<String>();
 		
-		for (int i = 0; i < oldArray.length; i++) {
+		for (int i = 0; i < oldArray.length; i++) { 		// for each element of oldArray  
 			
 			boolean typeNotIncluded = true;
 			
-			for (int j = 0; j < filter.length; j++) {
+			for (int j = 0; j < filter.length; j++) {		
 			
-				if (oldArray[i].endsWith(filter[j])){
+				if (oldArray[i].endsWith(filter[j])){		// check if it is included in filter
 					
-					if (containsFilter) {
+					if (containsFilter) {					// if include filter and type is included
 						
-						typeList.add(oldArray[i]);
-						break;
+						typeList.add(oldArray[i]);			// add to list
+						break;								// move to next element
 						
-					}else {
+					}else {									// if exclude filter
 						
-						typeNotIncluded = false;
+						typeNotIncluded = false;			// set flag to false
 						
 					}
 					
@@ -223,9 +291,9 @@ public class Sequence {
 				
 			}
 			
-			if (typeNotIncluded && !containsFilter) {
+			if (typeNotIncluded && !containsFilter) {		// if exclude filter and element is not included in filter		
 				
-				typeList.add(oldArray[i]);
+				typeList.add(oldArray[i]);					// add element to list
 				
 			}
 			
@@ -294,6 +362,21 @@ public class Sequence {
 		this.typeToAgeMap = typeToAgeMap;
 	}
 
+	/**
+	 * @param key the key for the value to get
+	 * @return value of key of typeToAgeMap
+	 */
+	public int getElementOfTypeToAgeMap(String key) {
+		return this.typeToAgeMap.get(key);
+	}
+
+	/**
+	 * @param typeToAgeMap the typeToAgeMap to set
+	 */
+	public void setElementOfTypeToAgeMap(String key, int value) {
+		this.typeToAgeMap.put(key, value);
+	}
+		
 	/**
      * 
      * @return the numberOfFrames
