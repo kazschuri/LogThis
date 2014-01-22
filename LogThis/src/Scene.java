@@ -137,7 +137,7 @@ public class Scene {
 		
 		Sequence[] originalSequences	= this.getSequences();
 		List<Sequence> sequenceList		= new ArrayList<Sequence>();
-		Sequence[] filteredSequences	= new Sequence[originalSequences.length];
+		List<Sequence> aggregatedList	= new ArrayList<Sequence>();
 		
 		for (int i = 0; i < originalSequences.length; i++) {
 			
@@ -150,8 +150,41 @@ public class Scene {
 		
 			System.out.println("ALARM Ungleiche Größe!");
 		}
+//		aggregatedList = sequenceList;
 		
-		filteredSequences = sequenceList.toArray(filteredSequences);
+		Sequence tmpBaseSequence = sequenceList.get(0);
+		
+		for (int i = 1; i < sequenceList.size(); i++) {
+			
+			if (tmpBaseSequence.equalTo(sequenceList.get(i))) {
+				
+				tmpBaseSequence.setLastTimestamp(sequenceList.get(i).getLastTimestamp());
+				tmpBaseSequence.setNumberOfFrames(tmpBaseSequence.getNumberOfFrames()+sequenceList.get(i).getNumberOfFrames());
+				
+				if (sequenceList.get(i).getConcatenatedTypeNames().length != 0){
+					
+					String[] tmpTypes = sequenceList.get(i).getConcatenatedTypeNames();
+					
+					for (int j = 0; j < tmpTypes.length; j++) {	
+						
+						// increase age from previousSequence by numberOfFrames	
+						tmpBaseSequence.setElementOfTypeToAgeMap(tmpTypes[j], sequenceList.get(i).getNumberOfFrames() + tmpBaseSequence.getElementOfTypeToAgeMap(tmpTypes[j]));	
+
+					}
+				}
+				
+			} else {
+				
+				aggregatedList.add(tmpBaseSequence);
+				tmpBaseSequence = sequenceList.get(i);
+				
+			}
+		}
+		
+		aggregatedList.add(tmpBaseSequence);
+		
+		Sequence[] filteredSequences	= new Sequence[aggregatedList.size()];
+		filteredSequences = aggregatedList.toArray(filteredSequences);
 		
 		Scene filteredScene = new Scene(filteredSequences, this.getNumberOfFrames(), this.getStartTime(), this.getEndTime());
 		

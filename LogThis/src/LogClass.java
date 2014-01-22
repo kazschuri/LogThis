@@ -35,12 +35,15 @@ public class LogClass {
 		//input.showAgeingOf();
 		System.out.println();
 		System.out.println(input.info());
-//		String[] filter = {"situation", "activity", "action"};
+		String[] filter = {"situation", "activity", "action", "expectation"};
 //		String[] filter = {"situation"};
-		String[] filter = {""};
+//		String[] filter = {""};
 		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
+//		Scene testScene = input.filterScene(filter, true);
+		
 //		LogGUI.guiing();
+		
 		
 	}
 
