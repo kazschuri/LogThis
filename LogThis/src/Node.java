@@ -167,6 +167,11 @@ public class Node {
 		}
 	}
 	
+	/**
+	 * adjoin operation on trees
+	 * 
+	 * @param adj the tree to adjoin in target tree
+	 */
 	public void adjoin(Node adj){
 		
 		if (adj.parent == null) {										// check that adj is the root node 
@@ -199,6 +204,13 @@ public class Node {
 		
 	}
 	
+	/**
+	 * finding a node with same data and foot-flag
+	 *  
+	 * @param searchData the data to search for
+	 * @param foot the flag of foot to search for
+	 * @return result node
+	 */
 	public Node getNode(String searchData, boolean foot) {
 		
 		Node result = new Node(); 
