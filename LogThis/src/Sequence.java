@@ -40,7 +40,11 @@ public class Sequence {
 	 * @param lastTimestamp
 	 * @param numberOfFrames
 	 */
-	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes, Map<String,Integer> typeToAgeMap, int firstTimestamp, int lastTimestamp, int numberOfFrames) {
+	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes,
+					Map<String,Integer> typeToAgeMap, int firstTimestamp, 
+					int lastTimestamp, int numberOfFrames)
+	{
+	
 		this.newbornTypes 	= newbornTypes;
 		this.growingTypes	= growingTypes;
 		this.dyingTypes		= dyingTypes;
@@ -201,39 +205,39 @@ public class Sequence {
     	return decision;
     }
     
-    /**
-     * 
-     * @param firstSetOfTypes the first Set of Types to compare
-     * @param secondSetOfTypes the second Set of Types to compare
-     * @return decision if Type sets are equal
-     * 
-     */
-    private boolean equalTypes(String[] firstSetOfTypes, String[] secondSetOfTypes){
-    	
-    	boolean decision = true;
-    	
-    	if (firstSetOfTypes.length == secondSetOfTypes.length) {
-		
-    		for (int i = 0; i < firstSetOfTypes.length; i++) {
-    			
-    			if (firstSetOfTypes[i].compareTo(secondSetOfTypes[i]) !=0 ) {
-				
-    				decision = false;
-    				break;
-    				
-				} else {
-					
-					decision = true;
-					
-				}
-			}
-		} else {
-			
-			decision = false;
-			
-		}
-    	return decision;
-    }
+//    /**
+//     * 
+//     * @param firstSetOfTypes the first Set of Types to compare
+//     * @param secondSetOfTypes the second Set of Types to compare
+//     * @return decision if Type sets are equal
+//     * 
+//     */
+//    private boolean equalTypes(String[] firstSetOfTypes, String[] secondSetOfTypes){
+//    	
+//    	boolean decision = true;
+//    	
+//    	if (firstSetOfTypes.length == secondSetOfTypes.length) {
+//		
+//    		for (int i = 0; i < firstSetOfTypes.length; i++) {
+//    			
+//    			if (firstSetOfTypes[i].compareTo(secondSetOfTypes[i]) !=0 ) {
+//				
+//    				decision = false;
+//    				break;
+//    				
+//				} else {
+//					
+//					decision = true;
+//					
+//				}
+//			}
+//		} else {
+//			
+//			decision = false;
+//			
+//		}
+//    	return decision;
+//    }
 	/**
 	 * @param filter the filter to use
 	 * @param containsFilter include or exclude filter arguments
