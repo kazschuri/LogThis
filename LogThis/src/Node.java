@@ -147,72 +147,90 @@ public class Node {
 	 * substitution operation on synTAG
 	 * 
 	 * @param sub the tree to substitute into this
+	 * @return success as true, if substitute was successfull
 	 */
-	public void substitute(Node sub){
+	public boolean substitute(Node sub){
 		
-		if (this.substitute) {											// if this is a substitute node
+		boolean success = false;
+		
+		if (this.substitute && this.data.equals(sub.data)) {			// if this is a substitute node with the right data
 
 			if (this.parent.leftChild.data.equals(sub.data)) {			// if it is a left child
 				
-				this.parent.setLeftChild(sub);							// substitute the left child of parent with sub 
+				this.parent.setLeftChild(sub);							// substitute the left child of parent with sub
 			
 			} else if (this.parent.rightChild.data.equals(sub.data)) {	// if it is a right child
 				
 				this.parent.setRightChild(sub);							// substitute the right child of parent with sub
 				
 			}
+			success = true;
 			
 		} else {														// if that was not a substitute node go recursively
 			
 			if (this.leftChild != null) {
 				
-				this.leftChild.substitute(sub);
+				success = this.leftChild.substitute(sub);
 				
 			}
-			if (this.rightChild != null) {
+			if (this.rightChild != null && !success) {
 				
-				this.rightChild.substitute(sub);
+				success = this.rightChild.substitute(sub);
 				
 			}
 			
 		}
+		
+		return success;
 	}
 	
 	/**
 	 * adjoin operation on trees
 	 * 
 	 * @param adj the tree to adjoin in target tree
+	 * @return success as true, if adjoin was successfull
 	 */
-	public void adjoin(Node adj){
+	public boolean adjoin(Node adj){
+		
+		boolean success = false;
 		
 		if (adj.parent == null) {										// check that adj is the root node 
 			
-			Node partialTreeRoot = this.getNode(adj.getData(), false);	// save partial tree which gets separated through adjoin
-
-			Node mainTreeLeaf = partialTreeRoot.parent ;				// save leaf of main tree on which to adjoin
-			
-			Node adjFoot = adj.getNode(adj.data, true);					// find foot node of adjoining tree  
-			
-			adjFoot.leftChild = partialTreeRoot.leftChild;				// parse partial tree to foot of adjoining tree 
-			adjFoot.rightChild = partialTreeRoot.rightChild;
-			adjFoot.foot = false;										// remove the foot tag
-			
-			if (mainTreeLeaf.leftChild.data.equals(adj.data)) {			// find out if tree has to be adjoined on left child
+			Node adjFoot = adj.getNode(adj.data, true);					// find foot node of adjoining tree
+						
+			if (adjFoot.getData().equals(adj.getData())) {				// check that adj is an possible adjoining tree
 				
-				mainTreeLeaf.leftChild = adj;
+				Node partialTreeRoot = this.getNode(adj.getData(), false);	// save partial tree which gets separated through adjoin
 				
-			} else if (mainTreeLeaf.rightChild.data.equals(adj.data)) {	// or right child
+				if (partialTreeRoot.data.equals(adj.getData())) {			// check that there is an appropriate node in tree
 				
-				mainTreeLeaf.rightChild = adj;
-				
+					Node mainTreeLeaf = partialTreeRoot.parent ;				// save leaf of main tree on which to adjoin
+					
+					adjFoot.leftChild = partialTreeRoot.leftChild;				// parse partial tree to foot of adjoining tree 
+					adjFoot.rightChild = partialTreeRoot.rightChild;
+					adjFoot.foot = false;										// remove the foot tag
+					
+					if (mainTreeLeaf.leftChild.data.equals(adj.data)) {			// find out if tree has to be adjoined on left child
+						
+						mainTreeLeaf.leftChild = adj;
+						
+					} else if (mainTreeLeaf.rightChild.data.equals(adj.data)) {	// or right child
+						
+						mainTreeLeaf.rightChild = adj;
+						
+					}
+					
+					success = true;
+				}				
 			}
 			
 		} else {														// if it wasn't the root
 			
-			this.adjoin(adj.parent);									// search for it recursively
+			success = this.adjoin(adj.parent);							// search for it recursively
 			
 		}
 		
+		return success;
 	}
 	
 	/**
