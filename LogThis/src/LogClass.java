@@ -44,7 +44,8 @@ public class LogClass {
 		
 //		LogGUI.guiing();
 		
-		TreeGenerator.smallTree();
+//		TreeGenerator.treeTest();
+		TreeGenerator.synTrees();
 	}
 
 }
