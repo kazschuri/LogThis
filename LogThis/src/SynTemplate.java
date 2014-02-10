@@ -43,12 +43,22 @@ public class SynTemplate {
 		this.topics = tmpStrings;
 	}
 
-//	public void adjoinToTemplate(Node... nodes) {
-//		
-//		Node tmpNode = new Node();
-//		tmpNode.
-//		
-//	}
+	public void adjoinCopyToTemplate(Node... nodes) {
+		
+		for (Node tree : nodes) {
+			
+			this.template.adjoin(Node.copyOf(tree));
+		}
+	}
+
+	public void substituteCopyInTemplate(Node... nodes) {
+		
+		for (Node tree : nodes) {
+			
+			this.template.substitute(Node.copyOf(tree));
+		}
+	}
+	
 	/**
 	 * @return the template
 	 */

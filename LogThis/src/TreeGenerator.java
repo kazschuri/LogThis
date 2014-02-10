@@ -78,27 +78,42 @@ public class TreeGenerator {
 
 		Node sent_01 = new Node("n(adv(empty,_),n*)");		// n adj = empty -> n*
 
-		boolean success = false;
+		SynTemplate sentence_01 = new SynTemplate();
+		sentence_01.setTemplate(Node.copyOf(sent_07));
 		
-		sent_07.adjoin(sent_03);				// is empty
-
-		sent_07.substitute(sent_02);			// d^[_/the 04/this 09] n^[~place 08/~space 10/~area 11] is empty 
-		sent_07.substitute(sent_04);
-		sent_07.substitute(sent_08);
+		sentence_01.adjoinCopyToTemplate(sent_03);
+		sentence_01.substituteCopyInTemplate(sent_02, sent_04, sent_08);
 		
-
+		sent_07.adjoin(sent_08);
+//		boolean success = false;
+//		
+//		sent_07.adjoin(sent_03);				// is empty
+//
+//		sent_07.substitute(sent_02);			// d^[_/the 04/this 09] n^[~place 08/~space 10/~area 11] is empty 
+//		sent_07.substitute(sent_04);
+//		sent_07.substitute(sent_08);
+//		
+//
+//		
+//		success = sent_07.substitute(sent_05);
+//		if (success) {
+//			System.out.println("SUCCESS");
+//		}else {
+//			System.out.println("FAILURE");
+//		}
+//		sent_07.showTerminal();
+//		System.out.println();
+//		System.out.println(sent_07.showTree());
 		
-		success = sent_07.substitute(sent_05);
-		if (success) {
-			System.out.println("SUCCESS");
-		}else {
-			System.out.println("FAILURE");
-		}
-		sent_07.showTerminal();
+		
+		sentence_01.getTemplate().showTerminal();
+		System.out.println();
+		System.out.println(sentence_01.getTemplate().showTree());
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms
 		 * a human enters with his arms hanging down/by his side
+		 * a worker comes in/into the workspace
 		 */
 		
 		/* 
