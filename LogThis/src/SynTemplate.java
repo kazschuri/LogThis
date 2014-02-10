@@ -1,89 +1,139 @@
 
 public class SynTemplate {
-	
-	private SynTree template;
-	private SynTree[] synTrees;
-	private SynTree[] slotFillers;
-	private Condition[] conditions;
-	private String[] topics;
 
+	private Node template;
+	private Node[][] mustUseTrees;
+	private Node[][] canUseTrees;
+	private Node[] slotFillers;
+	private LinkedConditions linConds;
+	private String[] topics;
+	
 	/**
 	 * @param template
-	 * @param synTrees
+	 * @param mustUseTrees
+	 * @param canUseTrees
 	 * @param slotFillers
-	 * @param conditions
+	 * @param linConds
 	 * @param topics
 	 */
-	public SynTemplate(SynTree template, SynTree[] synTrees,
-			SynTree[] slotFillers, Condition[] conditions, String[] topics) {
+	public SynTemplate(Node template, Node[][] mustUseTrees,
+			Node[][] canUseTrees, Node[] slotFillers, LinkedConditions linConds,
+			String[] topics) {
 		super();
 		this.template = template;
-		this.synTrees = synTrees;
+		this.mustUseTrees = mustUseTrees;
+		this.canUseTrees = canUseTrees;
 		this.slotFillers = slotFillers;
-		this.conditions = conditions;
+		this.linConds = linConds;
 		this.topics = topics;
 	}
+	
+	public SynTemplate() {
+		super();
+		this.template = new Node();
 
+		Node tmpNode = new Node();
+    	Node[] tmpNodes1 = {tmpNode};
+    	Node[][] tmpNodes2 = {tmpNodes1}; 
+		this.mustUseTrees = tmpNodes2;
+		this.canUseTrees = tmpNodes2;
+		this.slotFillers = tmpNodes1;
+		this.linConds = new LinkedConditions();
+		String[] tmpStrings = {""};
+		this.topics = tmpStrings;
+	}
+
+//	public void adjoinToTemplate(Node... nodes) {
+//		
+//		Node tmpNode = new Node();
+//		tmpNode.
+//		
+//	}
 	/**
 	 * @return the template
 	 */
-	public SynTree getTemplate() {
+	public Node getTemplate() {
+	
 		return template;
 	}
 
 	/**
 	 * @param template the template to set
 	 */
-	public void setTemplate(SynTree template) {
+	public void setTemplate(Node template) {
+	
 		this.template = template;
 	}
 
 	/**
-	 * @return the synTrees
+	 * @return the mustUseTrees
 	 */
-	public SynTree[] getSynTrees() {
-		return synTrees;
+	public Node[][] getMustUseTrees() {
+	
+		return mustUseTrees;
 	}
 
 	/**
-	 * @param synTrees the synTrees to set
+	 * @param mustUseTrees the mustUseTrees to set
 	 */
-	public void setSynTrees(SynTree[] synTrees) {
-		this.synTrees = synTrees;
+	public void setMustUseTrees(Node[][] mustUseTrees) {
+	
+		this.mustUseTrees = mustUseTrees;
+	}
+
+	/**
+	 * @return the canUseTrees
+	 */
+	public Node[][] getCanUseTrees() {
+	
+		return canUseTrees;
+	}
+
+	/**
+	 * @param canUseTrees the canUseTrees to set
+	 */
+	public void setCanUseTrees(Node[][] canUseTrees) {
+	
+		this.canUseTrees = canUseTrees;
 	}
 
 	/**
 	 * @return the slotFillers
 	 */
-	public SynTree[] getSlotFillers() {
+	public Node[] getSlotFillers() {
+	
 		return slotFillers;
 	}
 
 	/**
 	 * @param slotFillers the slotFillers to set
 	 */
-	public void setSlotFillers(SynTree[] slotFillers) {
+	public void setSlotFillers(Node[] slotFillers) {
+	
 		this.slotFillers = slotFillers;
 	}
 
 	/**
-	 * @return the conditions
+	 * @return the linConds
 	 */
-	public Condition[] getConditions() {
-		return conditions;
+	public LinkedConditions getLinConds() {
+	
+		return linConds;
 	}
 
 	/**
-	 * @param conditions the conditions to set
+	 * @param linConds the linConds to set
 	 */
-	public void setConditions(Condition[] conditions) {
-		this.conditions = conditions;
+	public void setLinConds(LinkedConditions linConds) {
+	
+		this.linConds = linConds;
 	}
 
 	/**
 	 * @return the topics
 	 */
 	public String[] getTopics() {
+	
 		return topics;
 	}
 
@@ -91,9 +141,8 @@ public class SynTemplate {
 	 * @param topics the topics to set
 	 */
 	public void setTopics(String[] topics) {
+	
 		this.topics = topics;
 	}
-	
-	
 
 }
