@@ -117,33 +117,6 @@ public class Node {
 	}
 	
 	/**
-	 * show all the terminal symbols from left to right
-	 */
-	public void showTerminal()
-	{
-		if (this.terminal) {
-			
-			System.out.print(data+" ");
-			
-		} else {
-			
-//			System.out.print(data+" ");
-			
-			if (this.leftChild != null) {
-			
-				this.leftChild.showTerminal();
-				
-			}
-			
-			if (this.rightChild != null) {
-			
-				this.rightChild.showTerminal();
-				
-			}
-		}
-	}
-	
-	/**
 	 * substitution operation on synTAG
 	 * 
 	 * @param sub the tree to substitute into this
@@ -330,6 +303,11 @@ public class Node {
 		return nodeList;
 	}
 	
+	/**
+	 * shows a formal representation of the tree
+	 * 
+	 * @return the resulting Tree
+	 */
 	public String showTree(){
 		
 		List<String> nodeList = this.listTree();
@@ -344,6 +322,68 @@ public class Node {
 		
 		return result;
 		
+	}
+	
+	/**
+	 * show all the terminal symbols from left to right
+	 */
+	public void showTerminal()
+	{
+		if (this.terminal) {
+			
+			System.out.print(data+" ");
+			
+		} else {
+			
+//			System.out.print(data+" ");
+			
+			if (this.leftChild != null) {
+			
+				this.leftChild.showTerminal();
+				
+			}
+			
+			if (this.rightChild != null) {
+			
+				this.rightChild.showTerminal();
+				
+			}
+		}
+	}
+	
+	/**
+	 * show all the leaf symbols from left to right
+	 */
+	public void showLeafs()
+	{
+		if (this.leftChild == null && this.rightChild == null) {
+			
+			System.out.print(data);
+			
+			if (foot) {
+				
+				System.out.print("*");
+				
+			} else if (substitute) {
+				
+				System.out.print("^");
+				
+			}
+			
+			System.out.print(" ");
+		}
+		
+		if (this.leftChild != null) {
+		
+			this.leftChild.showLeafs();
+			
+		}
+		
+		if (this.rightChild != null) {
+		
+			this.rightChild.showLeafs();
+			
+		}
 	}
 	
 	/**
