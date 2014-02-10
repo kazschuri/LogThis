@@ -567,18 +567,61 @@ public class Node {
 		terminal = false;
 		
 		if (!leftSubHaystack.isEmpty()) {
-			
 			leftNode.findChildrenIn(leftSubHaystack);
 			
 		}
 		
 		if (!rightSubHaystack.isEmpty()) {
-			
 			rightNode.findChildrenIn(rightSubHaystack);
 			
 		}
 	}
+
+	/**
+	 * Method to create a copy of given Tree
+	 * 
+	 * @param treeRoot the treeRoot to create a copy of 
+	 * @return clonedTree 
+	 */
+	public static Node copyOf(Node treeRoot) {
 		
+		Node clonedTree = new Node();
+		
+		clonedTree.copyTree(treeRoot);
+		
+		return clonedTree;
+		
+	}
+	
+	/**
+	 * Method to copy all the data of rootNode to objectNode and work down to children
+	 * 
+	 * @param root the root of the tree to copy
+	 */
+	private void copyTree(Node root) {
+		
+		this.terminal	= root.terminal;
+		this.substitute	= root.substitute;
+		this.foot		= root.foot;
+		this.data		= root.data;
+		
+		if (root.leftChild != null) {
+			
+			Node tmpLeft = new Node();
+			this.setLeftChild(tmpLeft);			
+			this.leftChild.copyTree(root.leftChild);
+			
+		}
+		
+		if (root.rightChild != null) {
+		
+			Node tmpRight= new Node();
+			this.setRightChild(tmpRight);			
+			this.rightChild.copyTree(root.rightChild);
+			
+		}
+		
+	}
 	/**
 	 * @return the terminal
 	 */
