@@ -33,9 +33,9 @@ public class TreeGenerator {
 				
 //		System.out.println("Finished");
 					
-		System.out.println(treeRoot.showTree());
-		treeRoot.showLeafs();
-		System.out.println();
+//		System.out.println(treeRoot.showTree());
+//		treeRoot.showLeafs();
+//		System.out.println();
 		
 		return treeRoot; 
 	}
@@ -59,6 +59,7 @@ public class TreeGenerator {
 		boolean rightChild = true;
 		boolean terminal = false;
 		boolean substitute = false;
+		boolean slot = false;
 		boolean foot = false;
 		
 		String lastLine = "";
@@ -68,6 +69,8 @@ public class TreeGenerator {
 		while ( (line = br.readLine()) != null ) {
 			
 			if (line.equals(lastLine) && line.startsWith(" \\branch{1}{N}")) {	// ignore double Noun lines
+				
+			} else if (line.equals(lastLine) && line.startsWith(" \\branch{1}{V}")) {	// ignore double Noun lines
 				
 			} else {
 			
@@ -90,6 +93,12 @@ public class TreeGenerator {
 							foot = true;
 						
 						} else {												// else set terminal flag
+							
+							if (data.startsWith("<") && data.endsWith(">")) {
+								
+								slot = true;
+								
+							}
 							
 							terminal = true;
 						}
@@ -114,6 +123,8 @@ public class TreeGenerator {
 					terminal = false;
 					tmpNode.setSubstitute(substitute);
 					substitute = false;
+					tmpNode.setSlot(slot);
+					slot = false;
 					tmpNode.setFoot(foot);
 					foot = false;
 					
@@ -201,33 +212,31 @@ public static void treeTest (){
 		/*
 		 * workarea is empty
 		 */
-		Node sent_07 = new Node("s(np^,vp(advp(v(was,_),adv(_,empty)),pp(p(for,_),np(ap(<time>,_),n(minutes,_)))))");	// Sentence with np^ and vp -> v = was
-		Node sent_02 = new Node("np(d^,n^)");				// d^ n^
-		Node sent_03 = new Node("vp(vp*,adv(empty,_))"); 	// vp* empty
-		Node sent_04 = new Node("d(the,_)");				// d = the
-		Node sent_09 = new Node("d(this,_)");				// d = this
+		Node sent_02 = new Node("NP(D^,N^)");				// d^ n^
+		Node sent_03 = new Node("VP(VP*,ADV(empty,_))"); 	// vp* empty
+		Node sent_04 = new Node("D(the,_)");				// d = the
+		Node sent_09 = new Node("D(this,_)");				// d = this
 		
-		Node sent_08 = new Node("n(workplace,_)");			// n = workplace
-		Node sent_10 = new Node("n(workspace,_)");			// n = workspace
-		Node sent_11 = new Node("n(workarea,_)");			// n = workarea
+		Node sent_08 = new Node("N(workplace,_)");			// n = workplace
+		Node sent_10 = new Node("N(workspace,_)");			// n = workspace
+		Node sent_11 = new Node("N(workarea,_)");			// n = workarea
 		
-		Node sent_05 = new Node("d(an,_)");					// D = an
-		Node sent_06 = new Node("d(a,_)");					// D = a
+		Node sent_05 = new Node("D(an,_)");					// D = an
+		Node sent_06 = new Node("D(a,_)");					// D = a
 
-
-		Node sent_01 = new Node("n(adv(empty,_),n*)");		// n adj = empty -> n*
 //http://erg.delph-in.net/logon
 		
 		SynTemplate sentence_01 = new SynTemplate();
-		sentence_01.setTemplate(Node.copyOf(sent_07));
-		sentence_01.substituteCopyInTemplate(sent_02);
+		sentence_01.setTemplate(treeBuilder("sentence01-base.dat"));
 		
-		sentence_01.getTemplate().showTerminal();
-		System.out.println();
-		sentence_01.getTemplate().showLeafs();
-		System.out.println();
-		System.out.println(sentence_01.getTemplate().showTree());
+		SynTemplate sentence_02 = new SynTemplate();
+		sentence_02.setTemplate(treeBuilder("sentence02-base.dat"));
 		
+		sentence_02.showTreeInfo();
+		
+		sentence_02.substituteCopyInTemplate(treeBuilder("sentence02-sub2.dat"), treeBuilder("sentence02-sub1.dat"));		
+		
+		sentence_02.showTreeInfo();
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms

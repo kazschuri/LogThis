@@ -16,6 +16,7 @@ public class Node {
 	private boolean terminal = false;
 	private boolean substitute = false;
 	private boolean foot = false;
+	private boolean slot = false;
 	
 	private String data = "";
 	private Node parent = null;
@@ -27,18 +28,20 @@ public class Node {
 	 * @param terminal
 	 * @param substitute
 	 * @param foot
+	 * @param slot
 	 * @param data
 	 * @param parent
 	 * @param leftChild
 	 * @param rightChild
 	 */
-	public Node(boolean terminal, boolean substitute, boolean foot,
+	public Node(boolean terminal, boolean substitute, boolean foot, boolean slot,
 			String data, Node parent, Node leftChild, Node rightChild) 
 	{
 		super();
 		this.terminal = terminal;
 		this.substitute = substitute;
 		this.foot = foot;
+		this.slot = slot;
 		this.data = data;
 		this.parent = parent;
 		this.leftChild = leftChild;
@@ -54,12 +57,14 @@ public class Node {
 	 * @param data
 	 * @param parent
 	 */
-	public Node(boolean terminal, boolean substitute, boolean foot, String data, Node parent) 
+	public Node(boolean terminal, boolean substitute, boolean foot, boolean slot,
+			String data, Node parent) 
 	{
 		super();
 		this.terminal = terminal;
 		this.substitute = substitute;
 		this.foot = foot;
+		this.slot = slot;
 		this.data = data;
 		this.parent = parent;
 	}
@@ -72,13 +77,14 @@ public class Node {
 	 * @param foot
 	 * @param data
 	 */
-	public Node(boolean terminal, boolean substitute, boolean foot,
+	public Node(boolean terminal, boolean substitute, boolean foot, boolean slot,
 			String data) 
 	{
 		super();
 		this.terminal = terminal;
 		this.substitute = substitute;
 		this.foot = foot;
+		this.slot = slot;
 		this.data = data;
 	}
 	/**
@@ -352,6 +358,33 @@ public class Node {
 	}
 	
 	/**
+	 * show all the slot symbols from left to right
+	 */
+	public void showSlots()
+	{
+		if (this.slot) {
+			
+			System.out.print(data+" ");
+			
+		} else {
+			
+//			System.out.print(data+" ");
+			
+			if (this.leftChild != null) {
+			
+				this.leftChild.showSlots();
+				
+			}
+			
+			if (this.rightChild != null) {
+			
+				this.rightChild.showSlots();
+				
+			}
+		}
+	}
+	
+	/**
 	 * show all the leaf symbols from left to right
 	 */
 	public void showLeafs()
@@ -585,7 +618,7 @@ public class Node {
 		}
 		if (!leftNodeStraws.contentEquals("_")) {
 			
-			leftNode = new Node(terminal, leftSubstitute, leftFoot, leftNodeStraws, this);
+			leftNode = new Node(terminal, leftSubstitute, leftFoot, false, leftNodeStraws, this);
 			this.setLeftChild(leftNode);
 			
 		}
@@ -599,7 +632,7 @@ public class Node {
 		
 		if (!rightNodeStraws.contentEquals("_")) {
 		
-			rightNode = new Node(terminal, rightSubstitute, rightFoot, rightNodeStraws, this);
+			rightNode = new Node(terminal, rightSubstitute, rightFoot, false, rightNodeStraws, this);
 			this.setRightChild(rightNode);
 		
 		}
@@ -700,6 +733,22 @@ public class Node {
 	}
 	
 	/**
+	 * @return the slot
+	 */
+	public boolean isSlot() {
+	
+		return slot;
+	}
+
+	/**
+	 * @param slot the slot to set
+	 */
+	public void setSlot(boolean slot) {
+	
+		this.slot = slot;
+	}
+
+	/**
 	 * @return the data
 	 */
 	public String getData() {
@@ -752,11 +801,11 @@ public class Node {
 	 * @param foot
 	 * @param data
 	 */
-	public void setLeftChild(boolean terminal, boolean substitute, boolean foot,
+	public void setLeftChild(boolean terminal, boolean substitute, boolean foot, boolean slot,
 								String data)
 	{
 	
-		this.leftChild = new Node(terminal, substitute, foot, data, this);
+		this.leftChild = new Node(terminal, substitute, foot, slot, data, this);
 		this.terminal= false;
 		this.foot = false;
 		
@@ -776,11 +825,11 @@ public class Node {
 	 * @param foot
 	 * @param data
 	 */
-	public void setRightChild(boolean terminal, boolean substitute, boolean foot,
+	public void setRightChild(boolean terminal, boolean substitute, boolean foot, boolean slot,
 								String data)
 	{
 	
-		this.rightChild = new Node(terminal, substitute, foot, data, this);
+		this.rightChild = new Node(terminal, substitute, foot, slot, data, this);
 		this.terminal= false;
 		this.foot = false;
 		

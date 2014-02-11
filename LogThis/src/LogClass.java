@@ -46,8 +46,6 @@ public class LogClass {
 		
 //		TreeGenerator.treeTest();
 		TreeGenerator.synTrees();
-		
-		TreeGenerator.treeBuilder("sentence01-base.dat");
 	}
 
 }
