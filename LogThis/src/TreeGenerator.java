@@ -1,8 +1,147 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Stack;
+
 
 
 public class TreeGenerator {
+	
+	/**
+	 * Container to build a tree from a given file and returns the root
+	 * File format is LaTeX quobitree with leading whitespace
+	 * and every line that does not start with " \" is ignored
+	 *
+	 * this Container could handle exception ...
+	 * 
+	 * @param filename the name of the file
+	 * @return treeRoot
+	 */
+	public static Node treeBuilder(String filename) {
+		
+		Node treeRoot = new Node();
+		
+		try { 
+			
+			treeRoot = treeReader(filename);	// actual treebuilding is done in the filereader 
+			
+		} catch (IOException e) {
+			
+			System.out.print("Something wrong with input File");
+			
+		}
+				
+//		System.out.println("Finished");
+					
+		System.out.println(treeRoot.showTree());
+		treeRoot.showLeafs();
+		System.out.println();
+		
+		return treeRoot; 
+	}
+	/**
+	 * Builds a tree from a given file and returns the root
+	 * File format is LaTeX quobitree with leading whitespace
+	 * and every line that does not start with " \" is ignored 
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
+	public static Node treeReader(String filename)  throws IOException {
+		
+		FileReader fr = new FileReader("file/"+filename);
+		BufferedReader br = new BufferedReader(fr);
+		
+		Stack<Node> nodeStack = new Stack<Node>();
+		
+		String line = "";
+		boolean rightChild = true;
+		boolean terminal = false;
+		boolean substitute = false;
+		boolean foot = false;
+		
+		String lastLine = "";
+		/*
+		 * Read file, split lines into Nodes
+		 */
+		while ( (line = br.readLine()) != null ) {
+			
+			if (line.equals(lastLine) && line.startsWith(" \\branch{1}{N}")) {	// ignore double Noun lines
+				
+			} else {
+			
+				lastLine = line;
+				String data = "";
+				Node tmpNode = new Node();
+				int branch = 0;
+							
+				if (line.startsWith(" \\")) {									// only use lines starting with " \"
+					
+					if (line.startsWith(" \\leaf{\\emph{")) {					// if leaf
+						
+						data = line.substring(13, line.length()-2);
+						if (data.endsWith("^")) {								// check and set substitute flag
+							data = data.substring(0, data.length()-1);
+							substitute = true;
+						
+						} else if (data.endsWith("*")) {						// check and set foot flag
+							data = data.substring(0, data.length()-1);
+							foot = true;
+						
+						} else {												// else set terminal flag
+							
+							terminal = true;
+						}
+						
+					} else if (line.startsWith(" \\branch{1}{")) {				// set branch length 1
+						
+						data = line.substring(12, line.length()-1);
+						branch = 1;
+						
+					} else if (line.startsWith(" \\branch{2}{")) {				// set branch length 2
+						
+						data = line.substring(12, line.length()-1);
+						branch = 2;
+						
+					} else {
+						
+						System.out.println("undefined = "+ line);
+					}
+						
+					tmpNode.setData(data);										// create the new node with data and flags
+					tmpNode.setTerminal(terminal);
+					terminal = false;
+					tmpNode.setSubstitute(substitute);
+					substitute = false;
+					tmpNode.setFoot(foot);
+					foot = false;
+					
+					rightChild = true;
+						
+					for (int i = 0; i < branch; i++) {							// if branch > 1
+						
+						if (rightChild) {
+							
+							tmpNode.setRightChild(nodeStack.pop());				// last element on stack is right child
+							rightChild = false;
+						
+						}else {
+							
+							tmpNode.setLeftChild(nodeStack.pop());				// next element on stack is left child
+							
+						}
+					}
+					nodeStack.push(tmpNode);									// put tree on stack
+				}
+			}
+		}
+		br.close();
+		
+		return nodeStack.pop();
+	}
 
-	public static void treeTest (){
+public static void treeTest (){
 		
 		Node node1 = new Node();
 		Node node5 = new Node();
@@ -62,7 +201,7 @@ public class TreeGenerator {
 		/*
 		 * workarea is empty
 		 */
-		Node sent_07 = new Node("s(np^,vp(v(is,_),_))");	// Sentence with np^ and vp -> v = is
+		Node sent_07 = new Node("s(np^,vp(advp(v(was,_),adv(_,empty)),pp(p(for,_),np(ap(<time>,_),n(minutes,_)))))");	// Sentence with np^ and vp -> v = was
 		Node sent_02 = new Node("np(d^,n^)");				// d^ n^
 		Node sent_03 = new Node("vp(vp*,adv(empty,_))"); 	// vp* empty
 		Node sent_04 = new Node("d(the,_)");				// d = the
@@ -77,18 +216,11 @@ public class TreeGenerator {
 
 
 		Node sent_01 = new Node("n(adv(empty,_),n*)");		// n adj = empty -> n*
-
+//http://erg.delph-in.net/logon
+		
 		SynTemplate sentence_01 = new SynTemplate();
 		sentence_01.setTemplate(Node.copyOf(sent_07));
-		
-		sentence_01.adjoinCopyToTemplate(sent_03);
 		sentence_01.substituteCopyInTemplate(sent_02);
-		
-		
-//		sent_07.substitute(sent_02);			// d^[_/the 04/this 09] n^[~place 08/~space 10/~area 11] is empty 
-//		sent_07.substitute(sent_04);
-//		sent_07.substitute(sent_08);
-
 		
 		sentence_01.getTemplate().showTerminal();
 		System.out.println();
