@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -229,14 +231,42 @@ public static void treeTest (){
 		SynTemplate sentence_01 = new SynTemplate();
 		sentence_01.setTemplate(treeBuilder("sentence01-base.dat"));
 		
+		sentence_01.showTreeInfo();
+		
 		SynTemplate sentence_02 = new SynTemplate();
 		sentence_02.setTemplate(treeBuilder("sentence02-base.dat"));
 		
 		sentence_02.showTreeInfo();
 		
-		sentence_02.substituteCopyInTemplate(treeBuilder("sentence02-sub2.dat"), treeBuilder("sentence02-sub1.dat"));		
+		sentence_02.addMultipleChoiceToCan(treeBuilder("sentence02-can-sub1.dat"),treeBuilder("sentence02-can-sub2.dat"));
+//		sentence_02.substituteCopyInTemplate(treeBuilder("sentence02-can-sub1.dat"));		
 		
 		sentence_02.showTreeInfo();
+		
+//		List<Node> lin1 = new ArrayList<Node>();
+//		List<Node> lin2 = new ArrayList<Node>();
+//		
+//		Node nodeT1 = new Node(true, "term1");
+//		Node nodeT2 = new Node(true, "term2");
+//		Node nodep1 = new Node(false, "paren1");
+//		lin1.add(nodep1);
+//		lin1.add(nodeT1);
+//		lin1.add(nodeT2);
+//		
+//		Node nodeT3 = new Node(true, "term3");
+//		Node nodeT4 = new Node(true, "term4");
+//		Node nodep2 = new Node(false, "paren2");
+//		lin2.add(nodeT3);
+//		lin2.add(nodep2);
+//		lin2.add(nodeT4);
+//		
+//		TestClass test = new TestClass();
+//		test.addLino(lin2);
+//		test.addLino(lin1);
+//		
+//		test.showLino();
+		
+		
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms
