@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SynTemplate {
 
@@ -34,9 +35,10 @@ public class SynTemplate {
 		super();
 		this.template = new Node();
 
-    	List<List<Node>> tmpListe = new ArrayList<List<Node>>();
-		this.mustUseTrees = tmpListe;
-		this.canUseTrees = tmpListe;
+    	List<List<Node>> mustList = new ArrayList<List<Node>>();
+		this.mustUseTrees = mustList;
+		List<List<Node>> canList = new ArrayList<List<Node>>();
+		this.canUseTrees = canList;
 		
 		Node tmpNode = new Node();
     	Node[] tmpNodes1 = {tmpNode};
@@ -46,7 +48,77 @@ public class SynTemplate {
 		String[] tmpStrings = {""};
 		this.topics = tmpStrings;
 	}
+	
+	public void buildAllPossibleTrees() {
+		
+		for (int i = 0; i < mustUseTrees.size(); i++) {
+			
+			
+		}
+		
+	}
 
+	public static int[] pickRandomPermutation(List<List<Node>> list){
+		Random generator = new Random(System.currentTimeMillis());
+		
+		int[] randomSet = new int[list.size()];
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			randomSet[i] = generator.nextInt(list.get(i).size());
+			
+		}
+				
+		return randomSet;
+	}
+	
+	public static List<Node> displayRandomPermutation(List<List<Node>> list) {
+		
+		int[] randomSet = new int[list.size()];
+		
+		randomSet = pickRandomPermutation(list);
+		
+		List<Node> randomNodes = new ArrayList<Node>();
+		
+		for (int i = 0; i < randomSet.length; i++) {
+			
+			randomNodes.add(list.get(i).get(randomSet[i]));
+			list.get(i).get(randomSet[i]).showLeafs();
+			System.out.print(" / ");
+			
+		}
+		
+		return randomNodes;
+	}
+	
+	
+	public static List<List<Node>> getAllPermutationsOf(List<List<Node>> list, int startLevel,
+			List<Node> parentElements, List<List<Node>> permutationList) {
+		
+//		int listSize = list.get(startLevel).size()-1;
+		
+		for (int i = 0; i < list.get(startLevel).size(); i++) {
+
+			List<Node> parentNode = new ArrayList<Node>();
+			parentNode.addAll(parentElements);
+			parentNode.add(list.get(startLevel).get(i));
+			
+			if (startLevel < list.size()-1) {
+				
+				permutationList = getAllPermutationsOf(list, startLevel+1, 
+						parentNode, permutationList);
+		
+			} else {
+
+//				System.out.println(element+liste.get(startIndex).get(i));
+				permutationList.add(parentNode);
+				
+			}
+
+		}
+		return permutationList;
+	}
+	
 	public void adjoinCopyToTemplate(Node... nodes) {
 		
 		for (Node tree : nodes) {
@@ -84,12 +156,14 @@ public class SynTemplate {
 	}
 	
 	public void showMustUseTrees() {
-		
+		System.out.println();
+		System.out.println("MustUseTrees: ");
 		for (int i = 0; i < mustUseTrees.size(); i++) {
 			
 			for (int j = 0; j < mustUseTrees.get(i).size(); j++) {
 				
-				System.out.print(mustUseTrees.get(i).get(j).getData()+" ");
+				mustUseTrees.get(i).get(j).showLeafs();
+				System.out.print("/ ");
 			}
 			System.out.println();
 			
@@ -97,12 +171,14 @@ public class SynTemplate {
 	}
 	
 	public void showCanUseTrees() {
-		
+		System.out.println();
+		System.out.println("CanUseTrees: ");
 		for (int i = 0; i < canUseTrees.size(); i++) {
 			
 			for (int j = 0; j < canUseTrees.get(i).size(); j++) {
 				
-				System.out.print(canUseTrees.get(i).get(j).getData()+" ");
+				mustUseTrees.get(i).get(j).showLeafs();
+				System.out.print("/ ");
 			}
 			System.out.println();
 			

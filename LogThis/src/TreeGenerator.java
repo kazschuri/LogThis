@@ -156,36 +156,59 @@ public class TreeGenerator {
 
 public static void treeTest (){
 		
-		Node node1 = new Node();
-		Node node5 = new Node();
-		Node node7 = new Node();
-		Node node12 = new Node();
+//		Node node1 = new Node();
+//		Node node5 = new Node();
+//		Node node7 = new Node();
+//		Node node12 = new Node();
+//		
+//		node1.buildTreeOutOf("np(d^,n(boy,_))");
+//		node5.buildTreeOutOf("d(the,_)");
+//		node7.buildTreeOutOf("s(np^,vp(_,v(_,left)))");
+//		node12.buildTreeOutOf("vp(vp*,adv(today,_))");
+//		
+//		node1.showTerminal();
+//		node1.substitute(node5);
+//		
+//		System.out.println();
+//		
+//		node1.showTerminal();
+//		
+//		node7.substitute(node1);
+//		
+//		System.out.println();
+//		
+//		node7.showTerminal();
+//		
+//		node7.adjoin(node12);
+//		
+//		System.out.println();
+//		
+//		node7.showTerminal();
+//		System.out.println();
+//		System.out.println(node7.showTree());
 		
-		node1.buildTreeOutOf("np(d^,n(boy,_))");
-		node5.buildTreeOutOf("d(the,_)");
-		node7.buildTreeOutOf("s(np^,vp(_,v(_,left)))");
-		node12.buildTreeOutOf("vp(vp*,adv(today,_))");
+		TestClass test = new TestClass();
+
+		test.addMultipleChoiceToMust("A1", "A2", "A3");
+		test.addMultipleChoiceToMust("B1", "B2", "B3");
+		test.addMultipleChoiceToMust("C1", "C2", "C3");
 		
-		node1.showTerminal();
-		node1.substitute(node5);
+		test.addMultipleChoiceToCan("H1","H2","H3");
+		test.addMultipleChoiceToCan("I1","I2","I3");
 		
-		System.out.println();
+		test.showMust();
+		test.showCan();
 		
-		node1.showTerminal();
+		test.handPerm();
+		List<String> permList = new ArrayList<String>();
 		
-		node7.substitute(node1);
+		TestClass.getAllPermutationsOf(test.must, 0, "", permList);
 		
-		System.out.println();
-		
-		node7.showTerminal();
-		
-		node7.adjoin(node12);
-		
-		System.out.println();
-		
-		node7.showTerminal();
-		System.out.println();
-		System.out.println(node7.showTree());
+		for (int i = 0; i < permList.size(); i++) {
+			
+			System.out.println(permList.get(i));
+			
+		}
 	}
 
 	public static void synTrees(){
@@ -231,41 +254,45 @@ public static void treeTest (){
 		SynTemplate sentence_01 = new SynTemplate();
 		sentence_01.setTemplate(treeBuilder("sentence01-base.dat"));
 		
-		sentence_01.showTreeInfo();
+//		sentence_01.showTreeInfo();
 		
 		SynTemplate sentence_02 = new SynTemplate();
 		sentence_02.setTemplate(treeBuilder("sentence02-base.dat"));
 		
-		sentence_02.showTreeInfo();
+//		sentence_02.showTreeInfo();
+		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub5-sub1.dat"),treeBuilder("sentence02-must-sub5-sub2.dat"),treeBuilder("sentence02-must-sub5-sub3.dat"));
+		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub5.dat"),treeBuilder("sentence02-must-sub6.dat"),treeBuilder("sentence02-must-sub7.dat"));
+		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub3-sub1.dat"),treeBuilder("sentence02-must-sub3-sub2.dat"),treeBuilder("sentence02-must-sub3-sub3.dat"));
+		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub1.dat"),treeBuilder("sentence02-must-sub2.dat"),treeBuilder("sentence02-must-sub3.dat"));
+		
 		
 		sentence_02.addMultipleChoiceToCan(treeBuilder("sentence02-can-sub1.dat"),treeBuilder("sentence02-can-sub2.dat"));
 //		sentence_02.substituteCopyInTemplate(treeBuilder("sentence02-can-sub1.dat"));		
 		
-		sentence_02.showTreeInfo();
+//		sentence_02.showTreeInfo();
+//		sentence_02.showMustUseTrees();
+//		sentence_02.showCanUseTrees();
 		
-//		List<Node> lin1 = new ArrayList<Node>();
-//		List<Node> lin2 = new ArrayList<Node>();
+//		List<List<Node>> permuteList = new ArrayList<List<Node>>();
+//		List<Node> parent = new ArrayList<Node>();
 //		
-//		Node nodeT1 = new Node(true, "term1");
-//		Node nodeT2 = new Node(true, "term2");
-//		Node nodep1 = new Node(false, "paren1");
-//		lin1.add(nodep1);
-//		lin1.add(nodeT1);
-//		lin1.add(nodeT2);
+//		List<List<Node>> resultList = new ArrayList<List<Node>>();
 //		
-//		Node nodeT3 = new Node(true, "term3");
-//		Node nodeT4 = new Node(true, "term4");
-//		Node nodep2 = new Node(false, "paren2");
-//		lin2.add(nodeT3);
-//		lin2.add(nodep2);
-//		lin2.add(nodeT4);
+//		resultList = SynTemplate.getAllPermutationsOf(sentence_02.getMustUseTrees(), 0, parent, permuteList);
 //		
-//		TestClass test = new TestClass();
-//		test.addLino(lin2);
-//		test.addLino(lin1);
-//		
-//		test.showLino();
+//		for (int i = 0; i < resultList.size(); i++) {
+//			
+//			for (int j = 0; j < resultList.get(i).size(); j++) {
+//				
+//				resultList.get(i).get(j).showLeafs();
+//				System.out.print(" / ");
+//			}
+//			
+//			System.out.println();
+//		}
 		
+		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees());
+
 		
 		/*
 		 * a human/user/person enters the workspace

@@ -1,0 +1,6 @@
+# Substitute for Sentence 02 Base
+# DET-place = 
+# (Det-place^ workplace/workspace/workroom)
+
+ \leaf{\emph{}}
+ \branch{1}{DET-place}

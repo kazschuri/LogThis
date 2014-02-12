@@ -1,0 +1,9 @@
+# Substitute for Sentence 02 Base
+# NP1 = DET-place^ workplace
+# (NP2^ enters NP1^ VP1^)
+
+ \leaf{\emph{DET-place^}}
+ \leaf{\emph{workplace}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP1}
