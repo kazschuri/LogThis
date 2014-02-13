@@ -49,69 +49,92 @@ public class SynTemplate {
 		this.topics = tmpStrings;
 	}
 	
-	public void buildAllPossibleTrees() {
-		
-		for (int i = 0; i < mustUseTrees.size(); i++) {
-			
-			
-		}
-		
-	}
-
+	/**
+	 * picks a random set of all possible permuations of the nodes of a list of lists
+	 * 
+	 * @param list the list to permute
+	 * @return the randomSet
+	 */
 	public static int[] pickRandomPermutation(List<List<Node>> list){
+		
 		Random generator = new Random(System.currentTimeMillis());
 		
 		int[] randomSet = new int[list.size()];
 		
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {						// from each list
 			
-			randomSet[i] = generator.nextInt(list.get(i).size());
+			randomSet[i] = generator.nextInt(list.get(i).size());	// pick one node at random
 			
 		}
 				
 		return randomSet;
 	}
 	
-	public static List<Node> displayRandomPermutation(List<List<Node>> list) {
+	/**
+	 * show and return a random set of all possible permutations of the nodes of a list of lists and
+	 * can drop a random number of nodes from the set
+	 * 
+	 * @param list the list to permute
+	 * @param dropNodes the flag if random nodes should be dropped
+	 * @return the randomPermutation
+	 */
+	public static List<Node> displayRandomPermutation(List<List<Node>> list, boolean dropNodes) {
 		
+		Random generator = new Random(System.currentTimeMillis());
 		int[] randomSet = new int[list.size()];
+		boolean drop = false;
 		
 		randomSet = pickRandomPermutation(list);
 		
-		List<Node> randomNodes = new ArrayList<Node>();
+		List<Node> randomPermutation = new ArrayList<Node>();
 		
-		for (int i = 0; i < randomSet.length; i++) {
+		for (int i = 0; i < randomSet.length; i++) {					// from the randomSet of nodes
 			
-			randomNodes.add(list.get(i).get(randomSet[i]));
-			list.get(i).get(randomSet[i]).showLeafs();
-			System.out.print(" / ");
+			if (dropNodes) {
+				
+				drop = generator.nextBoolean();
+			}
 			
+			if (!drop) {												// decide if it should be dropped
+				
+				randomPermutation.add(list.get(i).get(randomSet[i]));	// otherwise add it to the result
+				list.get(i).get(randomSet[i]).showLeafs();				// and show its leafs
+				System.out.print(" / ");
+			}
 		}
 		
-		return randomNodes;
+		return randomPermutation;
 	}
 	
-	
+	/**
+	 * returns a List of all permutations of the nodes of a given list of lists
+	 * 
+	 * @param list the list to permute
+	 * @param startLevel the level of the list on which to start (normally 0)
+	 * @param parentElements the element coming from the parent (start with empty element)
+	 * @param permutationList the list of permutations (start with an empty list)
+	 * @return the permutation list
+	 */	
 	public static List<List<Node>> getAllPermutationsOf(List<List<Node>> list, int startLevel,
 			List<Node> parentElements, List<List<Node>> permutationList) {
 		
 //		int listSize = list.get(startLevel).size()-1;
 		
-		for (int i = 0; i < list.get(startLevel).size(); i++) {
+		for (int i = 0; i < list.get(startLevel).size(); i++) {				// cycle through all nodes of a list
 
 			List<Node> parentNode = new ArrayList<Node>();
-			parentNode.addAll(parentElements);
-			parentNode.add(list.get(startLevel).get(i));
+			parentNode.addAll(parentElements);								// keep all nodes coming from the list before
+			parentNode.add(list.get(startLevel).get(i));					// add the current node
 			
-			if (startLevel < list.size()-1) {
+			if (startLevel < list.size()-1) {								// if this is not the last list of the list of lists
 				
-				permutationList = getAllPermutationsOf(list, startLevel+1, 
+				permutationList = getAllPermutationsOf(list, startLevel+1, 	// check the next list
 						parentNode, permutationList);
 		
-			} else {
+			} else {														// if it is the last list
 
 //				System.out.println(element+liste.get(startIndex).get(i));
-				permutationList.add(parentNode);
+				permutationList.add(parentNode);							// just add the current node and its predecessors as a result
 				
 			}
 
@@ -119,6 +142,11 @@ public class SynTemplate {
 		return permutationList;
 	}
 	
+	/**
+	 * adjoins a copy of given nodes into the template
+	 * 
+	 * @param nodes the nodes to copy an adjoin
+	 */
 	public void adjoinCopyToTemplate(Node... nodes) {
 		
 		for (Node tree : nodes) {
@@ -127,6 +155,11 @@ public class SynTemplate {
 		}
 	}
 
+	/**
+	 * substitutes a copy of given nodes into the template
+	 * 
+	 * @param nodes the nodes to copy an substitute 
+	 */
 	public void substituteCopyInTemplate(Node... nodes) {
 		
 		for (Node tree : nodes) {
@@ -155,6 +188,9 @@ public class SynTemplate {
 		
 	}
 	
+	/**
+	 * show all Trees that are currently registered in mustUseTrees
+	 */
 	public void showMustUseTrees() {
 		System.out.println();
 		System.out.println("MustUseTrees: ");
@@ -170,6 +206,9 @@ public class SynTemplate {
 		}
 	}
 	
+	/**
+	 * show all Trees that are currently registered in canUseTrees
+	 */
 	public void showCanUseTrees() {
 		System.out.println();
 		System.out.println("CanUseTrees: ");
@@ -184,12 +223,58 @@ public class SynTemplate {
 			
 		}
 	}
-	public void addListToMust(ArrayList<Node> list) {
+	
+	/**
+	 * method to return a random set of Nodes from all permutations of mustUseTrees
+	 *   
+	 * @return the resultSet
+	 */
+	public List<Node> getSetFromMustUseTrees() {
+		
+		List<Node> resultSet = new ArrayList<Node>();
+		
+		resultSet = displayRandomPermutation(this.mustUseTrees, false);
+		
+		return resultSet;		
+		
+	}
+	
+	/**
+	 * method to return a random set of Nodes from all permutations of canUseTrees
+	 * the set is randomly reduced, because the Nodes <b>can</b> be used, and do not have to be used
+	 *  
+	 * @return the resultSet
+	 */
+	public List<Node> getSetFromCanUseTrees() {
+
+		List<Node> resultSet = new ArrayList<Node>();
+
+		resultSet = displayRandomPermutation(this.canUseTrees, true);
+
+		return resultSet;		
+
+	}
+	
+	/**
+	 * a List of nodes gets added to mustUseList. All Nodes in this List
+	 * are interchangeable alternatives for each other. Otherwise they have
+	 * to be added separately.
+	 * 
+	 * @param list the list to add
+	 */
+	public void addListToMust(List<Node> list) {
 		
 		this.mustUseTrees.add(list);
 		
 	}
 	
+	/**
+	 * a List of nodes gets added to mustUseList. All Nodes in this List
+	 * are interchangeable alternatives for each other. Otherwise they have
+	 * to be added separately.
+	 * 
+	 * @param nodes the nodes to add
+	 */
 	public void addMultipleChoiceToMust(Node... nodes) {
 		
 		List<Node> tmpList = new ArrayList<Node>();
@@ -202,12 +287,27 @@ public class SynTemplate {
 		this.mustUseTrees.add(tmpList);
 		
 	}
-	public void addListToCan(ArrayList<Node> list) {
+	
+	/**
+	 * a List of nodes gets added to canUseList. All Nodes in this List
+	 * are interchangeable alternatives for each other. Otherwise they have
+	 * to be added separately.
+	 * 
+	 * @param list the list to add
+	 */
+	public void addListToCan(List<Node> list) {
 		
 		this.canUseTrees.add(list);
 		
 	}
 	
+	/**
+	 * a List of nodes gets added to canUseList. All Nodes in this List
+	 * are interchangeable alternatives for each other. Otherwise they have
+	 * to be added separately.
+	 * 
+	 * @param nodes the nodes to add
+	 */
 	public void addMultipleChoiceToCan(Node... nodes) {
 		
 		List<Node> tmpList = new ArrayList<Node>();
@@ -219,6 +319,7 @@ public class SynTemplate {
 		
 		this.canUseTrees.add(tmpList);
 	}
+	
 	/**
 	 * @return the template
 	 */

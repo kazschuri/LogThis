@@ -291,7 +291,7 @@ public static void treeTest (){
 //			System.out.println();
 //		}
 		
-		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees());
+		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees(), false);
 
 		
 		/*
