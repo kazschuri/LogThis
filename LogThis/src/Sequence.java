@@ -11,9 +11,9 @@ public class Sequence {
     private String[] dyingTypes;
     private Map<String,Integer> typeToAgeMap = new HashMap<String,Integer>();
     
-    private int firstTimestamp;
-    private int lastTimestamp;
-    private int numberOfFrames;
+    private int firstTimestamp = 0;
+    private int lastTimestamp = 0;
+    private int numberOfFrames = 0;
     
     
     
@@ -23,12 +23,22 @@ public class Sequence {
 		this.growingTypes	= nullTypeArray;
 		this.dyingTypes		= nullTypeArray;
 		this.typeToAgeMap.put("", 0);
-		
-		this.firstTimestamp	= 0;
-		this.lastTimestamp	= 0;
-		this.numberOfFrames	= 0;
 	}
 	
+	/**
+	 * Constructor for testing purposes
+	 * 
+	 * @param newbornTypes
+	 * @param growingTypes
+	 * @param dyingTypes
+	 */
+	public Sequence(String[] newbornTypes, String[] growingTypes, String[] dyingTypes) {
+		
+		this.newbornTypes 	= newbornTypes;
+		this.growingTypes	= growingTypes;
+		this.dyingTypes		= dyingTypes;
+		this.typeToAgeMap.put("", 0);
+	}
 	/**
 	 * Sequence constructor with all parameters as input
 	 * @param newbornTypes
@@ -308,7 +318,6 @@ public class Sequence {
 		
 		return typeArray;
 	}
-
 
     /**
 	 * @return the newbornTypes

@@ -6,7 +6,7 @@ public class LinkedConditions {
 	
 	/**
 	 * @param conditions
-	 * @param links
+	 * @param links AND, OR, XOR
 	 */
 	public LinkedConditions(Condition[] conditions, String[] links) {
 		
@@ -58,6 +58,43 @@ public class LinkedConditions {
 	
 		this.links = links;
 	}
+
 	
+	/**
+	 * connects the conditions with the logical operators stored in the links array
+	 * the operator to connect condition i and i+1 is link[i]
+	 * 
+	 * @param sequence the sequence to check
+	 * @return the currentResult
+	 */
+	public boolean checkLinConds(Sequence sequence) {
+		
+		boolean currentResult = false;
+		
+		for (int i = 0; i < this.conditions.length; i++) {
+			
+			boolean newResult = conditions[i].isFulfilled(sequence, conditions[i].isShouldExist());
+			
+			if (i == 0) {
+				
+				currentResult = newResult;
+				
+			}else if (links[i-1].equals("AND")) {
+
+				currentResult = currentResult && newResult;
+
+			}else if (links[i-1].equals("OR")) {
+
+				currentResult = currentResult || newResult;
+
+			}else if (links[i-1].equals("XOR")) {
+
+				currentResult = currentResult ^ newResult;
+
+			}
+		}
+		
+		return currentResult;
+	}
 	
 }

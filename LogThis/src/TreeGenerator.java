@@ -292,8 +292,51 @@ public static void treeTest (){
 //		}
 		
 		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees(), false);
-
+		sentence_02.showTreeInfo();
+		sentence_02.showCanUseTrees();
 		
+		Condition cond2 = new Condition("Sequence", "newborn", "With_Human", true);
+		Condition cond1 = new Condition("Sequence", "dying", "No_Human", true);
+		Condition cond3 = new Condition("Sequence", "current", "No_Human", false);
+		Condition cond4 = new Condition("Sequence", "current", "Ignore", true);
+		
+		Condition[] condSet1 = {cond1, cond4};
+		Condition[] condSet2 = {cond2, cond3};
+		
+		String[] link1 = {"OR"};
+		String[] link2 = {"AND"};
+		
+		LinkedConditions linCond1 = new LinkedConditions(condSet1, link1);
+		LinkedConditions linCond2 = new LinkedConditions(condSet2, link2);
+		
+		sentence_01.setLinConds(linCond1);
+		sentence_02.setLinConds(linCond2);
+		
+		String[] dye1 = {"No_Human;situation","Follow_Path;expectation"};
+		String[] grow1 = {"Left_Arm_Down;action","Right_Arm_Down;action"};
+		String[] newborn1 = {"With_Human;situation","Distraction;situation","Stand_Still;activity","Ignore;activity"};
+		
+		Sequence testSequence1 = new Sequence(newborn1, grow1, dye1);
+		
+		String[] dye2 = {"Follow_Path;expectation"};
+		String[] grow2 = {"No_Human;situation","Left_Arm_Down;action","Right_Arm_Down;action"};
+		String[] newborn2 = {"With_Human;situation","Distraction;situation","Stand_Still;activity","Ignore;activity"};
+		
+		Sequence testSequence2 = new Sequence(newborn2, grow2, dye2);
+		
+		boolean testResult = false;
+		
+		testResult = sentence_01.isApplicable(testSequence1);
+		System.out.println("sent1 + seq1 = "+testResult);
+		
+		testResult = sentence_01.isApplicable(testSequence2);
+		System.out.println("sent1 + seq2 = "+testResult);
+
+		testResult = sentence_02.isApplicable(testSequence1);
+		System.out.println("sent2 + seq1 = "+testResult);
+
+		testResult = sentence_02.isApplicable(testSequence2);
+		System.out.println("sent2 + seq2 = "+testResult);
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms

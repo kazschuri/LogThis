@@ -70,6 +70,16 @@ public class SynTemplate {
 		return randomSet;
 	}
 	
+	public boolean isApplicable(Sequence sequence) {
+		
+		boolean fulfilled = false;
+		
+		fulfilled = this.linConds.checkLinConds(sequence);
+		
+		return fulfilled;
+	}
+	
+
 	/**
 	 * show and return a random set of all possible permutations of the nodes of a list of lists and
 	 * can drop a random number of nodes from the set
@@ -202,7 +212,6 @@ public class SynTemplate {
 				System.out.print("/ ");
 			}
 			System.out.println();
-			
 		}
 	}
 	
@@ -213,14 +222,13 @@ public class SynTemplate {
 		System.out.println();
 		System.out.println("CanUseTrees: ");
 		for (int i = 0; i < canUseTrees.size(); i++) {
-			
+
 			for (int j = 0; j < canUseTrees.get(i).size(); j++) {
-				
-				mustUseTrees.get(i).get(j).showLeafs();
+
+				canUseTrees.get(i).get(j).showLeafs();
 				System.out.print("/ ");
 			}
 			System.out.println();
-			
 		}
 	}
 	
