@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +6,8 @@ import java.util.Stack;
 
 
 public class TreeGenerator {
-	
+
+	//TODO
 	/**
 	 * Container to build a tree from a given file and returns the root
 	 * File format is LaTeX quobitree with leading whitespace
@@ -18,46 +17,21 @@ public class TreeGenerator {
 	 * 
 	 * @param filename the name of the file
 	 * @return treeRoot
-	 */
-	public static Node treeBuilder(String filename) {
-		
-		Node treeRoot = new Node();
-		
-		try { 
-			
-			treeRoot = treeReader(filename);	// actual treebuilding is done in the filereader 
-			
-		} catch (IOException e) {
-			
-			System.out.print("Something wrong with input File");
-			
-		}
-				
-//		System.out.println("Finished");
-					
-//		System.out.println(treeRoot.showTree());
-//		treeRoot.showLeafs();
-//		System.out.println();
-		
-		return treeRoot; 
-	}
-	/**
-	 * Builds a tree from a given file and returns the root
-	 * File format is LaTeX quobitree with leading whitespace
+	 * 
+	 * Builds a tree from haystack and returns the root
+	 * haystack format is LaTeX quobitree
 	 * and every line that does not start with " \" is ignored 
 	 * 
 	 * @param filename
 	 * @return
 	 * @throws IOException
 	 */
-	public static Node treeReader(String filename)  throws IOException {
+	public static Node quobiTreeBuilder(List<String> haystack) {
 		
-		FileReader fr = new FileReader("file/"+filename);
-		BufferedReader br = new BufferedReader(fr);
+		Node treeRoot = new Node();
 		
 		Stack<Node> nodeStack = new Stack<Node>();
 		
-		String line = "";
 		boolean rightChild = true;
 		boolean terminal = false;
 		boolean substitute = false;
@@ -68,11 +42,11 @@ public class TreeGenerator {
 		/*
 		 * Read file, split lines into Nodes
 		 */
-		while ( (line = br.readLine()) != null ) {
+		for (String line : haystack) {
 			
-			if (line.equals(lastLine) && line.startsWith(" \\branch{1}{N}")) {	// ignore double Noun lines
+			if (line.equals(lastLine) && line.startsWith("\\branch{1}{N}")) {	// ignore double Noun lines
 				
-			} else if (line.equals(lastLine) && line.startsWith(" \\branch{1}{V}")) {	// ignore double Noun lines
+			} else if (line.equals(lastLine) && line.startsWith("\\branch{1}{V}")) {	// ignore double Verb lines
 				
 			} else {
 			
@@ -81,11 +55,11 @@ public class TreeGenerator {
 				Node tmpNode = new Node();
 				int branch = 0;
 							
-				if (line.startsWith(" \\")) {									// only use lines starting with " \"
+				if (line.startsWith("\\")) {									// only use lines starting with "\"
 					
-					if (line.startsWith(" \\leaf{\\emph{")) {					// if leaf
+					if (line.startsWith("\\leaf{\\emph{")) {					// if leaf
 						
-						data = line.substring(13, line.length()-2);
+						data = line.substring(12, line.length()-2);
 						if (data.endsWith("^")) {								// check and set substitute flag
 							data = data.substring(0, data.length()-1);
 							substitute = true;
@@ -105,14 +79,14 @@ public class TreeGenerator {
 							terminal = true;
 						}
 						
-					} else if (line.startsWith(" \\branch{1}{")) {				// set branch length 1
+					} else if (line.startsWith("\\branch{1}{")) {				// set branch length 1
 						
-						data = line.substring(12, line.length()-1);
+						data = line.substring(11, line.length()-1);
 						branch = 1;
 						
-					} else if (line.startsWith(" \\branch{2}{")) {				// set branch length 2
+					} else if (line.startsWith("\\branch{2}{")) {				// set branch length 2
 						
-						data = line.substring(12, line.length()-1);
+						data = line.substring(11, line.length()-1);
 						branch = 2;
 						
 					} else {
@@ -149,11 +123,261 @@ public class TreeGenerator {
 				}
 			}
 		}
-		br.close();
 		
-		return nodeStack.pop();
+		treeRoot = nodeStack.pop();
+		
+		treeRoot.showLeafs();
+		System.out.println();
+		return treeRoot;
 	}
 
+	
+	
+	
+	
+	//TODO
+	/**
+	 * search in haystack for root of tree
+	 * 
+	 * @param haystack the haystack to be searched
+	 */
+	public static Node formulaTreebuilder(String haystack){
+		
+		Node rootNode = new Node();
+		
+		String[] splitForm = haystack.split("");
+		
+		int braceCounter = 0;
+		String tmpData = "";
+		String rootData = "";
+		String childrenData ="";
+		
+		for (int i = 0; i < splitForm.length; i++) {
+			
+			if (splitForm[i].equals("(")) {
+				
+				if (braceCounter == 0) {
+					
+					rootData = tmpData;
+					tmpData = "";
+					
+				} else {
+					
+					tmpData += splitForm[i];
+					
+				}
+				braceCounter++;				
+				
+			} else if (splitForm[i].equals(")")) {
+				
+				braceCounter--;
+				
+				if (braceCounter == 0) {
+					
+					childrenData = tmpData;
+					
+				} else {
+					
+					tmpData += splitForm[i];
+					
+				}
+				
+			} else {
+				
+				tmpData += splitForm[i];
+				
+			}
+		}
+
+		rootNode.setData(rootData);
+		findChildrenIn(childrenData, rootNode);
+		
+		return rootNode;
+		
+	}
+	
+	//TODO
+	/**
+	 * search in haystack and add Children to tree
+	 * 
+	 * divide the haystack in four parts, left and right node 
+	 * and the sub-haystacks for each node. Call recursive 
+	 * function on sub-haystacks
+	 * 
+	 * @param haystack the haystack in which to search
+	 */
+	public static void findChildrenIn(String haystack, Node parentNode){
+		
+		haystack += "#";									// mark end of haystack
+		String[] straws = haystack.split("");
+		String leftNodeStraws = "";
+		String rightNodeStraws = "";
+		String leftSubHaystack = "";
+		String rightSubHaystack = "";
+		String tmpStraws = "";
+		
+		Node rightNode = new Node();
+		Node leftNode = new Node();
+		
+		boolean terminal = true;
+		
+		boolean leftSubstitute = false;
+		boolean leftFoot = false;
+		
+		boolean rightSubstitute = false;
+		boolean rightFoot = false;
+		
+		int braceCounter = 0;								
+		boolean left = true;
+		/*
+		 * mine the haystack for the four elements, left child, right child, left sub-haystack, right sub-haystack
+		 */
+		
+		for (int i = 0; i < straws.length; i++) {			// run once through complete haystack
+			
+			if (straws[i].equals("(")) {					// open braces are either
+			
+				terminal = false;
+				
+				if (braceCounter == 0) {					// the end of the child node if it is the first left brace
+					
+					if (left) {
+						
+						leftNodeStraws += tmpStraws;
+						
+					} else {
+						
+						rightNodeStraws += tmpStraws;
+					}
+					
+					tmpStraws= "";
+					
+				} else {									// or part of a sub-haystack if braceCount is > 1
+					
+					tmpStraws += straws[i];
+				}
+				
+				braceCounter++;
+				
+			} else if (straws[i].equals(")")) {				// right braces are either
+				
+				braceCounter--;
+
+				if (braceCounter == 0) {					// the end of the sub-haystack if braceCount is 0
+					if (left) {
+
+						leftSubHaystack += tmpStraws;
+						
+					} else {
+						
+						rightSubHaystack += tmpStraws;
+					}
+
+					tmpStraws = "";
+					
+				} else {									// or part of the sub-haystack if braceCount is still larger
+					
+					tmpStraws += straws[i];
+				}
+				
+			} else if (straws[i].equals("^") && braceCounter == 0) {	// flag as substitute if it is outside of main braces
+				
+				if (left) {
+		
+					leftSubstitute = true;
+					
+				} else {
+					
+					rightSubstitute = true;
+				}
+
+			} else if (straws[i].equals("*") && braceCounter == 0) {	// flag as foot if it is outside of main braces
+				
+				if (left) {
+		
+					leftFoot = true;
+					
+				} else {
+					
+					rightFoot = true;
+				}
+
+			} else if (straws[i].equals(",") && braceCounter == 0) {	// , outside of main braces signifies end of left half, meaning
+				
+				if (terminal) {											// either the left parent if no braces on left side
+					
+					leftNodeStraws += tmpStraws;
+
+				} else {												// or the left sub-haystack if there were braces
+				
+					leftSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
+				}
+				
+				tmpStraws = "";
+				left = false;										// switch to right parent and children
+				terminal = true;									// reset flag
+				
+			} else if (straws[i].equals("#")) {						// end of haystack -> end of right half, meaning
+				
+				if (terminal) {										// either the right parent if no braces on right side
+					
+					rightNodeStraws += tmpStraws;
+					
+				} else {											// or the right sub-haystack if there were braces
+					
+					rightSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
+				}
+				
+			} else {
+					
+					tmpStraws += straws[i];							// no conditions -> still within a word
+			}
+		}
+		/*
+		 * creating the tree out of the mined data
+		 */
+		terminal = false;
+				
+		if (leftSubHaystack.isEmpty() && !leftSubstitute && !leftFoot) {
+			
+			terminal = true;
+			
+		}
+		if (!leftNodeStraws.contentEquals("_")) {
+			
+			leftNode = new Node(terminal, leftSubstitute, leftFoot, false, leftNodeStraws, parentNode);
+			
+			parentNode.setLeftChild(leftNode);
+			
+		}
+		terminal = false;
+		
+		if(rightSubHaystack.isEmpty() && !rightSubstitute && !rightFoot){
+			
+			terminal = true;
+			
+		}
+		
+		if (!rightNodeStraws.contentEquals("_")) {
+		
+			rightNode = new Node(terminal, rightSubstitute, rightFoot, false, rightNodeStraws, parentNode);
+			parentNode.setRightChild(rightNode);
+		
+		}
+		
+		terminal = false;
+		
+		if (!leftSubHaystack.isEmpty()) {
+			findChildrenIn(leftSubHaystack, leftNode);
+			
+		}
+		
+		if (!rightSubHaystack.isEmpty()) {
+			findChildrenIn(rightSubHaystack, rightNode);
+			
+		}
+	}
+	
 public static void treeTest (){
 		
 //		Node node1 = new Node();
@@ -252,23 +476,12 @@ public static void treeTest (){
 //http://erg.delph-in.net/logon
 		
 		SynTemplate sentence_01 = new SynTemplate();
-		sentence_01.setTemplate(treeBuilder("sentence01-base.dat"));
 		
 //		sentence_01.showTreeInfo();
 		
 		SynTemplate sentence_02 = new SynTemplate();
-		sentence_02.setTemplate(treeBuilder("sentence02-base.dat"));
 		
 //		sentence_02.showTreeInfo();
-		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub5-sub1.dat"),treeBuilder("sentence02-must-sub5-sub2.dat"),treeBuilder("sentence02-must-sub5-sub3.dat"));
-		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub5.dat"),treeBuilder("sentence02-must-sub6.dat"),treeBuilder("sentence02-must-sub7.dat"));
-		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub3-sub1.dat"),treeBuilder("sentence02-must-sub3-sub2.dat"),treeBuilder("sentence02-must-sub3-sub3.dat"));
-		sentence_02.addMultipleChoiceToMust(treeBuilder("sentence02-must-sub1.dat"),treeBuilder("sentence02-must-sub2.dat"),treeBuilder("sentence02-must-sub3.dat"));
-		
-		
-		sentence_02.addMultipleChoiceToCan(treeBuilder("sentence02-can-sub1.dat"),treeBuilder("sentence02-can-sub2.dat"));
-//		sentence_02.substituteCopyInTemplate(treeBuilder("sentence02-can-sub1.dat"));		
-		
 //		sentence_02.showTreeInfo();
 //		sentence_02.showMustUseTrees();
 //		sentence_02.showCanUseTrees();
@@ -337,6 +550,14 @@ public static void treeTest (){
 
 		testResult = sentence_02.isApplicable(testSequence2);
 		System.out.println("sent2 + seq2 = "+testResult);
+		
+		List<List<String>> fileList = new ArrayList<List<String>>();
+		fileList = TemplateFileReader.processFile("template01.dat");
+		System.out.println(fileList.size());
+		
+		TemplateFileReader.fileDistributor(TemplateFileReader.processFile("template01.dat"));
+		
+		
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms
@@ -364,5 +585,58 @@ public static void treeTest (){
 		 */
 		
 		
+	}
+	
+	//TODO
+	public static Node buildNodeFromList(List<String> treeList, String topic) {
+
+		Node templateNode = new Node();
+
+		if (treeList.get(0).matches("[a-zA-Z0-9<>\\^\\*_,\\(\\)]*")) {
+
+			if (treeList.size() == 1) {						// Determiner plus one line formula
+
+				templateNode = TreeGenerator.formulaTreebuilder(treeList.get(0));
+
+			} else {
+
+				System.out.println("ERROR - tree formula can only be one line");
+			}
+		} else if (TreeGenerator.quobiTreeValidator(treeList)) {
+
+			templateNode = TreeGenerator.quobiTreeBuilder(treeList);
+
+		} else {
+
+			System.out.println("ERROR - Base-Tree has no excepted representation");
+		}
+		
+		return templateNode;
+	}
+	
+	//TODO
+	public static boolean quobiTreeValidator(List<String> representation) {
+		
+		boolean treeCorrect = false;
+		for (int i = 1; i < representation.size(); i++) {
+		
+			if (representation.get(i).matches("\\\\(leaf|branch)[\\\\a-zA-Z0-9{}\\-<>\\^\\*]*")) {
+				
+				treeCorrect = true;
+				
+			} else {
+				System.out.println(representation.get(i));
+				treeCorrect = false;
+				break;
+			}
+		}
+		
+		if (!treeCorrect) {
+			
+			System.out.println("ERROR - Base-Tree quobitree is wrong");
+						
+		}
+		
+		return treeCorrect;
 	}
 }

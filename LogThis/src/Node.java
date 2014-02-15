@@ -54,6 +54,7 @@ public class Node {
 	 * @param terminal
 	 * @param substitute
 	 * @param foot
+	 * @param slot
 	 * @param data
 	 * @param parent
 	 */
@@ -75,6 +76,7 @@ public class Node {
 	 * @param terminal
 	 * @param substitute
 	 * @param foot
+	 * @param slot
 	 * @param data
 	 */
 	public Node(boolean terminal, boolean substitute, boolean foot, boolean slot,
@@ -109,12 +111,15 @@ public class Node {
 //		super();
 //		this.data = data;
 //	}
+
+	//TODO
 	
 	public Node(String haystack){
 		
 		super();
-		this.buildTreeOutOf(haystack);
+		Node newNode = TreeGenerator.formulaTreebuilder(haystack);
 		
+		this.copyTree(newNode);
 		
 	}
 	
@@ -419,236 +424,240 @@ public class Node {
 		}
 	}
 	
-	/**
-	 * search in haystack for root of tree
-	 * 
-	 * @param haystack the haystack to be searched
-	 */
-	public void buildTreeOutOf(String haystack){
-		
-		String[] splitForm = haystack.split("");
-		
-		int braceCounter = 0;
-		String tmpData = "";
-		String rootData = "";
-		String childrenData ="";
-		
-		for (int i = 0; i < splitForm.length; i++) {
-			if (splitForm[i].equals("(")) {
-				if (braceCounter == 0) {
-					rootData = tmpData;
-					tmpData = "";
-				} else {
-					
-					tmpData += splitForm[i];
-					
-				}
-				braceCounter++;				
-				
-			} else if (splitForm[i].equals(")")) {
-				
-				braceCounter--;
-				
-				if (braceCounter == 0) {
-					
-					childrenData = tmpData;
-					
-				} else {
-					
-					tmpData += splitForm[i];
-					
-				}
-				
-			} else {
-				
-				tmpData += splitForm[i];
-				
-			}
-		}
-
-		this.data = rootData;
-		this.findChildrenIn(childrenData);
-		
-	}
-	/**
-	 * search in haystack and add Children to tree
-	 * 
-	 * divide the haystack in four parts, left and right node 
-	 * and the sub-haystacks for each node. Call recursive 
-	 * function on sub-haystacks
-	 * 
-	 * @param haystack the haystack in which to search
-	 */
-	public void findChildrenIn(String haystack){
-		
-		haystack += "#";									// mark end of haystack
-		String[] straws = haystack.split("");
-		String leftNodeStraws = "";
-		String rightNodeStraws = "";
-		String leftSubHaystack = "";
-		String rightSubHaystack = "";
-		String tmpStraws = "";
-		
-		Node rightNode = new Node();
-		Node leftNode = new Node();
-		
-		boolean terminal = true;
-		
-		boolean leftSubstitute = false;
-		boolean leftFoot = false;
-		
-		boolean rightSubstitute = false;
-		boolean rightFoot = false;
-		
-		int braceCounter = 0;								
-		boolean left = true;
-		/*
-		 * mine the haystack for the four elements, left child, right child, left sub-haystack, right sub-haystack
-		 */
-		
-		for (int i = 0; i < straws.length; i++) {			// run once through complete haystack
-			
-			if (straws[i].equals("(")) {					// open braces are either
-			
-				terminal = false;
-				
-				if (braceCounter == 0) {					// the end of the child node if it is the first left brace
-					
-					if (left) {
-						
-						leftNodeStraws += tmpStraws;
-						
-					} else {
-						
-						rightNodeStraws += tmpStraws;
-					}
-					
-					tmpStraws= "";
-					
-				} else {									// or part of a sub-haystack if braceCount is > 1
-					
-					tmpStraws += straws[i];
-				}
-				
-				braceCounter++;
-				
-			} else if (straws[i].equals(")")) {				// right braces are either
-				
-				braceCounter--;
-
-				if (braceCounter == 0) {					// the end of the sub-haystack if braceCount is 0
-					if (left) {
-
-						leftSubHaystack += tmpStraws;
-						
-					} else {
-						
-						rightSubHaystack += tmpStraws;
-					}
-
-					tmpStraws = "";
-					
-				} else {									// or part of the sub-haystack if braceCount is still larger
-					
-					tmpStraws += straws[i];
-				}
-				
-			} else if (straws[i].equals("^") && braceCounter == 0) {	// flag as substitute if it is outside of main braces
-				
-				if (left) {
-		
-					leftSubstitute = true;
-					
-				} else {
-					
-					rightSubstitute = true;
-				}
-
-			} else if (straws[i].equals("*") && braceCounter == 0) {	// flag as foot if it is outside of main braces
-				
-				if (left) {
-		
-					leftFoot = true;
-					
-				} else {
-					
-					rightFoot = true;
-				}
-
-			} else if (straws[i].equals(",") && braceCounter == 0) {	// , outside of main braces signifies end of left half, meaning
-				
-				if (terminal) {											// either the left parent if no braces on left side
-					
-					leftNodeStraws += tmpStraws;
-
-				} else {												// or the left sub-haystack if there were braces
-				
-					leftSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
-				}
-				
-				tmpStraws = "";
-				left = false;										// switch to right parent and children
-				terminal = true;									// reset flag
-				
-			} else if (straws[i].equals("#")) {						// end of haystack -> end of right half, meaning
-				
-				if (terminal) {										// either the right parent if no braces on right side
-					
-					rightNodeStraws += tmpStraws;
-					
-				} else {											// or the right sub-haystack if there were braces
-					
-					rightSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
-				}
-				
-			} else {
-					
-					tmpStraws += straws[i];							// no conditions -> still within a word
-			}
-		}
-		/*
-		 * creating the tree out of the mined data
-		 */
-		terminal = false;
-				
-		if (leftSubHaystack.isEmpty() && !leftSubstitute && !leftFoot) {
-			
-			terminal = true;
-			
-		}
-		if (!leftNodeStraws.contentEquals("_")) {
-			
-			leftNode = new Node(terminal, leftSubstitute, leftFoot, false, leftNodeStraws, this);
-			this.setLeftChild(leftNode);
-			
-		}
-		terminal = false;
-		
-		if(rightSubHaystack.isEmpty() && !rightSubstitute && !rightFoot){
-			
-			terminal = true;
-			
-		}
-		
-		if (!rightNodeStraws.contentEquals("_")) {
-		
-			rightNode = new Node(terminal, rightSubstitute, rightFoot, false, rightNodeStraws, this);
-			this.setRightChild(rightNode);
-		
-		}
-		
-		terminal = false;
-		
-		if (!leftSubHaystack.isEmpty()) {
-			leftNode.findChildrenIn(leftSubHaystack);
-			
-		}
-		
-		if (!rightSubHaystack.isEmpty()) {
-			rightNode.findChildrenIn(rightSubHaystack);
-			
-		}
-	}
+//	/**
+//	 * search in haystack for root of tree
+//	 * 
+//	 * @param haystack the haystack to be searched
+//	 */
+//	public void buildTreeOutOf(String haystack){
+//		
+//		String[] splitForm = haystack.split("");
+//		
+//		int braceCounter = 0;
+//		String tmpData = "";
+//		String rootData = "";
+//		String childrenData ="";
+//		
+//		for (int i = 0; i < splitForm.length; i++) {
+//			
+//			if (splitForm[i].equals("(")) {
+//				
+//				if (braceCounter == 0) {
+//					
+//					rootData = tmpData;
+//					tmpData = "";
+//					
+//				} else {
+//					
+//					tmpData += splitForm[i];
+//					
+//				}
+//				braceCounter++;				
+//				
+//			} else if (splitForm[i].equals(")")) {
+//				
+//				braceCounter--;
+//				
+//				if (braceCounter == 0) {
+//					
+//					childrenData = tmpData;
+//					
+//				} else {
+//					
+//					tmpData += splitForm[i];
+//					
+//				}
+//				
+//			} else {
+//				
+//				tmpData += splitForm[i];
+//				
+//			}
+//		}
+//
+//		this.data = rootData;
+//		this.findChildrenIn(childrenData);
+//		
+//	}
+//	/**
+//	 * search in haystack and add Children to tree
+//	 * 
+//	 * divide the haystack in four parts, left and right node 
+//	 * and the sub-haystacks for each node. Call recursive 
+//	 * function on sub-haystacks
+//	 * 
+//	 * @param haystack the haystack in which to search
+//	 */
+//	public void findChildrenIn(String haystack){
+//		
+//		haystack += "#";									// mark end of haystack
+//		String[] straws = haystack.split("");
+//		String leftNodeStraws = "";
+//		String rightNodeStraws = "";
+//		String leftSubHaystack = "";
+//		String rightSubHaystack = "";
+//		String tmpStraws = "";
+//		
+//		Node rightNode = new Node();
+//		Node leftNode = new Node();
+//		
+//		boolean terminal = true;
+//		
+//		boolean leftSubstitute = false;
+//		boolean leftFoot = false;
+//		
+//		boolean rightSubstitute = false;
+//		boolean rightFoot = false;
+//		
+//		int braceCounter = 0;								
+//		boolean left = true;
+//		/*
+//		 * mine the haystack for the four elements, left child, right child, left sub-haystack, right sub-haystack
+//		 */
+//		
+//		for (int i = 0; i < straws.length; i++) {			// run once through complete haystack
+//			
+//			if (straws[i].equals("(")) {					// open braces are either
+//			
+//				terminal = false;
+//				
+//				if (braceCounter == 0) {					// the end of the child node if it is the first left brace
+//					
+//					if (left) {
+//						
+//						leftNodeStraws += tmpStraws;
+//						
+//					} else {
+//						
+//						rightNodeStraws += tmpStraws;
+//					}
+//					
+//					tmpStraws= "";
+//					
+//				} else {									// or part of a sub-haystack if braceCount is > 1
+//					
+//					tmpStraws += straws[i];
+//				}
+//				
+//				braceCounter++;
+//				
+//			} else if (straws[i].equals(")")) {				// right braces are either
+//				
+//				braceCounter--;
+//
+//				if (braceCounter == 0) {					// the end of the sub-haystack if braceCount is 0
+//					if (left) {
+//
+//						leftSubHaystack += tmpStraws;
+//						
+//					} else {
+//						
+//						rightSubHaystack += tmpStraws;
+//					}
+//
+//					tmpStraws = "";
+//					
+//				} else {									// or part of the sub-haystack if braceCount is still larger
+//					
+//					tmpStraws += straws[i];
+//				}
+//				
+//			} else if (straws[i].equals("^") && braceCounter == 0) {	// flag as substitute if it is outside of main braces
+//				
+//				if (left) {
+//		
+//					leftSubstitute = true;
+//					
+//				} else {
+//					
+//					rightSubstitute = true;
+//				}
+//
+//			} else if (straws[i].equals("*") && braceCounter == 0) {	// flag as foot if it is outside of main braces
+//				
+//				if (left) {
+//		
+//					leftFoot = true;
+//					
+//				} else {
+//					
+//					rightFoot = true;
+//				}
+//
+//			} else if (straws[i].equals(",") && braceCounter == 0) {	// , outside of main braces signifies end of left half, meaning
+//				
+//				if (terminal) {											// either the left parent if no braces on left side
+//					
+//					leftNodeStraws += tmpStraws;
+//
+//				} else {												// or the left sub-haystack if there were braces
+//				
+//					leftSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
+//				}
+//				
+//				tmpStraws = "";
+//				left = false;										// switch to right parent and children
+//				terminal = true;									// reset flag
+//				
+//			} else if (straws[i].equals("#")) {						// end of haystack -> end of right half, meaning
+//				
+//				if (terminal) {										// either the right parent if no braces on right side
+//					
+//					rightNodeStraws += tmpStraws;
+//					
+//				} else {											// or the right sub-haystack if there were braces
+//					
+//					rightSubHaystack += tmpStraws;					// this is probably always "" because of ")"-condition, I am too lazy
+//				}
+//				
+//			} else {
+//					
+//					tmpStraws += straws[i];							// no conditions -> still within a word
+//			}
+//		}
+//		/*
+//		 * creating the tree out of the mined data
+//		 */
+//		terminal = false;
+//				
+//		if (leftSubHaystack.isEmpty() && !leftSubstitute && !leftFoot) {
+//			
+//			terminal = true;
+//			
+//		}
+//		if (!leftNodeStraws.contentEquals("_")) {
+//			
+//			leftNode = new Node(terminal, leftSubstitute, leftFoot, false, leftNodeStraws, this);
+//			this.setLeftChild(leftNode);
+//			
+//		}
+//		terminal = false;
+//		
+//		if(rightSubHaystack.isEmpty() && !rightSubstitute && !rightFoot){
+//			
+//			terminal = true;
+//			
+//		}
+//		
+//		if (!rightNodeStraws.contentEquals("_")) {
+//		
+//			rightNode = new Node(terminal, rightSubstitute, rightFoot, false, rightNodeStraws, this);
+//			this.setRightChild(rightNode);
+//		
+//		}
+//		
+//		terminal = false;
+//		
+//		if (!leftSubHaystack.isEmpty()) {
+//			leftNode.findChildrenIn(leftSubHaystack);
+//			
+//		}
+//		
+//		if (!rightSubHaystack.isEmpty()) {
+//			rightNode.findChildrenIn(rightSubHaystack);
+//			
+//		}
+//	}
 
 	/**
 	 * Method to create a copy of given Tree

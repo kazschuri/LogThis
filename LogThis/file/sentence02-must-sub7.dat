@@ -1,9 +1,0 @@
-# Substitute for Sentence 02 Base
-# NP2 = DET-human^ user
-# (NP2^ enters NP1^ VP1^)
-
- \leaf{\emph{DET-human^}}
- \leaf{\emph{user}}
- \branch{1}{N}
- \branch{1}{N}
- \branch{2}{NP2}

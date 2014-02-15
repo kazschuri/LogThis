@@ -1,0 +1,83 @@
+# Inputfile for Template
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree or formula
+
+
+<<Must-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<set>
+    <tree>
+    </tree>
+</set>
+
+<<Can-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= >
+#   <subcat= >
+#   <element= >
+#   <exists= >
+#   <link= > (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=With_Human>
+    <exists=true>
+    <link=none>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=current>
+    <element=No_Human>
+    <exists=false>
+    <link=AND>
+</cond>

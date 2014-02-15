@@ -1,0 +1,231 @@
+# Inputfile for Template
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree or formula
+
+# NP1^ enters DET2^ N2^ VP1^
+# (Beispiel: a worker enters the workarea with arms down)
+
+ \leaf{\emph{NP2^}}
+ \leaf{\emph{enters}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{NP1^}}
+ \branch{2}{VP}
+ \leaf{\emph{VP1^}}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+        # NP1 = DET-place^ workplace
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workplace}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+    <tree>
+        # NP1 = DET-place^ workarea
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workarea}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+    <tree>
+        # NP1 = DET-place^ workroom
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workroom}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+</set>
+
+<set>
+    <tree>
+        # DET-place = the
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{the}}
+         \branch{1}{DET-place}
+    </tree>
+    <tree>
+        # DET-place = a
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{a}}
+         \branch{1}{DET-place}
+    </tree>
+    <tree>
+        # DET-place = 
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{}}
+         \branch{1}{DET-place}
+    </tree>
+</set>
+
+<set>
+    <tree>
+        # NP2 = DET-human^ human
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-human^}}
+         \leaf{\emph{human}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP2}
+    </tree>
+    <tree>
+        # NP2 = DET-human^ worker
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-human^}}
+         \leaf{\emph{worker}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP2}
+    </tree>
+    <tree>
+        # NP2 = DET-human^ user
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-human^}}
+         \leaf{\emph{user}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP2}
+    </tree>
+</set>
+
+<set>
+    <tree>
+        # DET-human = the
+        # (Det-human^ human/worker/user)
+        
+         \leaf{\emph{the}}
+         \branch{1}{DET-human}
+    </tree>
+    <tree>
+        # DET-human = a
+        # (Det-human^ human/worker/user)
+        
+         \leaf{\emph{a}}
+         \branch{1}{DET-human}
+    </tree>
+    <tree>
+        # DET-human = 
+        # (Det-human^ human/worker/user)
+        
+         \leaf{\emph{}}
+         \branch{1}{DET-human}
+    </tree>
+</set>
+
+<<Can-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+        # Substitute for Base
+        # VP1 = with his arms down
+        # (DET1^ N1^ enters DET2^ N2^ VP1^)
+        
+         \leaf{\emph{with}}
+         \branch{1}{P}
+         \leaf{\emph{his}}
+         \branch{1}{DET}
+         \leaf{\emph{arms}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP}
+         \branch{2}{VP}
+        
+         \leaf{\emph{down}}
+         \branch{1}{PP}
+        
+         \branch{2}{VP1}
+    </tree>
+    <tree>
+        # Substitute for Sentence 02 Base
+        # VP1 = with his arms by his side
+        # (DET1^ N1^ enters DET2^ N2^ VP1^)
+        
+         \leaf{\emph{with}}
+         \branch{1}{P}
+         \leaf{\emph{his}}
+         \branch{1}{DET}
+         \leaf{\emph{arms}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP}
+         \branch{2}{VP}
+        
+         \leaf{\emph{by}}
+         \branch{1}{P}
+         \leaf{\emph{his}}
+         \branch{1}{DET}
+         \leaf{\emph{side}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP}
+         \branch{2}{PP1}
+        
+         \branch{2}{VP1}
+    </tree>
+</set>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= >
+#   <subcat= >
+#   <element= >
+#   <exists= >
+#   <link= > (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=With_Human>
+    <exists=true>
+    <link=none>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=current>
+    <element=No_Human>
+    <exists=false>
+    <link=AND>
+</cond>

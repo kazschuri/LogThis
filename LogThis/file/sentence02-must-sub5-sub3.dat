@@ -1,6 +1,0 @@
-# Substitute for Sentence 02 Base
-# DET-human = 
-# (Det-human^ human/worker/user)
-
- \leaf{\emph{}}
- \branch{1}{DET-human}
