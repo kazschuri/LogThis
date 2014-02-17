@@ -219,7 +219,7 @@
     <subcat=newborn>
     <element=With_Human>
     <exists=true>
-    <link=none>
+    <link=AND>
 </cond>
 
 <cond>

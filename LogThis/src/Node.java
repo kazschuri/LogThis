@@ -112,8 +112,11 @@ public class Node {
 //		this.data = data;
 //	}
 
-	//TODO
-	
+	/**
+	 * construct Node from haystack-formula
+	 *  	
+	 * @param haystack the haystack to build the tree from
+	 */
 	public Node(String haystack){
 		
 		super();

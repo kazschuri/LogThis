@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class LinkedConditions {
 
@@ -44,6 +47,29 @@ public class LinkedConditions {
 	}
 
 	/**
+	 * add a single condition to the end of conditions
+	 * 
+	 * @param condition the condition to add
+	 */
+	public void addCondition(Condition condition) {
+		
+		List<Condition> tmpConditions = new ArrayList<Condition>();
+		
+		for (Condition line : this.conditions) {
+			
+			tmpConditions.add(line);
+			
+		}
+		
+		tmpConditions.add(condition);
+		
+		Condition[] tmpArray = new Condition[tmpConditions.size()];
+		tmpArray = tmpConditions.toArray(tmpArray);
+		
+		this.conditions = tmpArray; 
+		
+	}
+	/**
 	 * @return the links
 	 */
 	public String[] getLinks() {
@@ -57,6 +83,34 @@ public class LinkedConditions {
 	public void setLinks(String[] links) {
 	
 		this.links = links;
+	}
+	
+	/**
+	 * add a single link to the end of links
+	 * 
+	 * @param newLink the link to add
+	 */
+	public void addLink(String newLink) {
+		
+		List<String> tmpOldLinks = new ArrayList<String>();
+		
+		for (String line : this.links) {
+			
+			tmpOldLinks.add(line);
+			
+		}
+		
+		if (tmpOldLinks.size()>0) {
+			
+			tmpOldLinks.add(newLink);
+			
+		}
+				
+		String[] tmpArray = new String[tmpOldLinks.size()];
+		tmpArray = tmpOldLinks.toArray(tmpArray);
+		
+		this.links = tmpArray; 
+		
 	}
 
 	
@@ -96,5 +150,4 @@ public class LinkedConditions {
 		
 		return currentResult;
 	}
-	
 }

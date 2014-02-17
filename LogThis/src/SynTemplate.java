@@ -422,6 +422,17 @@ public class SynTemplate {
 	}
 
 	/**
+	 * add one set of condition and link to linConds
+	 * 
+	 * @param condition the condition to add
+	 */
+	public void addLinConds(Condition condition, String link) {
+		
+		this.getLinConds().addCondition(condition);
+		this.getLinConds().addLink(link);
+		
+	}
+	/**
 	 * @return the topics
 	 */
 	public String[] getTopics() {

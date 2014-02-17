@@ -7,24 +7,14 @@ import java.util.Stack;
 
 public class TreeGenerator {
 
-	//TODO
 	/**
-	 * Container to build a tree from a given file and returns the root
-	 * File format is LaTeX quobitree with leading whitespace
-	 * and every line that does not start with " \" is ignored
-	 *
-	 * this Container could handle exception ...
-	 * 
-	 * @param filename the name of the file
-	 * @return treeRoot
-	 * 
 	 * Builds a tree from haystack and returns the root
 	 * haystack format is LaTeX quobitree
-	 * and every line that does not start with " \" is ignored 
+	 * and every line that does not start with "\" is ignored 
 	 * 
-	 * @param filename
-	 * @return
-	 * @throws IOException
+	 * @param haystack the haystack to be searched and sorted
+	 *
+	 * @return treeRoot the root of the new tree
 	 */
 	public static Node quobiTreeBuilder(List<String> haystack) {
 		
@@ -126,20 +116,17 @@ public class TreeGenerator {
 		
 		treeRoot = nodeStack.pop();
 		
-		treeRoot.showLeafs();
-		System.out.println();
+//		treeRoot.showLeafs();
+//		System.out.println();
 		return treeRoot;
 	}
 
-	
-	
-	
-	
-	//TODO
 	/**
 	 * search in haystack for root of tree
 	 * 
 	 * @param haystack the haystack to be searched
+	 * 
+	 * @return rootNode the rootNode of the tree
 	 */
 	public static Node formulaTreebuilder(String haystack){
 		
@@ -196,15 +183,15 @@ public class TreeGenerator {
 		
 	}
 	
-	//TODO
 	/**
-	 * search in haystack and add Children to tree
+	 * search in haystack and add Children to parentNode
 	 * 
 	 * divide the haystack in four parts, left and right node 
 	 * and the sub-haystacks for each node. Call recursive 
 	 * function on sub-haystacks
 	 * 
 	 * @param haystack the haystack in which to search
+	 * @param parentNode the parentNode of the searched for Children
 	 */
 	public static void findChildrenIn(String haystack, Node parentNode){
 		
@@ -380,59 +367,7 @@ public class TreeGenerator {
 	
 public static void treeTest (){
 		
-//		Node node1 = new Node();
-//		Node node5 = new Node();
-//		Node node7 = new Node();
-//		Node node12 = new Node();
-//		
-//		node1.buildTreeOutOf("np(d^,n(boy,_))");
-//		node5.buildTreeOutOf("d(the,_)");
-//		node7.buildTreeOutOf("s(np^,vp(_,v(_,left)))");
-//		node12.buildTreeOutOf("vp(vp*,adv(today,_))");
-//		
-//		node1.showTerminal();
-//		node1.substitute(node5);
-//		
-//		System.out.println();
-//		
-//		node1.showTerminal();
-//		
-//		node7.substitute(node1);
-//		
-//		System.out.println();
-//		
-//		node7.showTerminal();
-//		
-//		node7.adjoin(node12);
-//		
-//		System.out.println();
-//		
-//		node7.showTerminal();
-//		System.out.println();
-//		System.out.println(node7.showTree());
-		
-		TestClass test = new TestClass();
 
-		test.addMultipleChoiceToMust("A1", "A2", "A3");
-		test.addMultipleChoiceToMust("B1", "B2", "B3");
-		test.addMultipleChoiceToMust("C1", "C2", "C3");
-		
-		test.addMultipleChoiceToCan("H1","H2","H3");
-		test.addMultipleChoiceToCan("I1","I2","I3");
-		
-		test.showMust();
-		test.showCan();
-		
-		test.handPerm();
-		List<String> permList = new ArrayList<String>();
-		
-		TestClass.getAllPermutationsOf(test.must, 0, "", permList);
-		
-		for (int i = 0; i < permList.size(); i++) {
-			
-			System.out.println(permList.get(i));
-			
-		}
 	}
 
 	public static void synTrees(){
@@ -461,17 +396,6 @@ public static void treeTest (){
 		/*
 		 * workarea is empty
 		 */
-		Node sent_02 = new Node("NP(D^,N^)");				// d^ n^
-		Node sent_03 = new Node("VP(VP*,ADV(empty,_))"); 	// vp* empty
-		Node sent_04 = new Node("D(the,_)");				// d = the
-		Node sent_09 = new Node("D(this,_)");				// d = this
-		
-		Node sent_08 = new Node("N(workplace,_)");			// n = workplace
-		Node sent_10 = new Node("N(workspace,_)");			// n = workspace
-		Node sent_11 = new Node("N(workarea,_)");			// n = workarea
-		
-		Node sent_05 = new Node("D(an,_)");					// D = an
-		Node sent_06 = new Node("D(a,_)");					// D = a
 
 //http://erg.delph-in.net/logon
 		
@@ -505,8 +429,8 @@ public static void treeTest (){
 //		}
 		
 		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees(), false);
-		sentence_02.showTreeInfo();
-		sentence_02.showCanUseTrees();
+//		sentence_02.showTreeInfo();
+//		sentence_02.showCanUseTrees();
 		
 		Condition cond2 = new Condition("Sequence", "newborn", "With_Human", true);
 		Condition cond1 = new Condition("Sequence", "dying", "No_Human", true);
@@ -539,23 +463,27 @@ public static void treeTest (){
 		
 		boolean testResult = false;
 		
-		testResult = sentence_01.isApplicable(testSequence1);
-		System.out.println("sent1 + seq1 = "+testResult);
+//		testResult = sentence_01.isApplicable(testSequence1);
+//		System.out.println("sent1 + seq1 = "+testResult);
+//		
+//		testResult = sentence_01.isApplicable(testSequence2);
+//		System.out.println("sent1 + seq2 = "+testResult);
+//
+//		testResult = sentence_02.isApplicable(testSequence1);
+//		System.out.println("sent2 + seq1 = "+testResult);
+//
+//		testResult = sentence_02.isApplicable(testSequence2);
+//		System.out.println("sent2 + seq2 = "+testResult);
 		
-		testResult = sentence_01.isApplicable(testSequence2);
-		System.out.println("sent1 + seq2 = "+testResult);
-
-		testResult = sentence_02.isApplicable(testSequence1);
-		System.out.println("sent2 + seq1 = "+testResult);
-
-		testResult = sentence_02.isApplicable(testSequence2);
-		System.out.println("sent2 + seq2 = "+testResult);
+		SynTemplate sentence_03 = new SynTemplate();
+		sentence_03 = TemplateBuilder.buildFromFile("template01.dat", true);
+//		sentence_03.showTreeInfo();
 		
-		List<List<String>> fileList = new ArrayList<List<String>>();
-		fileList = TemplateFileReader.processFile("template01.dat");
-		System.out.println(fileList.size());
+		testResult = sentence_03.isApplicable(testSequence1);
+//		System.out.println("sent3 + seq1 = "+testResult);
 		
-		TemplateFileReader.fileDistributor(TemplateFileReader.processFile("template01.dat"));
+		testResult = sentence_03.isApplicable(testSequence2);
+//		System.out.println("sent3 + seq2 = "+testResult);
 		
 		
 		/*
@@ -586,17 +514,31 @@ public static void treeTest (){
 		
 		
 	}
-	
-	//TODO
-	public static Node buildNodeFromList(List<String> treeList, String topic) {
 
-		Node templateNode = new Node();
+	/**
+	 * Container that creates a new tree from a given list of strings
+	 * 
+	 * @param treeList the List that the tree should be build from
+	 * @param topic the topic for which error messages should be given
+	 * @param verbose flag for showing building information
+	 * 
+	 * @return the treeRoot
+	 */
+	public static Node buildNodeFromList(List<String> treeList, String topic, boolean verbose) {
+
+		Node treeRoot = new Node();
 
 		if (treeList.get(0).matches("[a-zA-Z0-9<>\\^\\*_,\\(\\)]*")) {
 
-			if (treeList.size() == 1) {						// Determiner plus one line formula
+			if (treeList.size() == 1) {											// formula has just one line
 
-				templateNode = TreeGenerator.formulaTreebuilder(treeList.get(0));
+				treeRoot = TreeGenerator.formulaTreebuilder(treeList.get(0));
+				
+				if (verbose) {
+					System.out.print("formula result: ");
+					treeRoot.showLeafs();
+					System.out.println();
+				}
 
 			} else {
 
@@ -604,39 +546,52 @@ public static void treeTest (){
 			}
 		} else if (TreeGenerator.quobiTreeValidator(treeList)) {
 
-			templateNode = TreeGenerator.quobiTreeBuilder(treeList);
+			treeRoot = TreeGenerator.quobiTreeBuilder(treeList);
+			
+			if (verbose) {
+				System.out.print("quobi result: ");
+				treeRoot.showLeafs();
+				System.out.println();
+			}
 
 		} else {
 
-			System.out.println("ERROR - Base-Tree has no excepted representation");
+			System.out.println("ERROR - "+topic+" has no excepted representation");
 		}
 		
-		return templateNode;
+		return treeRoot;
 	}
 	
-	//TODO
+	/**
+	 * Validator method for quobi trees, returns true if it has the right nomenclature
+	 * It does not check, if the tree is sound in itself
+	 * 
+	 * @param representation the representation that is to be validated
+	 * 
+	 * @return if it isCorrectSyntax
+	 */
 	public static boolean quobiTreeValidator(List<String> representation) {
 		
-		boolean treeCorrect = false;
+		boolean isCorrectSyntax = false;
 		for (int i = 1; i < representation.size(); i++) {
 		
 			if (representation.get(i).matches("\\\\(leaf|branch)[\\\\a-zA-Z0-9{}\\-<>\\^\\*]*")) {
 				
-				treeCorrect = true;
+				isCorrectSyntax = true;
 				
 			} else {
 				System.out.println(representation.get(i));
-				treeCorrect = false;
+				isCorrectSyntax = false;
 				break;
 			}
 		}
 		
-		if (!treeCorrect) {
+		if (!isCorrectSyntax) {
 			
 			System.out.println("ERROR - Base-Tree quobitree is wrong");
 						
 		}
 		
-		return treeCorrect;
+		return isCorrectSyntax;
 	}
 }
