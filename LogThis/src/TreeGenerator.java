@@ -365,13 +365,10 @@ public class TreeGenerator {
 		}
 	}
 	
-public static void treeTest (){
-		
-
-	}
-
 	public static void synTrees(){
 		/*
+		 * http://erg.delph-in.net/logon
+		 * 
 		 * S = Satz	
 		 * D = Determinierer (Der, Ein)
 		 * N = Nomen
@@ -397,102 +394,15 @@ public static void treeTest (){
 		 * workarea is empty
 		 */
 
-//http://erg.delph-in.net/logon
-		
-		SynTemplate sentence_01 = new SynTemplate();
-		
-//		sentence_01.showTreeInfo();
-		
-		SynTemplate sentence_02 = new SynTemplate();
-		
-//		sentence_02.showTreeInfo();
-//		sentence_02.showTreeInfo();
-//		sentence_02.showMustUseTrees();
-//		sentence_02.showCanUseTrees();
-		
-//		List<List<Node>> permuteList = new ArrayList<List<Node>>();
-//		List<Node> parent = new ArrayList<Node>();
-//		
-//		List<List<Node>> resultList = new ArrayList<List<Node>>();
-//		
-//		resultList = SynTemplate.getAllPermutationsOf(sentence_02.getMustUseTrees(), 0, parent, permuteList);
-//		
-//		for (int i = 0; i < resultList.size(); i++) {
-//			
-//			for (int j = 0; j < resultList.get(i).size(); j++) {
-//				
-//				resultList.get(i).get(j).showLeafs();
-//				System.out.print(" / ");
-//			}
-//			
-//			System.out.println();
-//		}
-		
-		SynTemplate.displayRandomPermutation(sentence_02.getMustUseTrees(), false);
-//		sentence_02.showTreeInfo();
-//		sentence_02.showCanUseTrees();
-		
-		Condition cond2 = new Condition("Sequence", "newborn", "With_Human", true);
-		Condition cond1 = new Condition("Sequence", "dying", "No_Human", true);
-		Condition cond3 = new Condition("Sequence", "current", "No_Human", false);
-		Condition cond4 = new Condition("Sequence", "current", "Ignore", true);
-		
-		Condition[] condSet1 = {cond1, cond4};
-		Condition[] condSet2 = {cond2, cond3};
-		
-		String[] link1 = {"OR"};
-		String[] link2 = {"AND"};
-		
-		LinkedConditions linCond1 = new LinkedConditions(condSet1, link1);
-		LinkedConditions linCond2 = new LinkedConditions(condSet2, link2);
-		
-		sentence_01.setLinConds(linCond1);
-		sentence_02.setLinConds(linCond2);
-		
-		String[] dye1 = {"No_Human;situation","Follow_Path;expectation"};
-		String[] grow1 = {"Left_Arm_Down;action","Right_Arm_Down;action"};
-		String[] newborn1 = {"With_Human;situation","Distraction;situation","Stand_Still;activity","Ignore;activity"};
-		
-		Sequence testSequence1 = new Sequence(newborn1, grow1, dye1);
-		
-		String[] dye2 = {"Follow_Path;expectation"};
-		String[] grow2 = {"No_Human;situation","Left_Arm_Down;action","Right_Arm_Down;action"};
-		String[] newborn2 = {"With_Human;situation","Distraction;situation","Stand_Still;activity","Ignore;activity"};
-		
-		Sequence testSequence2 = new Sequence(newborn2, grow2, dye2);
-		
-		boolean testResult = false;
-		
-//		testResult = sentence_01.isApplicable(testSequence1);
-//		System.out.println("sent1 + seq1 = "+testResult);
-//		
-//		testResult = sentence_01.isApplicable(testSequence2);
-//		System.out.println("sent1 + seq2 = "+testResult);
-//
-//		testResult = sentence_02.isApplicable(testSequence1);
-//		System.out.println("sent2 + seq1 = "+testResult);
-//
-//		testResult = sentence_02.isApplicable(testSequence2);
-//		System.out.println("sent2 + seq2 = "+testResult);
-		
-		SynTemplate sentence_03 = new SynTemplate();
-		sentence_03 = TemplateBuilder.buildFromFile("template01.dat", true);
-//		sentence_03.showTreeInfo();
-		
-		testResult = sentence_03.isApplicable(testSequence1);
-//		System.out.println("sent3 + seq1 = "+testResult);
-		
-		testResult = sentence_03.isApplicable(testSequence2);
-//		System.out.println("sent3 + seq2 = "+testResult);
-		
-		
 		/*
 		 * a human/user/person enters the workspace
 		 * a human enters the workspace with hanging arms
 		 * a human enters with his arms hanging down/by his side
 		 * a worker comes in/into the workspace
 		 */
-		
+
+		SynTemplate sentence_01 = new SynTemplate();
+		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
 		/* 
 		 * the worker stands still
 		 * a worker stands in the workarea

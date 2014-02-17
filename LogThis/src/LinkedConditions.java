@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -53,13 +54,7 @@ public class LinkedConditions {
 	 */
 	public void addCondition(Condition condition) {
 		
-		List<Condition> tmpConditions = new ArrayList<Condition>();
-		
-		for (Condition line : this.conditions) {
-			
-			tmpConditions.add(line);
-			
-		}
+		List<Condition> tmpConditions = new ArrayList<Condition>(Arrays.asList(this.conditions));
 		
 		tmpConditions.add(condition);
 		
@@ -67,7 +62,6 @@ public class LinkedConditions {
 		tmpArray = tmpConditions.toArray(tmpArray);
 		
 		this.conditions = tmpArray; 
-		
 	}
 	/**
 	 * @return the links
@@ -92,13 +86,7 @@ public class LinkedConditions {
 	 */
 	public void addLink(String newLink) {
 		
-		List<String> tmpOldLinks = new ArrayList<String>();
-		
-		for (String line : this.links) {
-			
-			tmpOldLinks.add(line);
-			
-		}
+		List<String> tmpOldLinks = new ArrayList<String>(Arrays.asList(this.links));
 		
 		if (tmpOldLinks.size()>0) {
 			
