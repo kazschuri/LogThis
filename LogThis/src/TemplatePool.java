@@ -16,6 +16,13 @@ public class TemplatePool {
 		this.pool = pool;
 	}
 
+	public TemplatePool() {
+		super();
+		SynTemplate tmpSyn = new SynTemplate();
+		SynTemplate[] tmpArr = {tmpSyn};
+		this.pool = tmpArr;
+	}
+	
 	/**
 	 * add a single template to the end of the pool
 	 * 
@@ -25,15 +32,39 @@ public class TemplatePool {
 		
 		List<SynTemplate> tmpPool = new ArrayList<SynTemplate>(Arrays.asList(this.pool));
 		
+		if (this.pool[0].getTemplate().getData().equals("")) {
+			
+			tmpPool = new ArrayList<SynTemplate>();
+			
+		}
+		
 		tmpPool.add(template);
 		
 		SynTemplate[] tmpArray = new SynTemplate[tmpPool.size()];
 		tmpArray = tmpPool.toArray(tmpArray);
 		
 		this.pool = tmpArray; 
+//		System.out.println(pool.length);
 		
 	}
 
+	// TODO
+	public List<SynTemplate> findApplicable(Sequence sequence) {
+		
+		List<SynTemplate> applicableSequences = new ArrayList<SynTemplate>();
+		
+		for (int i = 0; i < this.pool.length; i++) {
+			
+			if(this.pool[i].isApplicable(sequence)) {
+				
+				applicableSequences.add(this.pool[i]);
+				
+			}
+		}
+		
+		return applicableSequences;
+	}
+	
 	/**
 	 * @return the pool
 	 */

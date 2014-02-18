@@ -365,7 +365,8 @@ public class TreeGenerator {
 		}
 	}
 	
-	public static void synTrees(){
+	//TODO
+	public static TemplatePool synTrees(){
 		/*
 		 * http://erg.delph-in.net/logon
 		 * 
@@ -382,14 +383,16 @@ public class TreeGenerator {
 		 * AdvP = Adverbphrase
 		 * PP = Präpositionalphrase
 		 */
-		
+		TemplatePool tPool = new TemplatePool();
 		/*
 		 * empty workspace
 		 * workspace is empty
 		 * no human is in the workarea
 		 * nobody there but the bot
 		 */
-		
+		SynTemplate sentence_02 = new SynTemplate();
+		sentence_02 = TemplateBuilder.buildFromFile("template02.dat", false);
+		tPool.addTemplate(sentence_02);
 		/*
 		 * workarea is empty
 		 */
@@ -403,6 +406,8 @@ public class TreeGenerator {
 
 		SynTemplate sentence_01 = new SynTemplate();
 		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
+		tPool.addTemplate(sentence_01);
+		
 		/* 
 		 * the worker stands still
 		 * a worker stands in the workarea
@@ -422,7 +427,7 @@ public class TreeGenerator {
 		 * he does not interact with the robot
 		 */
 		
-		
+		return tPool;
 	}
 
 	/**

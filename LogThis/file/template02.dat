@@ -1,0 +1,140 @@
+# Inputfile for Template
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree or formula
+
+# NP1^ was empty for <time> minutes
+
+ \leaf{\emph{NP1^}}
+ \leaf{\emph{was}}
+ \branch{1}{V}
+ \leaf{\emph{empty}}
+ \branch{1}{AP}
+ \leaf{\emph{for}}
+ \branch{1}{P}
+ \leaf{\emph{<time>}}
+ \branch{1}{ADJ}
+ \leaf{\emph{minutes}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{N}
+ \branch{1}{NP}
+ \branch{2}{PP}
+ \branch{2}{AP}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+        # NP1 = DET-place^ workplace
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workplace}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+    <tree>
+        # NP1 = DET-place^ workarea
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workarea}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+    <tree>
+        # NP1 = DET-place^ workroom
+        # (NP2^ enters NP1^ VP1^)
+        
+         \leaf{\emph{DET-place^}}
+         \leaf{\emph{workroom}}
+         \branch{1}{N}
+         \branch{1}{N}
+         \branch{2}{NP1}
+    </tree>
+</set>
+
+<set>
+    <tree>
+        # DET-place = the
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{the}}
+         \branch{1}{DET-place}
+    </tree>
+    <tree>
+        # DET-place = a
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{a}}
+         \branch{1}{DET-place}
+    </tree>
+    <tree>
+        # DET-place = 
+        # (Det-place^ workplace/workspace/workroom)
+        
+         \leaf{\emph{}}
+         \branch{1}{DET-place}
+    </tree>
+</set>
+
+<<Can-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= >
+#   <subcat= >
+#   <element= >
+#   <exists= >
+#   <link= > (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=No_Human>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=With_Human>
+    <exists=true>
+    <link=OR>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=current>
+    <element=No_Human>
+    <exists=true>
+    <link=AND>
+</cond>

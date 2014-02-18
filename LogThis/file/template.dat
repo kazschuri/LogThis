@@ -67,17 +67,9 @@
 # ...
 
 <cond>
-    <category=Sequence>
-    <subcat=newborn>
-    <element=With_Human>
-    <exists=true>
-    <link=none>
-</cond>
-
-<cond>
-    <category=Sequence>
-    <subcat=current>
-    <element=No_Human>
-    <exists=false>
-    <link=AND>
+    <category=>
+    <subcat=>
+    <element=>
+    <exists=>
+    <link=>
 </cond>

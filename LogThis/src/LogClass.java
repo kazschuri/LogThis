@@ -38,14 +38,17 @@ public class LogClass {
 		String[] filter = {"situation", "activity", "action", "expectation"};
 //		String[] filter = {"situation"};
 //		String[] filter = {""};
-		input.filterScene(filter, true).showAgeingOf();
+//		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
-//		Scene testScene = input.filterScene(filter, true);
+		Scene testScene = input.filterScene(filter, true);
 		
 //		LogGUI.guiing();
+		TemplatePool tPool = TreeGenerator.synTrees();
 		
 //		TreeGenerator.treeTest();
-		TreeGenerator.synTrees();
+		System.out.println("test");
+		LanguageModule.showMatches(tPool, testScene);
+		
 	}
 
 }

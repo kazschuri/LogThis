@@ -127,6 +127,85 @@ public class Scene {
 		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
 	}
 
+	//TODO
+	/**
+	 * output the difference between the sequences of a scene
+	 */
+	public void showAgeingAt(int index){
+		
+		long startTime = System.currentTimeMillis();
+		Sequence[] sequences = this.getSequences();
+
+		String[][] dyingTypes	= new String[sequences.length][];
+		String[][] growingTypes = new String[sequences.length][];
+		String[][] newbornTypes = new String[sequences.length][];
+
+		int stop = index + 1;
+		
+		if (stop > sequences.length) {
+			
+			stop = sequences.length;
+		}
+
+		for (int i = index; i < stop; i++) {					// get the types for each sequence
+
+			dyingTypes[i]	= sequences[i].getDyingTypes();
+			growingTypes[i] = sequences[i].getGrowingTypes();
+			newbornTypes[i] = sequences[i].getNewbornTypes();
+
+		}
+		
+		for (int j = index; j < stop; j++) {
+
+			int sizeOfSequence = sequences[j].getNumberOfFrames();
+
+			System.out.println("_________________________________________________________________________");
+			System.out.println();
+			System.out.println("Sequence "+(j-1)+" zu Sequence "+j+" ("+sizeOfSequence+" Frames):");
+			System.out.println();
+
+			if (growingTypes[j].length!=0){
+				System.out.println("Growing Types:");
+
+				for (int k = 0; k < growingTypes[j].length; k++) {	
+
+					System.out.println(" - "+growingTypes[j][k]+								// show all growing types from this sequence
+							" ("+sequences[j].getTypeToAgeMap().get(growingTypes[j][k])+")"); 
+
+				}
+				System.out.println();
+			}
+
+			if (newbornTypes[j].length!=0){
+
+				System.out.println("Newborn Types: ");
+
+				for (int k = 0; k < newbornTypes[j].length; k++) {
+
+					System.out.println(" - "+newbornTypes[j][k]+								// show all newborn types from this sequence
+							" ("+sequences[j].getTypeToAgeMap().get(newbornTypes[j][k])+")");
+				}
+
+				System.out.println();
+			}
+
+			if (dyingTypes[j].length!=0){
+
+				System.out.println("Dying Types:");
+
+				for (int k = 0; k < dyingTypes[j].length; k++) {
+
+					System.out.println(" - "+dyingTypes[j][k]+									// show all dying types from this sequence
+							" ("+sequences[j].getTypeToAgeMap().get(dyingTypes[j][k])+")");
+
+				}
+			}
+		}
+		System.out.println();
+		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
+	}
+
+	
 	/**
 	 * @param filter the filter to use
 	 * @param containsFilter include or exclude filter arguments
