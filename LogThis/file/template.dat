@@ -58,11 +58,12 @@
 <<linkedConditions>>
 # Of the kind:
 # <cond>
-#   <category= >
+#   <category= Sequence/knowledge/timestamp>
 #   <subcat= >
 #   <element= >
-#   <exists= >
-#   <link= > (ignored for first condition)
+#   <time= >
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
 # </cond>
 # ...
 
@@ -70,6 +71,7 @@
     <category=>
     <subcat=>
     <element=>
+    <time=>
     <exists=>
     <link=>
 </cond>

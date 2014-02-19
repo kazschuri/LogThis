@@ -118,7 +118,7 @@
 <cond>
     <category=Sequence>
     <subcat=newborn>
-    <element=No_Human>
+    <element=No_Human;situation>
     <exists=true>
     <link=AND>
 </cond>
@@ -126,7 +126,8 @@
 <cond>
     <category=Sequence>
     <subcat=newborn>
-    <element=With_Human>
+    <element=With_Human;situation>
+    <time=0>
     <exists=true>
     <link=OR>
 </cond>
@@ -134,7 +135,8 @@
 <cond>
     <category=Sequence>
     <subcat=current>
-    <element=No_Human>
+    <element=No_Human;situation>
+    <time=0>
     <exists=true>
     <link=AND>
 </cond>
