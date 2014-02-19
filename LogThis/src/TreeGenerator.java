@@ -3,9 +3,127 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
-
 public class TreeGenerator {
+
+	/* TODO
+	 * 
+	 * JavaDoc
+	 * Comments
+	 * 
+	 */
+	public static TemplatePool synTrees(){
+		/*
+		 * http://erg.delph-in.net/logon
+		 * 
+		 * S = Satz	
+		 * D = Determinierer (Der, Ein)
+		 * N = Nomen
+		 * V = Verb
+		 * P = Präposition (Nach, Vor)
+		 * adj = Adjektiv
+		 * adv = Adverb
+		 * NP = Nominalphrase 
+		 * VP = Verbalphrase
+		 * AP = Adjektivphrase 
+		 * AdvP = Adverbphrase
+		 * PP = Präpositionalphrase
+		 */
+		TemplatePool tPool = new TemplatePool();
+		/*
+		 * empty workspace
+		 * workspace is empty
+		 * no human is in the workarea
+		 * nobody there but the bot
+		 */
+		SynTemplate sentence_02 = new SynTemplate();
+		sentence_02 = TemplateBuilder.buildFromFile("template02.dat", false);
+		tPool.addTemplate(sentence_02);
+		/*
+		 * workarea is empty
+		 */
+	
+		/*
+		 * a human/user/person enters the workspace
+		 * a human enters the workspace with hanging arms
+		 * a human enters with his arms hanging down/by his side
+		 * a worker comes in/into the workspace
+		 */
+	
+		SynTemplate sentence_01 = new SynTemplate();
+		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
+		tPool.addTemplate(sentence_01);
+		
+		/* 
+		 * the worker stands still
+		 * a worker stands in the workarea
+		 * a human stands in the workspace with arms by his side
+		 */
+		
+		/*
+		 * the worker is half turned towards the robot/bot
+		 * after a couple of seconds the worker half turns towards the bot
+		 * after x seconds the worker half turns towards the bot
+		 *  
+		 */
+	
+		/*
+		 * the human ignores the robot
+		 * he does not look at the robot
+		 * he does not interact with the robot
+		 */
+		SynTemplate sentence_03 = new SynTemplate();
+		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
+		tPool.addTemplate(sentence_03);
+		
+		return tPool;
+	}
+
+	/**
+	 * Container that creates a new tree from a given list of strings
+	 * 
+	 * @param treeList the List that the tree should be build from
+	 * @param topic the topic for which error messages should be given
+	 * @param verbose flag for showing building information
+	 * 
+	 * @return the treeRoot
+	 */
+	public static Node buildTreeFromList(List<String> treeList, String topic, boolean verbose) {
+	
+		Node treeRoot = new Node();
+	
+		if (treeList.get(0).matches("[a-zA-Z0-9<>\\^\\*_,\\(\\)]*")) {
+	
+			if (treeList.size() == 1) {											// formula has just one line
+	
+				treeRoot = TreeGenerator.formulaTreebuilder(treeList.get(0));
+				
+				if (verbose) {
+					System.out.print("formula result: ");
+					treeRoot.showLeafs();
+					System.out.println();
+				}
+	
+			} else {
+	
+				System.out.println("ERROR - tree formula can only be one line");
+			}
+		} else if (TreeGenerator.quobiTreeValidator(treeList)) {
+	
+			treeRoot = TreeGenerator.quobiTreeBuilder(treeList);
+			
+			if (verbose) {
+				System.out.print("quobi result: ");
+				treeRoot.showLeafs();
+				System.out.println();
+			}
+	
+		} else {
+	
+			System.out.println("ERROR - "+topic+" has no excepted representation");
+		}
+		
+		return treeRoot;
+	}
 
 	/**
 	 * Builds a tree from haystack and returns the root
@@ -86,13 +204,14 @@ public class TreeGenerator {
 						
 					tmpNode.setData(data);										// create the new node with data and flags
 					tmpNode.setTerminal(terminal);
-					terminal = false;
 					tmpNode.setSubstitute(substitute);
-					substitute = false;
 					tmpNode.setSlot(slot);
-					slot = false;
 					tmpNode.setFoot(foot);
-					foot = false;
+					
+					terminal 	= false;										// reset flags
+					substitute 	= false;
+					slot 		= false;
+					foot 		= false;
 					
 					rightChild = true;
 						
@@ -119,6 +238,39 @@ public class TreeGenerator {
 //		treeRoot.showLeafs();
 //		System.out.println();
 		return treeRoot;
+	}
+
+	/**
+	 * Validator method for quobi trees, returns true if it has the right nomenclature
+	 * It does not check, if the tree is sound in itself
+	 * 
+	 * @param representation the representation that is to be validated
+	 * 
+	 * @return if it isCorrectSyntax
+	 */
+	public static boolean quobiTreeValidator(List<String> representation) {
+		
+		boolean isCorrectSyntax = false;
+		for (int i = 1; i < representation.size(); i++) {
+		
+			if (representation.get(i).matches("\\\\(leaf|branch)[\\\\a-zA-Z0-9{}\\-<>\\^\\*]*")) {
+				
+				isCorrectSyntax = true;
+				
+			} else {
+				System.out.println(representation.get(i));
+				isCorrectSyntax = false;
+				break;
+			}
+		}
+		
+		if (!isCorrectSyntax) {
+			
+			System.out.println("ERROR - Base-Tree quobitree is wrong");
+						
+		}
+		
+		return isCorrectSyntax;
 	}
 
 	/**
@@ -363,153 +515,5 @@ public class TreeGenerator {
 			findChildrenIn(rightSubHaystack, rightNode);
 			
 		}
-	}
-	
-	//TODO
-	public static TemplatePool synTrees(){
-		/*
-		 * http://erg.delph-in.net/logon
-		 * 
-		 * S = Satz	
-		 * D = Determinierer (Der, Ein)
-		 * N = Nomen
-		 * V = Verb
-		 * P = Präposition (Nach, Vor)
-		 * adj = Adjektiv
-		 * adv = Adverb
-		 * NP = Nominalphrase 
-		 * VP = Verbalphrase
-		 * AP = Adjektivphrase 
-		 * AdvP = Adverbphrase
-		 * PP = Präpositionalphrase
-		 */
-		TemplatePool tPool = new TemplatePool();
-		/*
-		 * empty workspace
-		 * workspace is empty
-		 * no human is in the workarea
-		 * nobody there but the bot
-		 */
-		SynTemplate sentence_02 = new SynTemplate();
-		sentence_02 = TemplateBuilder.buildFromFile("template02.dat", false);
-		tPool.addTemplate(sentence_02);
-		/*
-		 * workarea is empty
-		 */
-
-		/*
-		 * a human/user/person enters the workspace
-		 * a human enters the workspace with hanging arms
-		 * a human enters with his arms hanging down/by his side
-		 * a worker comes in/into the workspace
-		 */
-
-		SynTemplate sentence_01 = new SynTemplate();
-		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
-		tPool.addTemplate(sentence_01);
-		
-		/* 
-		 * the worker stands still
-		 * a worker stands in the workarea
-		 * a human stands in the workspace with arms by his side
-		 */
-		
-		/*
-		 * the worker is half turned towards the robot/bot
-		 * after a couple of seconds the worker half turns towards the bot
-		 * after x seconds the worker half turns towards the bot
-		 *  
-		 */
-
-		/*
-		 * the human ignores the robot
-		 * he does not look at the robot
-		 * he does not interact with the robot
-		 */
-		SynTemplate sentence_03 = new SynTemplate();
-		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
-		tPool.addTemplate(sentence_03);
-		
-		return tPool;
-	}
-
-	/**
-	 * Container that creates a new tree from a given list of strings
-	 * 
-	 * @param treeList the List that the tree should be build from
-	 * @param topic the topic for which error messages should be given
-	 * @param verbose flag for showing building information
-	 * 
-	 * @return the treeRoot
-	 */
-	public static Node buildNodeFromList(List<String> treeList, String topic, boolean verbose) {
-
-		Node treeRoot = new Node();
-
-		if (treeList.get(0).matches("[a-zA-Z0-9<>\\^\\*_,\\(\\)]*")) {
-
-			if (treeList.size() == 1) {											// formula has just one line
-
-				treeRoot = TreeGenerator.formulaTreebuilder(treeList.get(0));
-				
-				if (verbose) {
-					System.out.print("formula result: ");
-					treeRoot.showLeafs();
-					System.out.println();
-				}
-
-			} else {
-
-				System.out.println("ERROR - tree formula can only be one line");
-			}
-		} else if (TreeGenerator.quobiTreeValidator(treeList)) {
-
-			treeRoot = TreeGenerator.quobiTreeBuilder(treeList);
-			
-			if (verbose) {
-				System.out.print("quobi result: ");
-				treeRoot.showLeafs();
-				System.out.println();
-			}
-
-		} else {
-
-			System.out.println("ERROR - "+topic+" has no excepted representation");
-		}
-		
-		return treeRoot;
-	}
-	
-	/**
-	 * Validator method for quobi trees, returns true if it has the right nomenclature
-	 * It does not check, if the tree is sound in itself
-	 * 
-	 * @param representation the representation that is to be validated
-	 * 
-	 * @return if it isCorrectSyntax
-	 */
-	public static boolean quobiTreeValidator(List<String> representation) {
-		
-		boolean isCorrectSyntax = false;
-		for (int i = 1; i < representation.size(); i++) {
-		
-			if (representation.get(i).matches("\\\\(leaf|branch)[\\\\a-zA-Z0-9{}\\-<>\\^\\*]*")) {
-				
-				isCorrectSyntax = true;
-				
-			} else {
-				System.out.println(representation.get(i));
-				isCorrectSyntax = false;
-				break;
-			}
-		}
-		
-		if (!isCorrectSyntax) {
-			
-			System.out.println("ERROR - Base-Tree quobitree is wrong");
-						
-		}
-		
-		return isCorrectSyntax;
 	}
 }
