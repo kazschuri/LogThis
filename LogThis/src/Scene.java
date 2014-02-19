@@ -47,21 +47,6 @@ public class Scene {
     }
 
     /**
-     * 
-     * @return generalInformation about the Sequence
-     */
-    public String info(){
-    	
-    	int numberOfSequences = this.sequences.length;
-    	String generalInformation = "Scene of " + numberOfFrames + " Frames in "+ numberOfSequences + " Sequences\r\n";
-    	generalInformation += "Starting at " + this.startTime + " and ending at " + this.endTime + " this Scene is ";
-    	generalInformation += (this.endTime - this.startTime) + " timeunits long\r\n";
-    	generalInformation += "That calculates to " + (this.endTime - this.startTime)/numberOfSequences + " timeunits per Sequence and "; 
-    	generalInformation += (this.endTime - this.startTime)/numberOfFrames + " timeunits per Frame."; 
-    	return generalInformation;
-    }
-    
-    /**
 	 * output the difference between the sequences of a scene
 	 */
 	public void showAgeingOf(){

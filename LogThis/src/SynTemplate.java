@@ -70,16 +70,6 @@ public class SynTemplate {
 		return randomSet;
 	}
 	
-	public boolean isApplicable(Sequence sequence) {
-		
-		boolean fulfilled = false;
-		
-		fulfilled = this.linConds.checkLinConds(sequence);
-		
-		return fulfilled;
-	}
-	
-
 	/**
 	 * show and return a random set of all possible permutations of the nodes of a list of lists and
 	 * can drop a random number of nodes from the set
@@ -152,6 +142,16 @@ public class SynTemplate {
 		return permutationList;
 	}
 	
+	//TODO
+	public boolean isApplicable(Sequence sequence) {
+		
+		boolean fulfilled = false;
+		
+		fulfilled = this.linConds.checkLinConds(sequence);
+		
+		return fulfilled;
+	}
+
 	/**
 	 * adjoins a copy of given nodes into the template
 	 * 
