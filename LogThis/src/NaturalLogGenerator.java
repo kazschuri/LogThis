@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 
-public class LogClass {
+public class NaturalLogGenerator {
 
 	public static void main(String[] args) {
 		
@@ -10,7 +10,6 @@ public class LogClass {
 		try { 
 			
 			input = ReadFile.reader();
-			System.out.println(input.info());
 			
 		} catch (IOException e) {
 			
@@ -18,23 +17,9 @@ public class LogClass {
 			
 		}
 		
-		for (int i = 0; i < input.getSequences().length; i++) {
-			
-			if (i % 25 == 0) {
-			
-				System.out.println();
-			
-			}
-			
-			System.out.print(input.getSequences()[i].getNumberOfFrames()+", ");
-			
-		}
+		Statistics.sceneInfo(input);
+		Statistics.showFrames(input);
 		
-		System.out.println();
-		
-		//input.showAgeingOf();
-		System.out.println();
-		System.out.println(input.info());
 		String[] filter = {"situation", "activity", "action", "expectation"};
 //		String[] filter = {"situation"};
 //		String[] filter = {""};
@@ -42,12 +27,13 @@ public class LogClass {
 //		input.filterScene(filter,false).showAgeingOf();
 		Scene testScene = input.filterScene(filter, true);
 		
-//		LogGUI.guiing();
 		TemplatePool tPool = TreeGenerator.synTrees();
 		
 //		TreeGenerator.treeTest();
 		System.out.println("test");
 		LanguageModule.showMatches(tPool, testScene);
+		
+		
 		
 	}
 
