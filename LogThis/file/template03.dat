@@ -1,0 +1,85 @@
+# Inputfile for Template
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree or formula
+
+# NP1^ was empty for <time> minutes
+
+ \leaf{\emph{Robot}}
+ \leaf{\emph{is}}
+ \branch{1}{V}
+ \leaf{\emph{following}}
+ \branch{1}{AP}
+ \leaf{\emph{for}}
+ \branch{1}{P}
+ \leaf{\emph{<time>}}
+ \branch{1}{ADJ}
+ \leaf{\emph{minutes}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{N}
+ \branch{1}{NP}
+ \branch{2}{PP}
+ \branch{2}{AP}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<<Can-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= >
+#   <subcat= >
+#   <element= >
+#   <exists= >
+#   <link= > (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=current>
+    <element=Follow_Path;expectation>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=Timestamp>
+    <subcat=growing>
+    <element=Follow_Path;expectation>
+    <time=95>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=Timestamp>
+    <subcat=growing>
+    <element=Follow_Path;expectation>
+    <time=200>
+    <exists=false>
+    <link=AND>
+</cond>
