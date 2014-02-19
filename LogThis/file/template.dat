@@ -59,7 +59,7 @@
 # Of the kind:
 # <cond>
 #   <category= Sequence/knowledge/timestamp>
-#   <subcat= >
+#   <subcat=newborn/dying/growing/current>
 #   <element= >
 #   <time= >
 #   <exists= True/False> (True: time >= value, False: time < value)
@@ -75,3 +75,17 @@
     <exists=>
     <link=>
 </cond>
+
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<slot>
+  <name=< >>
+  <category= >
+  <element= >
+</slot>
