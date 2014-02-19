@@ -168,7 +168,7 @@ public class TemplateBuilder {
 					System.out.println();
 				}
 				
-				templateNode = TreeGenerator.buildNodeFromList(currentList.subList(1, 
+				templateNode = TreeGenerator.buildTreeFromList(currentList.subList(1, 
 									currentList.size()), 
 									currentList.get(0),
 									verbose);
@@ -225,7 +225,7 @@ public class TemplateBuilder {
 						
 					} else if (line.equals("</tree>")) {
 
-						tmpNodeList.add(TreeGenerator.buildNodeFromList(tmpList, currentList.get(0), verbose));
+						tmpNodeList.add(TreeGenerator.buildTreeFromList(tmpList, currentList.get(0), verbose));
 						
 					} else {
 						
