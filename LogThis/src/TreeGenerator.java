@@ -74,7 +74,7 @@ public class TreeGenerator {
 		SynTemplate sentence_03 = new SynTemplate();
 		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
 		tPool.addTemplate(sentence_03);
-		
+				
 		return tPool;
 	}
 

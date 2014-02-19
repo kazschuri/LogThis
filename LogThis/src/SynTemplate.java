@@ -12,6 +12,7 @@ public class SynTemplate {
 	private String[] topics;
 	private SlotCondition[] slotCondition;
 	
+	
 	/**
 	 * @param template
 	 * @param mustUseTrees
@@ -19,10 +20,12 @@ public class SynTemplate {
 	 * @param slots
 	 * @param linConds
 	 * @param topics
+	 * @param slotCondition
 	 */
 	public SynTemplate(Node template, List<List<Node>> mustUseTrees,
-			List<List<Node>> canUseTrees, Node[] slots, LinkedConditions linConds,
-			String[] topics) {
+			List<List<Node>> canUseTrees, Node[] slots,
+			LinkedConditions linConds, String[] topics,
+			SlotCondition[] slotCondition) {
 		super();
 		this.template = template;
 		this.mustUseTrees = mustUseTrees;
@@ -30,8 +33,9 @@ public class SynTemplate {
 		this.slots = slots;
 		this.linConds = linConds;
 		this.topics = topics;
+		this.slotCondition = slotCondition;
 	}
-	
+
 	public SynTemplate() {
 		super();
 		this.template = new Node();
