@@ -149,8 +149,7 @@ public class TemplateBuilder {
 		Node templateNode 				= new Node();
 		List<List<Node>> mustUseTrees 	= new ArrayList<List<Node>>();
 		List<List<Node>> canUseTrees 	= new ArrayList<List<Node>>();
-//TODO
-//		Node[] slotFillers;
+		SlotCondition[] slotConds 		= new SlotCondition[0];
 		LinkedConditions linConds 		= new LinkedConditions();
 //TODO
 //		String[] topics;
@@ -320,6 +319,54 @@ public class TemplateBuilder {
 				
 				linConds = tmpLinConds;
 
+			} else if (currentList.get(0).equalsIgnoreCase("<<slotConditions>>")) {
+				
+				if (verbose) {
+					
+					System.out.println();
+					System.out.println(currentList.get(0));
+					System.out.println();
+					
+				}
+				
+				String name				= "";
+				String category 		= "";
+				String element 			= "";
+				
+				List<SlotCondition> tmpSlotConds = new ArrayList<SlotCondition>();
+				
+				for (String line : currentList.subList(1, currentList.size())) {
+					
+					if (line.startsWith("<slot>")) {
+						
+					} else if (line.startsWith("<name=")) {
+
+						name = line.substring(6, line.length()-1);
+
+					} else if (line.startsWith("<category=")) {
+
+						category = line.substring(10, line.length()-1);
+						
+					} else if (line.startsWith("<element=")) {
+
+						element = line.substring(9, line.length()-1);
+					
+					} else if (line.startsWith("</slot>")) {
+						
+						SlotCondition tmpSlot = new SlotCondition(name, category, element);
+
+						if (verbose) {
+							
+							System.out.println(	"name: "+name+" category: "+category+" element: "+element);
+						}
+						
+						tmpSlotConds.add(tmpSlot);
+					}
+				}
+				
+				slotConds = new SlotCondition[tmpSlotConds.size()];
+				slotConds = tmpSlotConds.toArray(slotConds);
+				
 			} else {
 				
 				System.out.println("ERROR - \""+currentList.get(0)+"\" is not a recognized Determiner in Template File");
@@ -332,6 +379,7 @@ public class TemplateBuilder {
 		resultTemplate.setMustUseTrees(mustUseTrees);
 		resultTemplate.setCanUseTrees(canUseTrees);
 		resultTemplate.setLinConds(linConds);
+		resultTemplate.setSlotCondition(slotConds);
 		
 		return resultTemplate;
 	}
