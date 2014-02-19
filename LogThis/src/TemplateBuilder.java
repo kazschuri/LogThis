@@ -246,6 +246,7 @@ public class TemplateBuilder {
 				String category 		= "";
 				String subcategory 		= "";
 				String element 			= "";
+				int time				= 0;
 				boolean exists 			= false;
 				String link 			= "";
 				LinkedConditions tmpLinConds = new LinkedConditions();
@@ -266,6 +267,10 @@ public class TemplateBuilder {
 					} else if (line.startsWith("<element=")) {
 
 						element = line.substring(9, line.length()-1);
+					
+					} else if (line.startsWith("<time=")) {
+
+						time = Integer.parseInt(line.substring(6, line.length()-1));
 						
 					} else if (line.startsWith("<exists=")) {
 						
@@ -284,7 +289,7 @@ public class TemplateBuilder {
 						
 					} else if (line.startsWith("</cond>")) {
 						
-						Condition tmpCond = new Condition(category, subcategory, element, exists);
+						Condition tmpCond = new Condition(category, subcategory, element, time, exists);
 
 						if (verbose) {
 							
@@ -292,7 +297,8 @@ public class TemplateBuilder {
 								System.out.println(link);	
 							}
 							
-							System.out.println("category: "+category+" subcategory: "+subcategory+" element: "+element+" exists: "+exists);
+							System.out.println(	"category: "+category+" subcategory: "+subcategory+
+												" element: "+element+" time: "+time+" exists: "+exists);
 						}
 						
 						if (firstCond) {						// prevent an empty entry in LinkedConditions
