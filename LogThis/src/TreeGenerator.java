@@ -426,6 +426,9 @@ public class TreeGenerator {
 		 * he does not look at the robot
 		 * he does not interact with the robot
 		 */
+		SynTemplate sentence_03 = new SynTemplate();
+		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
+		tPool.addTemplate(sentence_03);
 		
 		return tPool;
 	}
