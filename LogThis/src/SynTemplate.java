@@ -7,26 +7,27 @@ public class SynTemplate {
 	private Node template;
 	private List<List<Node>> mustUseTrees;
 	private List<List<Node>> canUseTrees;
-	private Node[] slotFillers;
+	private Node[] slots;
 	private LinkedConditions linConds;
 	private String[] topics;
+	private SlotCondition slotConnections;
 	
 	/**
 	 * @param template
 	 * @param mustUseTrees
 	 * @param canUseTrees
-	 * @param slotFillers
+	 * @param slots
 	 * @param linConds
 	 * @param topics
 	 */
 	public SynTemplate(Node template, List<List<Node>> mustUseTrees,
-			List<List<Node>> canUseTrees, Node[] slotFillers, LinkedConditions linConds,
+			List<List<Node>> canUseTrees, Node[] slots, LinkedConditions linConds,
 			String[] topics) {
 		super();
 		this.template = template;
 		this.mustUseTrees = mustUseTrees;
 		this.canUseTrees = canUseTrees;
-		this.slotFillers = slotFillers;
+		this.slots = slots;
 		this.linConds = linConds;
 		this.topics = topics;
 	}
@@ -42,7 +43,7 @@ public class SynTemplate {
 		
 		Node tmpNode = new Node();
     	Node[] tmpNodes1 = {tmpNode};
-		this.slotFillers = tmpNodes1;
+		this.slots = tmpNodes1;
 		
 		this.linConds = new LinkedConditions();
 		String[] tmpStrings = {""};
@@ -394,7 +395,7 @@ public class SynTemplate {
 	 */
 	public Node[] getSlotFillers() {
 	
-		return slotFillers;
+		return slots;
 	}
 
 	/**
@@ -402,7 +403,7 @@ public class SynTemplate {
 	 */
 	public void setSlotFillers(Node[] slotFillers) {
 	
-		this.slotFillers = slotFillers;
+		this.slots = slotFillers;
 	}
 
 	/**
