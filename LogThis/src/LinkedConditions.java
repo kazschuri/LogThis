@@ -32,6 +32,43 @@ public class LinkedConditions {
 	}
 
 	/**
+	 * connects the conditions with the logical operators stored in the links array
+	 * the operator to connect condition i and i+1 is link[i]
+	 * 
+	 * @param sequence the sequence to check
+	 * @return the currentResult
+	 */
+	public boolean checkLinConds(Sequence sequence) {
+		
+		boolean currentResult = false;
+		
+		for (int i = 0; i < this.conditions.length; i++) {
+			
+			boolean newResult = conditions[i].isElementFulfilled(sequence, conditions[i].isShouldExist());
+			
+			if (i == 0) {
+				
+				currentResult = newResult;
+				
+			}else if (links[i-1].equals("AND")) {
+	
+				currentResult = currentResult && newResult;
+	
+			}else if (links[i-1].equals("OR")) {
+	
+				currentResult = currentResult || newResult;
+	
+			}else if (links[i-1].equals("XOR")) {
+	
+				currentResult = currentResult ^ newResult;
+	
+			}
+		}
+		
+		return currentResult;
+	}
+
+	/**
 	 * @return the conditions
 	 */
 	public Condition[] getConditions() {
@@ -99,43 +136,5 @@ public class LinkedConditions {
 		
 		this.links = tmpArray; 
 		
-	}
-
-	
-	/**
-	 * connects the conditions with the logical operators stored in the links array
-	 * the operator to connect condition i and i+1 is link[i]
-	 * 
-	 * @param sequence the sequence to check
-	 * @return the currentResult
-	 */
-	public boolean checkLinConds(Sequence sequence) {
-		
-		boolean currentResult = false;
-		
-		for (int i = 0; i < this.conditions.length; i++) {
-			
-			boolean newResult = conditions[i].isFulfilled(sequence, conditions[i].isShouldExist());
-			
-			if (i == 0) {
-				
-				currentResult = newResult;
-				
-			}else if (links[i-1].equals("AND")) {
-
-				currentResult = currentResult && newResult;
-
-			}else if (links[i-1].equals("OR")) {
-
-				currentResult = currentResult || newResult;
-
-			}else if (links[i-1].equals("XOR")) {
-
-				currentResult = currentResult ^ newResult;
-
-			}
-		}
-		
-		return currentResult;
 	}
 }
