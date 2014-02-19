@@ -10,7 +10,7 @@ public class SynTemplate {
 	private Node[] slots;
 	private LinkedConditions linConds;
 	private String[] topics;
-	private SlotCondition slotConnections;
+	private SlotCondition[] slotCondition;
 	
 	/**
 	 * @param template
@@ -329,6 +329,24 @@ public class SynTemplate {
 		this.canUseTrees.add(tmpList);
 	}
 	
+	//TODO
+	public String[] getFillers(Sequence sequence) {
+		
+		String[] fillers = new String[slots.length];
+		for (int i = 0; i < slots.length; i++) {
+			
+			for (int j = 0; j < slotCondition.length; j++) {
+				
+				if (slotCondition[j].getName().equalsIgnoreCase(slots[i].getData())) {
+					
+					fillers[i] = slotCondition[j].fillSlot(sequence);
+				}
+			}
+		}
+		
+		return fillers;
+		
+	}
 	/**
 	 * @return the template
 	 */
@@ -391,19 +409,35 @@ public class SynTemplate {
 	}
 
 	/**
-	 * @return the slotFillers
+	 * @return the slots
 	 */
-	public Node[] getSlotFillers() {
+	public Node[] getSlots() {
 	
 		return slots;
 	}
 
 	/**
-	 * @param slotFillers the slotFillers to set
+	 * @param slots the slots to set
 	 */
-	public void setSlotFillers(Node[] slotFillers) {
+	public void setSlots(Node[] slots) {
 	
-		this.slots = slotFillers;
+		this.slots = slots;
+	}
+
+	/**
+	 * @return the slotCondition
+	 */
+	public SlotCondition[] getSlotCondition() {
+	
+		return slotCondition;
+	}
+
+	/**
+	 * @param slotCondition the slotCondition to set
+	 */
+	public void setSlotCondition(SlotCondition[] slotCondition) {
+	
+		this.slotCondition = slotCondition;
 	}
 
 	/**
