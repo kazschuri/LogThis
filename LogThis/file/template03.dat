@@ -83,3 +83,8 @@
     <exists=false>
     <link=AND>
 </cond>
+
+<<topics>>
+# <topic=Stand_Still;activity>
+# <topic>
+<topic=Follow_Path;expectation>

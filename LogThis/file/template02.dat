@@ -136,3 +136,8 @@
   <category=dying>
   <element=No_Human;situation>
 </slot>
+
+<<topics>>
+# <topic=Stand_Still;activity>
+# <topic>
+<topic=No_Human;situation>
