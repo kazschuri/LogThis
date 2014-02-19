@@ -149,8 +149,9 @@ public class TemplateBuilder {
 		Node templateNode 				= new Node();
 		List<List<Node>> mustUseTrees 	= new ArrayList<List<Node>>();
 		List<List<Node>> canUseTrees 	= new ArrayList<List<Node>>();
-		SlotCondition[] slotConds 		= new SlotCondition[0];
+		SlotCondition[] slots 			= new SlotCondition[0];
 		LinkedConditions linConds 		= new LinkedConditions();
+		String[] topics 				= new String[0];
 //TODO
 //		String[] topics;
 		
@@ -364,8 +365,38 @@ public class TemplateBuilder {
 					}
 				}
 				
-				slotConds = new SlotCondition[tmpSlotConds.size()];
-				slotConds = tmpSlotConds.toArray(slotConds);
+				slots = new SlotCondition[tmpSlotConds.size()];
+				slots = tmpSlotConds.toArray(slots);
+				
+			} else if (currentList.get(0).equalsIgnoreCase("<<topics>>")) {
+				
+				if (verbose) {
+					
+					System.out.println();
+					System.out.println(currentList.get(0));
+					System.out.println();
+					
+				}
+				String topic	= "";
+				
+				List<String> tmpTopics = new ArrayList<String>();
+				
+				for (String line : currentList.subList(1, currentList.size())) {
+					
+					if (line.startsWith("<topic=")) {
+						
+						topic = line.substring(7, line.length()-1);
+						tmpTopics.add(topic);
+						
+						if (verbose) {
+							
+							System.out.println(	"topic: "+topic);
+						}
+					}
+				}
+				
+				topics = new String[tmpTopics.size()];
+				topics = tmpTopics.toArray(topics);
 				
 			} else {
 				
@@ -379,7 +410,8 @@ public class TemplateBuilder {
 		resultTemplate.setMustUseTrees(mustUseTrees);
 		resultTemplate.setCanUseTrees(canUseTrees);
 		resultTemplate.setLinConds(linConds);
-		resultTemplate.setSlotCondition(slotConds);
+		resultTemplate.setSlotCondition(slots);
+		resultTemplate.setTopics(topics);
 		
 		return resultTemplate;
 	}
