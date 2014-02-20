@@ -175,7 +175,7 @@ public class KnowledgeBase {
 	 * @param applicableTemplates the Templates that are available from this Sequence
 	 * @return a String representation of all the chosen Templates
 	 */
-	public List<String> checkAndPickTemplates(SynTemplate[] applicableTemplates, List<String> log) {
+	public List<String> checkAndPickTemplates(SynTemplate[] applicableTemplates, List<String> log, Sequence sequence) {
 
 		SynTemplate[] possibleTemplates = this.checkAllTemplates(applicableTemplates); // cross check with knowledge Database
 		
@@ -185,11 +185,11 @@ public class KnowledgeBase {
 			
 			int pick = generator.nextInt(possibleTemplates.length);		// pick one Template at random
 
-			log.add(possibleTemplates[pick].buildSentence());			// build the Sentence
+			log.add(possibleTemplates[pick].buildSentence(sequence));			// build the Sentence
 			
 			this.addToKnowledge(possibleTemplates[pick]);				// add new Information to knowledge Database
 			
-			log = this.checkAndPickTemplates(applicableTemplates, log); 	// recheck with same Templates but new knowledgebase
+			log = this.checkAndPickTemplates(applicableTemplates, log, sequence); 	// recheck with same Templates but new knowledgebase
 			
 		} 
 				

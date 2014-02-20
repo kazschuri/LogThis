@@ -27,7 +27,7 @@ public class LanguageModule {
 		
 			if (templates.length > 0) {												// if there are any
 
-				naturalLog = knowledge.checkAndPickTemplates(templates, naturalLog); // pick as long as there are free topics
+				naturalLog = knowledge.checkAndPickTemplates(templates, naturalLog, sequence); // pick as long as there are free topics
 			}
 			 
 		}

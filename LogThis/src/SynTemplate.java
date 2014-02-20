@@ -77,15 +77,14 @@ public class SynTemplate {
 	 * 
 	 * @param list the list to permute
 	 * @param dropNodes the flag if random nodes should be dropped
+	 * @param show flag true shows output
 	 * @return the randomPermutation
 	 */
-	public static List<Node> displayRandomPermutation(List<List<Node>> list, boolean dropNodes) {
+	public static List<Node> randomPermutation(List<List<Node>> list, boolean dropNodes, boolean show) {
 		
 		Random generator = new Random(System.currentTimeMillis());
-		int[] randomSet = new int[list.size()];
+		int[] randomSet = pickRandomPermutation(list);
 		boolean drop = false;
-		
-		randomSet = pickRandomPermutation(list);
 		
 		List<Node> randomPermutation = new ArrayList<Node>();
 		
@@ -99,8 +98,12 @@ public class SynTemplate {
 			if (!drop) {												// decide if it should be dropped
 				
 				randomPermutation.add(list.get(i).get(randomSet[i]));	// otherwise add it to the result
+				
+				if (show) {
+					
 				list.get(i).get(randomSet[i]).showLeafs();				// and show its leafs
 				System.out.print(" / ");
+				}
 			}
 		}
 		
@@ -147,13 +150,64 @@ public class SynTemplate {
 	 * TODO
 	 * @return
 	 */
-	public String buildSentence() {
+	public String buildSentence(Sequence sequence) {
 		
+		Node newTemp = new Node();
 		
+		newTemp = Node.copyOf(template);
+		
+		stickNodesToTemplate(this.getSetFromMustUseTrees());
+		stickNodesToTemplate(this.getSetFromCanUseTrees());
 
+		List<String> terminals = template.getTerminalStrings();
+		String finalString = "";
+
+		for (int i = 0; i < terminals.size(); i++) {
+			
+			if(terminals.get(i).matches("<[-\\w]*>")) {
+				
+				String filler = "";
+				
+				for (int j = 0; j < slotCondition.length; j++) {
+					
+					if (terminals.get(i).equalsIgnoreCase(slotCondition[j].getName())) {
+						
+						filler = slotCondition[j].fillSlot(sequence);
+					}
+				}
+				
+				terminals.set(i, filler);
+			}
+			finalString += terminals.get(i)+" ";
+		}
 		
-		
-		return ;
+		return finalString;
+	}
+
+	
+	
+	/**
+	 * @param setFromMustUseTrees
+	 */
+	private void stickNodesToTemplate(List<Node> nodeList) {
+
+		for (Node node : nodeList) {
+
+			boolean substituted = false;
+
+			substituted = substituteCopyInTemplate(node	);
+
+			if (!substituted) {
+
+				substituted = adjoinCopyToTemplate(node);
+
+			}
+
+			if (!substituted) {
+
+				System.out.println("node could not be substituted or adjoined");
+			}
+		}
 	}
 
 	//TODO
@@ -169,27 +223,37 @@ public class SynTemplate {
 	/**
 	 * adjoins a copy of given nodes into the template
 	 * 
-	 * @param nodes the nodes to copy an adjoin
+	 * @param nodes the nodes to copy and adjoin
+	 * @return TRUE if adjoin operation was successful
 	 */
-	public void adjoinCopyToTemplate(Node... nodes) {
+	public boolean adjoinCopyToTemplate(Node... nodes) {
+		
+		boolean success = false;
 		
 		for (Node tree : nodes) {
 			
-			this.template.adjoin(Node.copyOf(tree));
+			success = this.template.adjoin(Node.copyOf(tree));
 		}
+		
+		return success;
 	}
 
 	/**
 	 * substitutes a copy of given nodes into the template
 	 * 
 	 * @param nodes the nodes to copy an substitute 
+	 * @return TRUE if adjoin operation was successful
 	 */
-	public void substituteCopyInTemplate(Node... nodes) {
+	public boolean substituteCopyInTemplate(Node... nodes) {
+		
+		boolean success = false;
 		
 		for (Node tree : nodes) {
 			
-			this.template.substitute(Node.copyOf(tree));
+			success = this.template.substitute(Node.copyOf(tree));
 		}
+		
+		return success;
 	}
 	
 	/**
@@ -255,7 +319,7 @@ public class SynTemplate {
 		
 		List<Node> resultSet = new ArrayList<Node>();
 		
-		resultSet = displayRandomPermutation(this.mustUseTrees, false);
+		resultSet = randomPermutation(this.mustUseTrees, false, false);
 		
 		return resultSet;		
 		
@@ -271,7 +335,7 @@ public class SynTemplate {
 
 		List<Node> resultSet = new ArrayList<Node>();
 
-		resultSet = displayRandomPermutation(this.canUseTrees, true);
+		resultSet = randomPermutation(this.canUseTrees, true, false);
 
 		return resultSet;		
 
