@@ -14,7 +14,7 @@ public class LanguageModule {
 	 * 
 	 * @return the natural log data
 	 */
-	public List<String> LogBuilder(Scene scene, KnowledgeBase knowledge, 
+	public static List<String> LogBuilder(Scene scene, KnowledgeBase knowledge, 
 							TemplatePool pool) {
 		
 		List<String> naturalLog = new ArrayList<String>();

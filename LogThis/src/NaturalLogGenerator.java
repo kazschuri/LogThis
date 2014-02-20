@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 
 public class NaturalLogGenerator {
@@ -33,8 +36,17 @@ public class NaturalLogGenerator {
 		System.out.println("test");
 		LanguageModule.showMatches(tPool, testScene);
 		
+		KnowledgeBase knowledge = new KnowledgeBase();
 		
+		List<String> resultLog = new ArrayList<String>();
 		
+		resultLog = LanguageModule.LogBuilder(testScene, knowledge, tPool);
+		
+		for (int i = 0; i < resultLog.size(); i++) {
+			
+			System.out.println(resultLog.get(i));
+			
+		}
 	}
 
 }
