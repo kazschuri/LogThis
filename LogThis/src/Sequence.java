@@ -176,19 +176,6 @@ public class Sequence {
 
 
     /**
-     * @return the concatenatedTypeNames
-     */
-    public String[] getConcatenatedTypeNames() {
-    	int concatLength = newbornTypes.length + growingTypes.length;
-    	String[] concatenatedTypeNames = new String[concatLength];
-
-    	System.arraycopy(newbornTypes, 0, concatenatedTypeNames, 0, newbornTypes.length);
-    	System.arraycopy(growingTypes, 0, concatenatedTypeNames, newbornTypes.length, growingTypes.length);
-    	
-    	return concatenatedTypeNames;
-    }
-    
-    /**
      * Do two consecutive sequences have the same types, first one can have newborn and dying, second can have only growing
      * N + G == G
      * 
@@ -359,6 +346,33 @@ public class Sequence {
 	 */
 	public void setDyingTypes(String[] dyingTypes) {
 		this.dyingTypes = dyingTypes;
+	}
+
+	/**
+	 * @return the concatenatedTypeNames
+	 */
+	public String[] getConcatenatedTypeNames() {
+		int concatLength = newbornTypes.length + growingTypes.length;
+		String[] concatenatedTypeNames = new String[concatLength];
+	
+		System.arraycopy(newbornTypes, 0, concatenatedTypeNames, 0, newbornTypes.length);
+		System.arraycopy(growingTypes, 0, concatenatedTypeNames, newbornTypes.length, growingTypes.length);
+		
+		return concatenatedTypeNames;
+	}
+	
+	/**
+	 * @return concatenatedTypeNames of all Types
+	 */
+	public String[] getAllTypeNames() {
+		int concatLength = newbornTypes.length + growingTypes.length + dyingTypes.length;
+		String[] concatenatedTypeNames = new String[concatLength];
+	
+		System.arraycopy(newbornTypes, 0, concatenatedTypeNames, 0, newbornTypes.length);
+		System.arraycopy(growingTypes, 0, concatenatedTypeNames, newbornTypes.length, growingTypes.length);
+		System.arraycopy(dyingTypes, 0, concatenatedTypeNames, newbornTypes.length+growingTypes.length, dyingTypes.length);
+		
+		return concatenatedTypeNames;
 	}
 
 	/**
