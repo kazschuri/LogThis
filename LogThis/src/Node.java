@@ -364,7 +364,38 @@ public class Node {
 			}
 		}
 	}
-	
+
+	/**
+	 * get all the terminal strings from left to right
+	 */
+	public List<String> getTerminalStrings(){
+		
+		List<String> result = new ArrayList<String>();
+		
+		if (this.terminal) {
+			
+			result.add(data);
+//			System.out.print(data+" ");
+			
+		} else {
+			
+//			System.out.print(data+" ");
+			
+			if (this.leftChild != null) {
+			
+				result.addAll(this.leftChild.getTerminalStrings());
+				
+			}
+			
+			if (this.rightChild != null) {
+			
+				result.addAll(this.rightChild.getTerminalStrings());
+				
+			}
+		}
+		
+		return result;
+	}
 	/**
 	 * show all the slot symbols from left to right
 	 */
