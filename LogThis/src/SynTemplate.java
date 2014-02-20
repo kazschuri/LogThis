@@ -9,9 +9,8 @@ public class SynTemplate {
 	private List<List<Node>> canUseTrees;
 	private Node[] slots;
 	private LinkedConditions linConds;
-	private String[] topics;
+	private List<String> topics;
 	private SlotCondition[] slotCondition;
-	
 	
 	/**
 	 * @param template
@@ -24,7 +23,7 @@ public class SynTemplate {
 	 */
 	public SynTemplate(Node template, List<List<Node>> mustUseTrees,
 			List<List<Node>> canUseTrees, Node[] slots,
-			LinkedConditions linConds, String[] topics,
+			LinkedConditions linConds, List<String> topics,
 			SlotCondition[] slotCondition) {
 		super();
 		this.template = template;
@@ -40,18 +39,15 @@ public class SynTemplate {
 		super();
 		this.template = new Node();
 
-    	List<List<Node>> mustList = new ArrayList<List<Node>>();
-		this.mustUseTrees = mustList;
-		List<List<Node>> canList = new ArrayList<List<Node>>();
-		this.canUseTrees = canList;
+		this.mustUseTrees = new ArrayList<List<Node>>();
+		this.canUseTrees = new ArrayList<List<Node>>();
 		
 		Node tmpNode = new Node();
     	Node[] tmpNodes1 = {tmpNode};
 		this.slots = tmpNodes1;
 		
 		this.linConds = new LinkedConditions();
-		String[] tmpStrings = {""};
-		this.topics = tmpStrings;
+		this.topics = new ArrayList<String>();
 	}
 	
 	/**
@@ -147,6 +143,19 @@ public class SynTemplate {
 		return permutationList;
 	}
 	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public String buildSentence() {
+		
+		
+
+		
+		
+		return ;
+	}
+
 	//TODO
 	public boolean isApplicable(Sequence sequence) {
 		
@@ -474,7 +483,7 @@ public class SynTemplate {
 	/**
 	 * @return the topics
 	 */
-	public String[] getTopics() {
+	public List<String> getTopics() {
 	
 		return topics;
 	}
@@ -482,7 +491,7 @@ public class SynTemplate {
 	/**
 	 * @param topics the topics to set
 	 */
-	public void setTopics(String[] topics) {
+	public void setTopics(List<String> topics) {
 	
 		this.topics = topics;
 	}

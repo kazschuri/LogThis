@@ -151,7 +151,7 @@ public class TemplateBuilder {
 		List<List<Node>> canUseTrees 	= new ArrayList<List<Node>>();
 		SlotCondition[] slots 			= new SlotCondition[0];
 		LinkedConditions linConds 		= new LinkedConditions();
-		String[] topics 				= new String[0];
+		List<String> topics 			= new ArrayList<String>();
 //TODO
 //		String[] topics;
 		
@@ -379,14 +379,12 @@ public class TemplateBuilder {
 				}
 				String topic	= "";
 				
-				List<String> tmpTopics = new ArrayList<String>();
-				
 				for (String line : currentList.subList(1, currentList.size())) {
 					
 					if (line.startsWith("<topic=")) {
 						
 						topic = line.substring(7, line.length()-1);
-						tmpTopics.add(topic);
+						topics.add(topic);
 						
 						if (verbose) {
 							
@@ -394,9 +392,6 @@ public class TemplateBuilder {
 						}
 					}
 				}
-				
-				topics = new String[tmpTopics.size()];
-				topics = tmpTopics.toArray(topics);
 				
 			} else {
 				

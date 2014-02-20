@@ -49,18 +49,20 @@ public class TemplatePool {
 	}
 
 	// TODO
-	public List<SynTemplate> findApplicable(Sequence sequence) {
+	public SynTemplate[] findApplicableTemplates(Sequence sequence) {
 		
-		List<SynTemplate> applicableSequences = new ArrayList<SynTemplate>();
+		List<SynTemplate> listOfSequences = new ArrayList<SynTemplate>();
 		
 		for (int i = 0; i < this.pool.length; i++) {
 			
 			if(this.pool[i].isApplicable(sequence)) {
 				
-				applicableSequences.add(this.pool[i]);
+				listOfSequences.add(this.pool[i]);
 				
 			}
 		}
+		SynTemplate[] applicableSequences = new SynTemplate[listOfSequences.size()];
+		applicableSequences = listOfSequences.toArray(applicableSequences);
 		
 		return applicableSequences;
 	}
