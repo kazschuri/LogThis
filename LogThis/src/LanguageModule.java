@@ -22,13 +22,8 @@ public class LanguageModule {
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
-			Sequence sequence = scene.getSequenceAt(i);
-			SynTemplate[] templates = pool.findApplicableTemplates(knowledge, sequence);		// get all Templates for that Sequence
-		
-			if (templates.length > 0) {												// if there are any
-
-				naturalLog = knowledge.checkAndPickTemplates(templates, naturalLog, sequence); // pick as long as there are free topics
-			}
+			
+			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i)); // pick as long as there are free topics
 			 
 		}
 		
@@ -42,14 +37,13 @@ public class LanguageModule {
 	 * @param scene the scene to analyse
 	 * @return templateList the list of applicable Templates
 	 */
-	public static SynTemplate[][] findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
+	public static List<List<SynTemplate>> findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
 		
-		SynTemplate[][] templates = new SynTemplate[scene.getSequences().length][];
-//		List<List<SynTemplate>> templateList = new ArrayList<List<SynTemplate>>();
+		List<List<SynTemplate>> templates = new ArrayList<List<SynTemplate>>();
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
-			templates[i] = pool.findApplicableTemplates(knowledge, scene.getSequenceAt(i));
+			templates.add(i, pool.findApplicableTemplates(knowledge, scene.getSequenceAt(i)));
 			
 		}
 		
@@ -63,16 +57,16 @@ public class LanguageModule {
 	 */
 	public static void showMatches(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
 		
-		SynTemplate[][] templates = new SynTemplate[scene.getSequences().length][];
+		List<List<SynTemplate>> templates = new ArrayList<List<SynTemplate>>();
 				
 		templates = findAllApplicableTemplatesForScene(knowledge, pool, scene);
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
 			scene.showAgeingAt(i);
-			for (int j = 0; j < templates[i].length; j++) {
+			for (int j = 0; j < templates.get(i).size(); j++) {
 				
-				templates[i][j].showTreeInfo();
+				templates.get(i).get(j).showTreeInfo();
 				
 			}
 		}

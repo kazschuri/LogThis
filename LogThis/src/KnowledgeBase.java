@@ -95,29 +95,26 @@ public class KnowledgeBase {
 	
 	/**
 	 * checks all Templates if they are applicable in this knowledge state
-	 * @param templates the templates to check
+	 * @param applicableTemplates the templates to check
 	 * 
 	 * @return possibleTemplates
 	 */
-	public SynTemplate[] checkAllTemplates(SynTemplate[] templates) {
+	public List<SynTemplate> checkAllTemplates(List<SynTemplate> applicableTemplates) {
 		
-		List<SynTemplate> applicableList = new ArrayList<SynTemplate>();
+		List<SynTemplate> possibleTemplates = new ArrayList<SynTemplate>();
 		
 		boolean applicable = false;
 		
-		for (int i = 0; i < templates.length; i++) {
+		for (int i = 0; i < applicableTemplates.size(); i++) {
 			
-			applicable = this.checkTemplate(templates[i]);
+			applicable = this.checkTemplate(applicableTemplates.get(i));
 			if (applicable) {
 				
-				applicableList.add(templates[i]);
+				possibleTemplates.add(applicableTemplates.get(i));
 			}
 		}
 		
 		//TODO check what happens, if List is empty
-		
-		SynTemplate[] possibleTemplates = new SynTemplate[applicableList.size()];
-		possibleTemplates = applicableList.toArray(possibleTemplates);
 		
 		return possibleTemplates;
 	}
@@ -175,24 +172,23 @@ public class KnowledgeBase {
 	 * @param applicableTemplates the Templates that are available from this Sequence
 	 * @return a String representation of all the chosen Templates
 	 */
-	public List<String> checkAndPickTemplates(SynTemplate[] applicableTemplates, List<String> log, Sequence sequence) {
+	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence) {
 
-		SynTemplate[] possibleTemplates = this.checkAllTemplates(applicableTemplates); // cross check with knowledge Database
-		
-		if (possibleTemplates.length > 0) {
-			
+		List<SynTemplate> possibleTemplates = this.checkAllTemplates(pool.findApplicableTemplates(this, sequence)); // cross check with knowledge Database
+
+		if (possibleTemplates.size() > 0) {
+
 			Random generator = new Random(System.currentTimeMillis());
-			
-			int pick = generator.nextInt(possibleTemplates.length);		// pick one Template at random
 
-			log.add(possibleTemplates[pick].buildSentence(sequence));			// build the Sentence
-			
-			this.addToKnowledge(possibleTemplates[pick]);				// add new Information to knowledge Database
-			
-			log = this.checkAndPickTemplates(applicableTemplates, log, sequence); 	// recheck with same Templates but new knowledgebase
-			
-		} 
-				
+			int pick = generator.nextInt(possibleTemplates.size());		// pick one Template at random
+
+			log.add(possibleTemplates.get(pick).buildSentence(sequence));			// build the Sentence
+
+			this.addToKnowledge(possibleTemplates.get(pick));				// add new Information to knowledge Database
+
+			log = this.checkAndPickTemplates(pool, log, sequence); 	// recheck with new knowledgebase
+
+		}
 		return log;
 	}
 
