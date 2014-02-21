@@ -36,36 +36,49 @@ public class Condition {
 	 * @param sequence the sequence to be searched
 	 * @param shouldExist the flag if the value should be in the sequence or not
 	 */
-	public boolean isElementFulfilled(Sequence sequence, boolean shouldExist) {
+	public boolean isElementFulfilled(KnowledgeBase knowledge, Sequence sequence, boolean shouldExist) {
 		
 		boolean fulfilled = false;
 		boolean result = false;
 		
-		if (this.category.equals("Sequence")|| this.category.equals("Timestamp")) {
+		String[] haystack = {""};
+		
+		if (category.equalsIgnoreCase("Sequence") || 
+			category.equalsIgnoreCase("Timestamp")) {
 			
-			String[] haystack = {""};
-			
-			if (this.subCategory.equals("dying")) {
+			if (subCategory.equalsIgnoreCase("dying")) {
 				
 				haystack = sequence.getDyingTypes();
 				
-			}else if (this.subCategory.equals("growing")) {
+			} else if (subCategory.equalsIgnoreCase("growing")) {
 				
 				haystack = sequence.getGrowingTypes();
 				
-			}else if (this.subCategory.equals("newborn")) {
+			} else if (subCategory.equalsIgnoreCase("newborn")) {
 				
 				haystack = sequence.getNewbornTypes();
 				
-			}else if (this.subCategory.equals("current")) {
+			} else if (subCategory.equalsIgnoreCase("current")) {
 				
 				haystack = sequence.getConcatenatedTypeNames();
 				
 			}
 				
-				result = GeneralMethods.containsElement(haystack, element);	// look in appropriate subcategory for element
+		} else if (category.equalsIgnoreCase("Knowledge")) {
 			
+			if(subCategory.equalsIgnoreCase("current")) {
+				
+				haystack = (String[]) knowledge.currentTopics.toArray(new String[knowledge.currentTopics.size()]);
+				
+			} else if (subCategory.equalsIgnoreCase("former")) {
+				
+				haystack = (String[]) knowledge.formerTopics.toArray(new String[knowledge.formerTopics.size()]);
+				
+			}
 		}
+		
+		result = GeneralMethods.containsElement(haystack, element);	// look in appropriate subcategory for element
+		
 		if (this.category.equals("Timestamp")) { 		
 			
 			if (result) {									// timestamp can only be evaluated, if there is a result

@@ -58,8 +58,8 @@
 <<linkedConditions>>
 # Of the kind:
 # <cond>
-#   <category= Sequence/knowledge/timestamp>
-#   <subcat=newborn/dying/growing/current>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
 #   <element= >
 #   <time= >
 #   <exists= True/False> (True: time >= value, False: time < value)
@@ -91,7 +91,9 @@
 </slot>
 
 <<topics>>
+# Of the kind:
 # <topic=Stand_Still;activity>
-# <topic>
+# <topic=With_Human;situation>
+# ...
 <topic= >
 <topic= >
