@@ -38,13 +38,13 @@ public class LinkedConditions {
 	 * @param sequence the sequence to check
 	 * @return the currentResult
 	 */
-	public boolean checkLinConds(Sequence sequence) {
+	public boolean checkLinConds(KnowledgeBase knowledge, Sequence sequence) {
 		
 		boolean currentResult = false;
 		
 		for (int i = 0; i < this.conditions.length; i++) {
 			
-			boolean newResult = conditions[i].isElementFulfilled(sequence, conditions[i].isShouldExist());
+			boolean newResult = conditions[i].isElementFulfilled(knowledge, sequence, conditions[i].isShouldExist());
 			
 			if (i == 0) {
 				

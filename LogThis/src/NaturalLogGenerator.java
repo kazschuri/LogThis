@@ -33,11 +33,11 @@ public class NaturalLogGenerator {
 		TemplatePool tPool = TreeGenerator.synTrees();
 		
 //		TreeGenerator.treeTest();
-		System.out.println("test");
-		LanguageModule.showMatches(tPool, testScene);
 		
 		KnowledgeBase knowledge = new KnowledgeBase();
 		
+		LanguageModule.showMatches(knowledge, tPool, testScene);
+
 		List<String> resultLog = new ArrayList<String>();
 		
 		resultLog = LanguageModule.LogBuilder(testScene, knowledge, tPool);

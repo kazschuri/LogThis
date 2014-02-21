@@ -49,13 +49,13 @@ public class TemplatePool {
 	}
 
 	// TODO
-	public SynTemplate[] findApplicableTemplates(Sequence sequence) {
+	public SynTemplate[] findApplicableTemplates(KnowledgeBase knowledge, Sequence sequence) {
 		
 		List<SynTemplate> listOfSequences = new ArrayList<SynTemplate>();
 		
 		for (int i = 0; i < this.pool.length; i++) {
 			
-			if(this.pool[i].isApplicable(sequence)) {
+			if(this.pool[i].isApplicable(knowledge, sequence)) {
 				
 				listOfSequences.add(this.pool[i]);
 				

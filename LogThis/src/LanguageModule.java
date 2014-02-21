@@ -23,7 +23,7 @@ public class LanguageModule {
 			
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 			Sequence sequence = scene.getSequenceAt(i);
-			SynTemplate[] templates = pool.findApplicableTemplates(sequence);		// get all Templates for that Sequence
+			SynTemplate[] templates = pool.findApplicableTemplates(knowledge, sequence);		// get all Templates for that Sequence
 		
 			if (templates.length > 0) {												// if there are any
 
@@ -42,14 +42,14 @@ public class LanguageModule {
 	 * @param scene the scene to analyse
 	 * @return templateList the list of applicable Templates
 	 */
-	public static SynTemplate[][] findAllApplicableTemplatesForScene(TemplatePool pool, Scene scene) {
+	public static SynTemplate[][] findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
 		
 		SynTemplate[][] templates = new SynTemplate[scene.getSequences().length][];
 //		List<List<SynTemplate>> templateList = new ArrayList<List<SynTemplate>>();
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
-			templates[i] = pool.findApplicableTemplates(scene.getSequenceAt(i));
+			templates[i] = pool.findApplicableTemplates(knowledge, scene.getSequenceAt(i));
 			
 		}
 		
@@ -61,11 +61,11 @@ public class LanguageModule {
 	 * @param pool the Templatepool to use
 	 * @param scene the Scene to analyse
 	 */
-	public static void showMatches(TemplatePool pool, Scene scene) {
+	public static void showMatches(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
 		
 		SynTemplate[][] templates = new SynTemplate[scene.getSequences().length][];
 				
-		templates = findAllApplicableTemplatesForScene(pool, scene);
+		templates = findAllApplicableTemplatesForScene(knowledge, pool, scene);
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			

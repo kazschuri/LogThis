@@ -211,11 +211,11 @@ public class SynTemplate {
 	}
 
 	//TODO
-	public boolean isApplicable(Sequence sequence) {
+	public boolean isApplicable(KnowledgeBase knowledge, Sequence sequence) {
 		
 		boolean fulfilled = false;
 		
-		fulfilled = this.linConds.checkLinConds(sequence);
+		fulfilled = this.linConds.checkLinConds(knowledge, sequence);
 		
 		return fulfilled;
 	}
