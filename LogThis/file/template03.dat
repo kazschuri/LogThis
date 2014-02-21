@@ -84,6 +84,20 @@
     <link=AND>
 </cond>
 
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human;situation/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<slot>
+  <name=<time>>
+  <category=growing>
+  <element=Follow_Path;expectation>
+</slot>
+
 <<topics>>
 # <topic=Stand_Still;activity>
 # <topic>
