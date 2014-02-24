@@ -107,11 +107,12 @@
 <<linkedConditions>>
 # Of the kind:
 # <cond>
-#   <category= >
-#   <subcat= >
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
 #   <element= >
-#   <exists= >
-#   <link= > (ignored for first condition)
+#   <time= >
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
 # </cond>
 # ...
 
@@ -119,6 +120,14 @@
     <category=Sequence>
     <subcat=dying>
     <element=No_Human;situation>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=Knowledge>
+    <subcat=current>
+    <element=With_Human;situation>
     <exists=true>
     <link=AND>
 </cond>

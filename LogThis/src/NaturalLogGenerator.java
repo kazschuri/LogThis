@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 
 public class NaturalLogGenerator {
@@ -23,8 +22,8 @@ public class NaturalLogGenerator {
 		Statistics.sceneInfo(input);
 		Statistics.showFrames(input);
 		
-		String[] filter = {"situation", "activity", "action", "expectation"};
-//		String[] filter = {"situation"};
+//		String[] filter = {"situation", "activity", "action", "expectation"};
+		String[] filter = {"situation"};
 //		String[] filter = {""};
 //		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
@@ -40,6 +39,10 @@ public class NaturalLogGenerator {
 
 		List<String> resultLog = new ArrayList<String>();
 		
+		System.out.println();
+		System.out.println("--------------------------------------------");
+		System.out.println("Log");
+		System.out.println();
 		resultLog = LanguageModule.LogBuilder(testScene, knowledge, tPool);
 		
 		for (int i = 0; i < resultLog.size(); i++) {

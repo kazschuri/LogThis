@@ -7,7 +7,7 @@ public class ReadFile
 	{
 		long startTime = System.currentTimeMillis();
 		
-//		FileReader fr = new FileReader("file//LogManager-short.dat");
+//		FileReader fr = new FileReader("file/LogManager-short.dat");
 		FileReader fr = new FileReader("file/LogManager-long.dat");
 		BufferedReader br = new BufferedReader(fr);
 		

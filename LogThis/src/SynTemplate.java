@@ -156,10 +156,10 @@ public class SynTemplate {
 		
 		newTemp = Node.copyOf(template);
 		
-		stickNodesToTemplate(this.getSetFromMustUseTrees());
-		stickNodesToTemplate(this.getSetFromCanUseTrees());
+		stickNodesToTemplate(newTemp, this.getSetFromMustUseTrees());
+		stickNodesToTemplate(newTemp, this.getSetFromCanUseTrees());
 
-		List<String> terminals = template.getTerminalStrings();
+		List<String> terminals = newTemp.getTerminalStrings();
 		String finalString = "";
 
 		for (int i = 0; i < terminals.size(); i++) {
@@ -189,17 +189,17 @@ public class SynTemplate {
 	/**
 	 * @param setFromMustUseTrees
 	 */
-	private void stickNodesToTemplate(List<Node> nodeList) {
+	private void stickNodesToTemplate(Node template, List<Node> nodeList) {
 
 		for (Node node : nodeList) {
 
 			boolean substituted = false;
 
-			substituted = substituteCopyInTemplate(node	);
+			substituted = substituteCopyInTemplate(template, node);
 
 			if (!substituted) {
 
-				substituted = adjoinCopyToTemplate(node);
+				substituted = adjoinCopyToTemplate(template, node);
 
 			}
 
@@ -226,13 +226,13 @@ public class SynTemplate {
 	 * @param nodes the nodes to copy and adjoin
 	 * @return TRUE if adjoin operation was successful
 	 */
-	public boolean adjoinCopyToTemplate(Node... nodes) {
+	public boolean adjoinCopyToTemplate(Node template, Node... nodes) {
 		
 		boolean success = false;
 		
 		for (Node tree : nodes) {
 			
-			success = this.template.adjoin(Node.copyOf(tree));
+			success = template.adjoin(Node.copyOf(tree));
 		}
 		
 		return success;
@@ -244,13 +244,13 @@ public class SynTemplate {
 	 * @param nodes the nodes to copy an substitute 
 	 * @return TRUE if adjoin operation was successful
 	 */
-	public boolean substituteCopyInTemplate(Node... nodes) {
+	public boolean substituteCopyInTemplate(Node template, Node... nodes) {
 		
 		boolean success = false;
 		
 		for (Node tree : nodes) {
 			
-			success = this.template.substitute(Node.copyOf(tree));
+			success = template.substitute(Node.copyOf(tree));
 		}
 		
 		return success;
