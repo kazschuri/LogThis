@@ -27,15 +27,24 @@ public class TreeGenerator {
 		 * PP = Präpositionalphrase
 		 */
 		TemplatePool tPool = new TemplatePool();
+
+		List<SynTemplate> synTemps = TemplateBuilder.buildFromFile("templatesFile.dat", true);
+
+		for (int i = 0; i < synTemps.size(); i++) {
+
+			tPool.addTemplate(synTemps.get(i));
+		}
+
+		return tPool;
 		/*
 		 * empty workspace
 		 * workspace is empty
 		 * no human is in the workarea
 		 * nobody there but the bot
 		 */
-		SynTemplate sentence_02 = new SynTemplate();
-		sentence_02 = TemplateBuilder.buildFromFile("template02.dat", false);
-		tPool.addTemplate(sentence_02);
+		
+		
+		
 		/*
 		 * workarea is empty
 		 */
@@ -47,9 +56,9 @@ public class TreeGenerator {
 		 * a worker comes in/into the workspace
 		 */
 	
-		SynTemplate sentence_01 = new SynTemplate();
-		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
-		tPool.addTemplate(sentence_01);
+//		SynTemplate sentence_01 = new SynTemplate();
+//		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
+//		tPool.addTemplate(sentence_01);
 		
 		/* 
 		 * the worker stands still
@@ -69,11 +78,10 @@ public class TreeGenerator {
 		 * he does not look at the robot
 		 * he does not interact with the robot
 		 */
-		SynTemplate sentence_03 = new SynTemplate();
-		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
-		tPool.addTemplate(sentence_03);
-				
-		return tPool;
+//		SynTemplate sentence_03 = new SynTemplate();
+//		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
+//		tPool.addTemplate(sentence_03);
+		
 	}
 
 	/**

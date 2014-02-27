@@ -23,11 +23,12 @@ public class NaturalLogGenerator {
 		Statistics.showFrames(input);
 		
 //		String[] filter = {"situation", "activity", "action", "expectation"};
-		String[] filter = {"situation"};
+//		String[] filter = {"situation", "action"};
 //		String[] filter = {""};
+		String[] filter = {"hmm_movement","hmm_pose","hmm_compound","intent_placement","intent_next","intent_target","object"};
 //		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
-		Scene testScene = input.filterScene(filter, true);
+		Scene testScene = input.filterScene(filter, false);
 		
 		TemplatePool tPool = TreeGenerator.synTrees();
 		

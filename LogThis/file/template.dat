@@ -1,8 +1,10 @@
-# Inputfile for Template
+<template>
+
+############## Template X ###############
 
 <<Base-Tree>>
 # exactly one of the kind:
-# quobitree or formula
+# quobitree (http://erg.delph-in.net/logon) or formula
 
 
 <<Must-Trees>>
@@ -71,7 +73,7 @@
     <category=>
     <subcat=>
     <element=>
-    <time=>
+    <time=0>
     <exists=>
     <link=>
 </cond>
@@ -95,5 +97,6 @@
 # <topic=Stand_Still;activity>
 # <topic=With_Human;situation>
 # ...
-<topic= >
-<topic= >
+<topic=>
+
+</template>

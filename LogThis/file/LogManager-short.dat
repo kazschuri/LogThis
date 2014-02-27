@@ -29,7 +29,7 @@
 14994251;Place_Unknown;intent_Target
 14994251;Place_Unknown;intent_Next
 14994251;########;Hash
-14994604;No_Human;situation
+14994156;With_Human;situation
 14994672;Follow_Path;expectation
 14994672;No Activity detected;activity
 14994672;Place_Outside;intent_Place

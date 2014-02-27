@@ -134,6 +134,7 @@ public class ReadFile
 				listOfFrames.add(frameB);		// but add FrameB as a startingpoint for the next iteration
 			}
 		}
+
 		Sequence[] sequenceArray = new Sequence[sequenceList.size()]; 
 		sequenceArray = sequenceList.toArray(sequenceArray);
 		

@@ -16,28 +16,40 @@ public class TemplateBuilder {
 	 * 
 	 * @return the synTemplate
 	 */
-	public static SynTemplate buildFromFile(String filename, boolean verbose) {
+	public static List<SynTemplate> buildFromFile(String filename, boolean verbose) {
 		
-		List<List<String>> contentSplit = new ArrayList<List<String>>();
-		contentSplit = templateFileSplitter(filename, verbose);
+		List<List<String>> templateFiles = new ArrayList<List<String>>();
+		templateFiles = divideFileIntoTemplates(filename, verbose);
 		
-		SynTemplate synTemplate = new SynTemplate();
-		synTemplate = templateBuilder(contentSplit, verbose);
+		List<SynTemplate> synTemplateList = new ArrayList<SynTemplate>();
 		
-		return synTemplate;
+		for (int i = 0; i < templateFiles.size(); i++) {
+			
+			List<List<String>> contentSplit = templateFileSplitter(templateFiles.get(i), verbose);
+			
+			SynTemplate synTemplate = templateBuilder(contentSplit, verbose);
+			synTemplateList.add(synTemplate);
+						
+		}
+		return synTemplateList;
 		
 	}
+	
 	/**
-	 * Method to split up a SynTemplate file into different parts
-	 * Splits file after every occurence of "words" and "-" in "<< >>"
-	 *  
-	 * @param filename the file to split
-	 * @param verbose flag for showing building information
-	 * 
-	 * @return the split content
+	 * @param filename
+	 * @param verbose
+	 * @return
+	 * TODO
 	 */
-	private static List<List<String>> templateFileSplitter(String filename, boolean verbose) {
-
+	private static List<List<String>> divideFileIntoTemplates(String filename,
+			boolean verbose) {
+		if (verbose) {
+			
+			System.out.println();
+			System.out.println("divide File into Templates");
+			System.out.println("---------------------------------------");
+			System.out.println();
+		}
 		String[] content = null;
 		
 		try { 
@@ -49,6 +61,42 @@ public class TemplateBuilder {
 			System.out.print("Something wrong with input File");
 
 		}
+		List<List<String>> listOfTemplates = new ArrayList<List<String>>();
+		List<String> tmpTemplate = new ArrayList<String>();
+		
+		for (int i = 0; i < content.length; i++) {
+			
+			if (content[i].equalsIgnoreCase("<template>")) {
+				
+				tmpTemplate = new ArrayList<String>();
+				
+			} else if (content[i].equalsIgnoreCase("</template>")) {
+
+				listOfTemplates.add(tmpTemplate);
+				
+			} else {
+				
+				tmpTemplate.add(content[i]);
+			}
+		}
+		if (verbose) {
+			
+			System.out.println("there are "+listOfTemplates.size()+" Templates in this file");
+			System.out.println();
+		}
+		return listOfTemplates;
+	}
+	/**
+	 * Method to split up a SynTemplate file into different parts
+	 * Splits file after every occurence of "words" and "-" in "<< >>"
+	 *  
+	 * @param filename the file to split
+	 * @param verbose flag for showing building information
+	 * 
+	 * @return the split content
+	 */
+	private static List<List<String>> templateFileSplitter(List<String> templateList, boolean verbose) {
+
 		List<List<String>> contentSplit = new ArrayList<List<String>>();
 		List<String> partList = new ArrayList<String>();
 		
@@ -58,25 +106,25 @@ public class TemplateBuilder {
 			System.out.println("---------------------------------------");
 			System.out.println();
 			
-			System.out.println(content[0]);
+			System.out.println(templateList.get(0));
 		}
 		
-		for (int i = 0; i < content.length; i++) {
+		for (int i = 0; i < templateList.size(); i++) {
 			
-			if (content[i].matches("<<[-\\w]*>>") && i > 0) {
+			if (templateList.get(i).matches("<<[-\\w]*>>") && i > 0) {
 				
 				if (verbose) {
 		
 					System.out.println(partList.size()+" lines");
 					System.out.println();
-					System.out.println(content[i]);
+					System.out.println(templateList.get(i));
 				}
 				
 				contentSplit.add(partList);
 				partList = new ArrayList<String>();
 			}
 			
-			partList.add(content[i].trim());
+			partList.add(templateList.get(i).trim());
 		}
 		
 		if (verbose) {
@@ -274,7 +322,7 @@ public class TemplateBuilder {
 						
 					} else if (line.startsWith("<exists=")) {
 						
-						if (line.substring(8, line.length()-1).equals("true")) {
+						if (line.substring(8, line.length()-1).equalsIgnoreCase("true")) {
 							
 							exists = true;
 							
@@ -309,11 +357,12 @@ public class TemplateBuilder {
 							tmpLinConds = new LinkedConditions(tmpCondArray, tmpLinkArray);
 							firstCond = false;
 							
+						} else {
+						
+							tmpLinConds.addCondition(tmpCond);
+							tmpLinConds.addLink(link);
+							
 						}
-						
-						tmpLinConds.addCondition(tmpCond);
-						tmpLinConds.addLink(link);
-						
 						
 					}
 				}

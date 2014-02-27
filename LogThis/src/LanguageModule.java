@@ -23,8 +23,8 @@ public class LanguageModule {
 			
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 			
+			naturalLog.add("----- Sequence "+i+" -----");
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i)); // pick as long as there are free topics
-			 
 		}
 		
 		return naturalLog;

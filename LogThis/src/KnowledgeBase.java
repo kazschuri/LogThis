@@ -181,8 +181,8 @@ public class KnowledgeBase {
 			Random generator = new Random(System.currentTimeMillis());
 
 			int pick = generator.nextInt(possibleTemplates.size());			// pick one Template at random
-
-			log.add(possibleTemplates.get(pick).buildSentence(sequence));	// build the Sentence
+			
+			log.add(possibleTemplates.get(pick).buildSentence(sequence).trim());	// build the Sentence
 
 			this.addToKnowledge(possibleTemplates.get(pick));				// add new Information to knowledge Database
 

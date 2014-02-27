@@ -247,6 +247,19 @@ public class Scene {
 		
 		aggregatedList.add(tmpBaseSequence);
 		
+		/*
+		 * added a final sequence to set all types to dying
+		 */
+		Sequence nextToLastSeq = aggregatedList.get(aggregatedList.size()-1);
+		Sequence lastSequence = new Sequence();
+		lastSequence.setDyingTypes(nextToLastSeq.getConcatenatedTypeNames());
+		lastSequence.setFirstTimestamp(nextToLastSeq.getFirstTimestamp());
+		lastSequence.setLastTimestamp(nextToLastSeq.getLastTimestamp());
+		lastSequence.setNumberOfFrames(1);
+		lastSequence.setTypeToAgeMap(nextToLastSeq.getTypeToAgeMap());
+		
+		aggregatedList.add(lastSequence);
+		
 		Sequence[] filteredSequences	= new Sequence[aggregatedList.size()];
 		filteredSequences = aggregatedList.toArray(filteredSequences);
 		
