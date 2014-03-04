@@ -44,7 +44,7 @@ public class NaturalLogGenerator {
 		System.out.println("--------------------------------------------");
 		System.out.println("Log");
 		System.out.println();
-		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool);
+		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool,false);
 		
 		for (int i = 0; i < resultLog.size(); i++) {
 			

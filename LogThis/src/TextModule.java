@@ -15,15 +15,18 @@ public class TextModule {
 	 * @return the natural log data
 	 */
 	public static List<String> LogBuilder(Scene scene, KnowledgeBase knowledge, 
-							TemplatePool pool) {
+							TemplatePool pool, Boolean verbose) {
 		
 		List<String> naturalLog = new ArrayList<String>();
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
+			if (verbose) {
+				
+				naturalLog.add("----- Sequence "+i+" -----");
+			}
 			
-			naturalLog.add("----- Sequence "+i+" -----");
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i)); // pick as long as there are free topics
 		}
 		

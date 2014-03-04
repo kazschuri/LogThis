@@ -18,16 +18,16 @@ public class TemplateBuilder {
 	 */
 	public static List<SynTemplate> buildFromFile(String filename, boolean verbose) {
 		
-		List<List<String>> templateFiles = new ArrayList<List<String>>();
-		templateFiles = divideFileIntoTemplates(filename, verbose);
+		List<List<String>> rawTemplates = new ArrayList<List<String>>();
+		rawTemplates = divideFileIntoTemplates(filename, verbose);
 		
 		List<SynTemplate> synTemplateList = new ArrayList<SynTemplate>();
 		
-		for (int i = 0; i < templateFiles.size(); i++) {
+		for (int i = 0; i < rawTemplates.size(); i++) {
 			
-			List<List<String>> contentSplit = templateFileSplitter(templateFiles.get(i), verbose);
+			List<List<String>> rawContent = rawTemplateSplitter(rawTemplates.get(i), verbose);
 			
-			SynTemplate synTemplate = templateBuilder(contentSplit, verbose);
+			SynTemplate synTemplate = templateBuilder(rawContent, verbose);
 			synTemplateList.add(synTemplate);
 						
 		}
@@ -95,7 +95,7 @@ public class TemplateBuilder {
 	 * 
 	 * @return the split content
 	 */
-	private static List<List<String>> templateFileSplitter(List<String> templateList, boolean verbose) {
+	private static List<List<String>> rawTemplateSplitter(List<String> templateList, boolean verbose) {
 
 		List<List<String>> contentSplit = new ArrayList<List<String>>();
 		List<String> partList = new ArrayList<String>();
