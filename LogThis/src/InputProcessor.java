@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class InputProcessing
+public class InputProcessor
 {
 	public static Scene fileReader() throws IOException
 	{

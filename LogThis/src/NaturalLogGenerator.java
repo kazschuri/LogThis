@@ -11,7 +11,7 @@ public class NaturalLogGenerator {
 		
 		try { 
 			
-			input = InputProcessing.fileReader();
+			input = InputProcessor.fileReader();
 			
 		} catch (IOException e) {
 			
@@ -28,7 +28,7 @@ public class NaturalLogGenerator {
 		String[] filter = {"hmm_movement","hmm_pose","hmm_compound","intent_placement","intent_next","intent_target","object"};
 //		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
-		Scene testScene = InputProcessing.filterScene(input, filter, false);
+		Scene testScene = InputProcessor.filterScene(input, filter, false);
 		
 		TemplatePool tPool = TreeGenerator.synTrees();
 		
