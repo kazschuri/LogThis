@@ -789,6 +789,11 @@ public class Node {
 	public void setSlot(boolean slot) {
 	
 		this.slot = slot;
+		
+		if (slot) {
+			this.terminal = true;
+		}
+		   
 	}
 
 	/**
