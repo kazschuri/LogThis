@@ -11,7 +11,7 @@ public class NaturalLogGenerator {
 		
 		try { 
 			
-			input = ReadFile.reader();
+			input = InputProcessing.fileReader();
 			
 		} catch (IOException e) {
 			
@@ -28,7 +28,7 @@ public class NaturalLogGenerator {
 		String[] filter = {"hmm_movement","hmm_pose","hmm_compound","intent_placement","intent_next","intent_target","object"};
 //		input.filterScene(filter, true).showAgeingOf();
 //		input.filterScene(filter,false).showAgeingOf();
-		Scene testScene = input.filterScene(filter, false);
+		Scene testScene = InputProcessing.filterScene(input, filter, false);
 		
 		TemplatePool tPool = TreeGenerator.synTrees();
 		
@@ -36,7 +36,7 @@ public class NaturalLogGenerator {
 		
 		KnowledgeBase knowledge = new KnowledgeBase();
 		
-		LanguageModule.showMatches(knowledge, tPool, testScene);
+		TextModule.showMatches(knowledge, tPool, testScene);
 
 		List<String> resultLog = new ArrayList<String>();
 		
@@ -44,7 +44,7 @@ public class NaturalLogGenerator {
 		System.out.println("--------------------------------------------");
 		System.out.println("Log");
 		System.out.println();
-		resultLog = LanguageModule.LogBuilder(testScene, knowledge, tPool);
+		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool);
 		
 		for (int i = 0; i < resultLog.size(); i++) {
 			

@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class ReadFile
+public class InputProcessing
 {
-	public static Scene reader() throws IOException
+	public static Scene fileReader() throws IOException
 	{
 		long startTime = System.currentTimeMillis();
 		
@@ -12,10 +12,6 @@ public class ReadFile
 		BufferedReader br = new BufferedReader(fr);
 		
 		String line = "";
-		List<Tick> tickList = new ArrayList<Tick>();
-		List<Frame> frameList = new ArrayList<Frame>();
-		List<Sequence> sequenceList = new ArrayList<Sequence>();
-		
 		List<Tick> tmpTickList = new ArrayList<Tick>();
 		
 		/*
@@ -30,7 +26,7 @@ public class ReadFile
 			tmpTickList.add(tmpTick);
 			
 		}
-		
+		br.close();
 		/*
 		 * filtering out special hashmarks and adding their content to mark before
 		 */
@@ -58,10 +54,30 @@ public class ReadFile
 			}
 			
 		}
+		List<Sequence> sequenceList = structureCreator(tmpTickList);
 		
+		Sequence[] sequenceArray = new Sequence[sequenceList.size()]; 
+		sequenceArray = sequenceList.toArray(sequenceArray);
+		
+		Scene sceneOfInput = new Scene(sequenceArray);
+		
+		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to read log");
+		return sceneOfInput;
+	}
+
+		
+	/**
+	 * @param tmpTickList
+	 */
+	private static List<Sequence> structureCreator(List<Tick> tmpTickList) {
+
 		/*
 		 * transform List of Ticks to Frames
 		 */
+	List<Tick> tickList = new ArrayList<Tick>();
+	List<Frame> frameList = new ArrayList<Frame>();
+	List<Sequence> sequenceList = new ArrayList<Sequence>();
+	
 		for (int i = 0; i < tmpTickList.size(); i++) {
 			Tick currentTick = tmpTickList.get(i);
 			
@@ -81,8 +97,6 @@ public class ReadFile
 				
 			}
 		}
-		
-		br.close();
 		
 		/*
 		 * Arrange Frames into Sequences and create a Scene with them
@@ -135,12 +149,85 @@ public class ReadFile
 			}
 		}
 
-		Sequence[] sequenceArray = new Sequence[sequenceList.size()]; 
-		sequenceArray = sequenceList.toArray(sequenceArray);
+		return sequenceList;
+	}
+	
+	/**
+	 * @param scene the scene to filter
+	 * @param filter the filter to use
+	 * @param containsFilter include or exclude filter arguments
+	 * 
+	 * @return the filteredSequence
+	 */
+	public static Scene filterScene(Scene scene, String[] filter, boolean containsFilter){
 		
-		Scene sceneOfInput = new Scene(sequenceArray);
+		Sequence[] originalSequences	= scene.getSequences();
+		List<Sequence> sequenceList		= new ArrayList<Sequence>();
+		List<Sequence> aggregatedList	= new ArrayList<Sequence>();
 		
-		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to read log");
-		return sceneOfInput;
+		for (int i = 0; i < originalSequences.length; i++) {
+			
+			Sequence tmpSequence = originalSequences[i].filterSequence(filter, containsFilter);
+			sequenceList.add(tmpSequence);
+			
+		}
+
+		if (originalSequences.length != sequenceList.size()) {
+		
+			System.out.println("ALARM Ungleiche Größe!");
+		}
+//		aggregatedList = sequenceList;
+		
+		Sequence tmpBaseSequence = sequenceList.get(0);
+		
+		for (int i = 1; i < sequenceList.size(); i++) {
+			
+			if (tmpBaseSequence.equalTo(sequenceList.get(i))) {
+				
+				tmpBaseSequence.setLastTimestamp(sequenceList.get(i).getLastTimestamp());
+				tmpBaseSequence.setNumberOfFrames(tmpBaseSequence.getNumberOfFrames()+sequenceList.get(i).getNumberOfFrames());
+				
+				if (sequenceList.get(i).getConcatenatedTypeNames().length != 0){
+					
+					String[] tmpTypes = sequenceList.get(i).getConcatenatedTypeNames();
+					
+					for (int j = 0; j < tmpTypes.length; j++) {	
+						
+						// increase age from previousSequence by numberOfFrames	
+						tmpBaseSequence.setElementOfTypeToAgeMap(tmpTypes[j], sequenceList.get(i).getNumberOfFrames() + tmpBaseSequence.getElementOfTypeToAgeMap(tmpTypes[j]));	
+
+					}
+				}
+				
+			} else {
+				
+				aggregatedList.add(tmpBaseSequence);
+				tmpBaseSequence = sequenceList.get(i);
+				
+			}
+		}
+		
+		aggregatedList.add(tmpBaseSequence);
+		
+		/*
+		 * added a final sequence to set all types to dying
+		 */
+		Sequence nextToLastSeq = aggregatedList.get(aggregatedList.size()-1);
+		Sequence lastSequence = new Sequence();
+		lastSequence.setDyingTypes(nextToLastSeq.getConcatenatedTypeNames());
+		lastSequence.setFirstTimestamp(nextToLastSeq.getFirstTimestamp());
+		lastSequence.setLastTimestamp(nextToLastSeq.getLastTimestamp());
+		lastSequence.setNumberOfFrames(1);
+		lastSequence.setTypeToAgeMap(nextToLastSeq.getTypeToAgeMap());
+		
+		aggregatedList.add(lastSequence);
+		
+		Sequence[] filteredSequences	= new Sequence[aggregatedList.size()];
+		filteredSequences = aggregatedList.toArray(filteredSequences);
+		
+		Scene filteredScene = new Scene(filteredSequences, scene.getNumberOfFrames(), scene.getStartTime(), scene.getEndTime());
+		
+		return filteredScene;
+		
 	}
 }
