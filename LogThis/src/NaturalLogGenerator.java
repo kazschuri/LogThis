@@ -51,6 +51,7 @@ public class NaturalLogGenerator {
 			System.out.println(resultLog.get(i));
 			
 		}
+
 	}
 
 }
