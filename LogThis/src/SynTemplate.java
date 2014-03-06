@@ -11,6 +11,7 @@ public class SynTemplate {
 	private LinkedConditions linConds;
 	private List<String> topics;
 	private SlotCondition[] slotCondition;
+	private int detailLevel = 0;			// Three Levels 1,2,4
 	
 	/**
 	 * @param template
@@ -20,11 +21,12 @@ public class SynTemplate {
 	 * @param linConds
 	 * @param topics
 	 * @param slotCondition
+	 * @param detailLevel
 	 */
 	public SynTemplate(Node template, List<List<Node>> mustUseTrees,
 			List<List<Node>> canUseTrees, Node[] slots,
 			LinkedConditions linConds, List<String> topics,
-			SlotCondition[] slotCondition) {
+			SlotCondition[] slotCondition, int detailLevel) {
 		super();
 		this.template = template;
 		this.mustUseTrees = mustUseTrees;
@@ -33,6 +35,7 @@ public class SynTemplate {
 		this.linConds = linConds;
 		this.topics = topics;
 		this.slotCondition = slotCondition;
+		this.detailLevel = detailLevel;
 	}
 
 	public SynTemplate() {
@@ -560,4 +563,51 @@ public class SynTemplate {
 		this.topics = topics;
 	}
 
+	/**
+	 * @return the detailLevel
+	 */
+	public int getDetailLevel() {
+	
+		return detailLevel;
+	}
+
+	/**
+	 * @param detailLevel the detailLevel to set
+	 */
+	public void setDetailLevel(int detailLevel) {
+	
+		this.detailLevel = detailLevel;
+	}
+
+	/**
+	 * TODO
+	 * @param checkNumber
+	 * @return
+	 */
+	public boolean isDetailLevelIncluded(int checkNumber) {
+		
+		double powerOfTwoDouble = Math.log(checkNumber)/Math.log(2); // get x from 2^x = checknumber 
+		
+		int integerOfDouble = (int) (powerOfTwoDouble*1000);
+			
+		boolean result = false;
+		
+		if (integerOfDouble%1000 == 0) {
+				
+			int powerOfTwoInt = (int) (powerOfTwoDouble);
+			
+			System.out.println(powerOfTwoInt);
+			
+			if ((detailLevel & (1L << powerOfTwoInt)) != 0){
+
+				result = true;
+			}
+			
+		} else {
+			
+			System.err.println("checked level is not 2^x");
+		}
+		
+		return result;
+	}
 }
