@@ -200,6 +200,7 @@ public class TemplateBuilder {
 		SlotCondition[] slots 			= new SlotCondition[0];
 		LinkedConditions linConds 		= new LinkedConditions();
 		List<String> topics 			= new ArrayList<String>();
+		int detailLevel					= 0;
 //TODO
 //		String[] topics;
 		
@@ -442,6 +443,29 @@ public class TemplateBuilder {
 					}
 				}
 				
+			} else if (currentList.get(0).equalsIgnoreCase("<<templateLevel>>")) {
+				
+				if (verbose) {
+					
+					System.out.println();
+					System.out.println(currentList.get(0));
+					System.out.println();
+					
+				}
+				
+				for (String line : currentList.subList(1, currentList.size())) {
+					
+					if (line.startsWith("<level=")) {
+						
+						detailLevel = Integer.parseInt(line.substring(7, line.length()-1));
+						
+						if (verbose) {
+							
+							System.out.println(	"level: "+detailLevel);
+						}
+					}
+				}
+				
 			} else {
 				
 				System.out.println("ERROR - \""+currentList.get(0)+"\" is not a recognized Determiner in Template File");
@@ -456,6 +480,7 @@ public class TemplateBuilder {
 		resultTemplate.setLinConds(linConds);
 		resultTemplate.setSlotCondition(slots);
 		resultTemplate.setTopics(topics);
+		resultTemplate.setDetailLevel(detailLevel);
 		
 		return resultTemplate;
 	}
