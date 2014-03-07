@@ -99,4 +99,14 @@
 # ...
 <topic=>
 
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=>
+
 </template>
