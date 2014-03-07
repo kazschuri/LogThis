@@ -30,7 +30,7 @@ public class NaturalLogGenerator {
 //		input.filterScene(filter,false).showAgeingOf();
 		Scene testScene = InputProcessor.filterScene(input, filter, false);
 		
-		TemplatePool tPool = TreeGenerator.synTrees();
+		TemplatePool tPool = TreeGenerator.synTrees(true);
 		
 //		TreeGenerator.treeTest();
 		

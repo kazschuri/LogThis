@@ -9,7 +9,7 @@ public class TreeGenerator {
 	 * Comments
 	 * 
 	 */
-	public static TemplatePool synTrees(){
+	public static TemplatePool synTrees(boolean verbose){
 		/*
 		 * http://erg.delph-in.net/logon
 		 * 
@@ -28,7 +28,7 @@ public class TreeGenerator {
 		 */
 		TemplatePool tPool = new TemplatePool();
 
-		List<SynTemplate> synTemps = TemplateBuilder.buildFromFile("templatesFile.dat", true);
+		List<SynTemplate> synTemps = TemplateBuilder.buildFromFile("templatesFile.dat", verbose);
 
 		for (int i = 0; i < synTemps.size(); i++) {
 
