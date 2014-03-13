@@ -15,7 +15,7 @@ public class TextModule {
 	 * @return the natural log data
 	 */
 	public static List<String> LogBuilder(Scene scene, KnowledgeBase knowledge, 
-							TemplatePool pool, Boolean verbose) {
+							TemplatePool pool, int detail, Boolean verbose) {
 		
 		List<String> naturalLog = new ArrayList<String>();
 		
@@ -27,7 +27,7 @@ public class TextModule {
 				naturalLog.add("----- Sequence "+i+" -----");
 			}
 			
-			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i)); // pick as long as there are free topics
+			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail); // pick as long as there are free topics
 		}
 		
 		return naturalLog;
@@ -38,15 +38,16 @@ public class TextModule {
 	 * 
 	 * @param pool the templatePool to use
 	 * @param scene the scene to analyse
+	 * TODO detail
 	 * @return templateList the list of applicable Templates
 	 */
-	public static List<List<SynTemplate>> findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
+	public static List<List<SynTemplate>> findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene, int detail) {
 		
 		List<List<SynTemplate>> templates = new ArrayList<List<SynTemplate>>();
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			
-			templates.add(i, pool.findApplicableTemplates(knowledge, scene.getSequenceAt(i)));
+			templates.add(i, pool.findApplicableTemplates(knowledge, scene.getSequenceAt(i), detail));
 			
 		}
 		
@@ -57,12 +58,13 @@ public class TextModule {
 	 * shows all Sequences and the applicable Templates
 	 * @param pool the Templatepool to use
 	 * @param scene the Scene to analyse
+	 * TODO detail
 	 */
-	public static void showMatches(KnowledgeBase knowledge, TemplatePool pool, Scene scene) {
+	public static void showMatches(KnowledgeBase knowledge, TemplatePool pool, Scene scene, int detail) {
 		
 		List<List<SynTemplate>> templates = new ArrayList<List<SynTemplate>>();
 				
-		templates = findAllApplicableTemplatesForScene(knowledge, pool, scene);
+		templates = findAllApplicableTemplatesForScene(knowledge, pool, scene, detail);
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
 			

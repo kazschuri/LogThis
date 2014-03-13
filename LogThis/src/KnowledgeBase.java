@@ -170,11 +170,12 @@ public class KnowledgeBase {
 	 * and start again, until no more applicable Templates
 	 * 
 	 * @param applicableTemplates the Templates that are available from this Sequence
+	 * TODO param
 	 * @return a String representation of all the chosen Templates
 	 */
-	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence) {
+	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence, int detail) {
 
-		List<SynTemplate> possibleTemplates = this.checkAllTemplates(pool.findApplicableTemplates(this, sequence)); // cross check with knowledge Database
+		List<SynTemplate> possibleTemplates = this.checkAllTemplates(pool.findApplicableTemplates(this, sequence, detail)); // cross check with knowledge Database
 
 		if (possibleTemplates.size() > 0) {
 
@@ -186,7 +187,7 @@ public class KnowledgeBase {
 
 			this.addToKnowledge(possibleTemplates.get(pick));				// add new Information to knowledge Database
 
-			log = this.checkAndPickTemplates(pool, log, sequence); 			// recheck with new knowledgebase
+			log = this.checkAndPickTemplates(pool, log, sequence, detail); 			// recheck with new knowledgebase
 
 		}
 		return log;

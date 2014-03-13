@@ -36,7 +36,7 @@ public class NaturalLogGenerator {
 		
 		KnowledgeBase knowledge = new KnowledgeBase();
 		
-		TextModule.showMatches(knowledge, tPool, testScene);
+		TextModule.showMatches(knowledge, tPool, testScene, 1);
 
 		List<String> resultLog = new ArrayList<String>();
 		
@@ -44,7 +44,7 @@ public class NaturalLogGenerator {
 		System.out.println("--------------------------------------------");
 		System.out.println("Log");
 		System.out.println();
-		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool,false);
+		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool, 1, false);
 		
 		for (int i = 0; i < resultLog.size(); i++) {
 			
