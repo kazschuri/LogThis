@@ -604,7 +604,7 @@ public class SynTemplate {
 				
 			int powerOfTwoInt = (int) (powerOfTwoDouble);
 			
-			System.out.println(powerOfTwoInt);
+//			System.out.println(powerOfTwoInt);
 			
 			if ((detailLevel & (1L << powerOfTwoInt)) != 0){
 

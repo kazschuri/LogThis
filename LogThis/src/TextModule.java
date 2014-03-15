@@ -18,9 +18,9 @@ public class TextModule {
 							TemplatePool pool, int detail, Boolean verbose) {
 		
 		List<String> naturalLog = new ArrayList<String>();
-		
+
 		for (int i = 0; i < scene.getSequences().length; i++) {
-			
+
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 			if (verbose) {
 				
@@ -28,6 +28,11 @@ public class TextModule {
 			}
 			
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail); // pick as long as there are free topics
+			if (verbose) {
+			
+				naturalLog = knowledge.findUnmentionedTopicsFrom(scene.getSequenceAt(i), naturalLog);
+				
+			}
 		}
 		
 		return naturalLog;

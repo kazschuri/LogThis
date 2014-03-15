@@ -106,7 +106,7 @@ public class KnowledgeBase {
 		boolean applicable = false;
 		
 		for (int i = 0; i < applicableTemplates.size(); i++) {
-			
+
 			applicable = this.checkTemplate(applicableTemplates.get(i));
 			if (applicable) {
 				
@@ -178,18 +178,18 @@ public class KnowledgeBase {
 		List<SynTemplate> possibleTemplates = this.checkAllTemplates(pool.findApplicableTemplates(this, sequence, detail)); // cross check with knowledge Database
 
 		if (possibleTemplates.size() > 0) {
-
 			Random generator = new Random(System.currentTimeMillis());
 
-			int pick = generator.nextInt(possibleTemplates.size());			// pick one Template at random
+			int pick = generator.nextInt(possibleTemplates.size());					// pick one Template at random
 			
 			log.add(possibleTemplates.get(pick).buildSentence(sequence).trim());	// build the Sentence
 
-			this.addToKnowledge(possibleTemplates.get(pick));				// add new Information to knowledge Database
+			this.addToKnowledge(possibleTemplates.get(pick));						// add new Information to knowledge Database
 
 			log = this.checkAndPickTemplates(pool, log, sequence, detail); 			// recheck with new knowledgebase
 
 		}
+		
 		return log;
 	}
 
@@ -208,4 +208,47 @@ public class KnowledgeBase {
 			
 	}
 
+	
+	/**
+	 * @param sequenceAt
+	 * @param naturalLog
+	 * @return
+	 * TODO
+	 */
+	public List<String> findUnmentionedTopicsFrom(Sequence sequence,
+			List<String> updatedLog) {
+		
+		String[] dyingTypes = sequence.getDyingTypes();
+		String[] newbornTypes = sequence.getNewbornTypes();
+		String[] growingTypes = sequence.getGrowingTypes();
+		
+		for (int i = 0; i < dyingTypes.length; i++) {
+			
+			if (!this.currentTopicsIncludes(dyingTypes[i])) {
+				
+				updatedLog.add("Missing Template for dying Topic: " + dyingTypes[i]);
+			}
+		}
+
+		for (int i = 0; i < newbornTypes.length; i++) {
+			
+			if (!this.currentTopicsIncludes(newbornTypes[i])) {
+				
+				updatedLog.add("Missing Template for newborn Topic: " + newbornTypes[i]);
+			}
+		}
+		
+		for (int i = 0; i < growingTypes.length; i++) {
+			
+			if (!this.currentTopicsIncludes(growingTypes[i])) {
+				
+				updatedLog.add("Missing Template for growing Topic: " + growingTypes[i]);
+			}
+		}
+
+		
+		return updatedLog;
+	}
+
+	
 }
