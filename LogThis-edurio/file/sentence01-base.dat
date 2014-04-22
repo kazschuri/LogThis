@@ -1,0 +1,23 @@
+# Sentence 01 Base
+# DET^ N^ was empty for <time> minutes
+
+ \leaf{\emph{DET^}}
+ \leaf{\emph{N^}}
+ \branch{2}{NP}
+ \leaf{\emph{was}}
+ \branch{1}{V}
+ \leaf{\emph{empty}}
+ \branch{1}{AP}
+ \leaf{\emph{for}}
+ \branch{1}{P}
+ \leaf{\emph{<time>}}
+ \branch{1}{ADJ}
+ \leaf{\emph{minutes}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{N}
+ \branch{1}{NP}
+ \branch{2}{PP}
+ \branch{2}{AP}
+ \branch{2}{VP}
+ \branch{2}{S}

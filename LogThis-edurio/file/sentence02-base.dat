@@ -1,0 +1,14 @@
+# Sentence 02 Base
+# NP1^ enters DET2^ N2^ VP1^
+# (Beispiel: a worker enters the workarea with arms down)
+
+ \leaf{\emph{NP2^}}
+ \leaf{\emph{enters}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{NP1^}}
+ \branch{2}{VP}
+ \leaf{\emph{VP1^}}
+ \branch{2}{VP}
+ \branch{2}{S}
+

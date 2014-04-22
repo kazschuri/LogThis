@@ -1,0 +1,37 @@
+14991803;No_Human;situation
+14991860;Follow_Path;expectation
+14991860;No Activity detected;activity
+14991861;Place_Outside;intent_Place
+14991861;Place_Unknown;intent_Target
+14991861;Place_Unknown;intent_Next
+14991862;########;Hash
+14992803;Change_Path;expectation
+14992804;No Activity detected;activity
+14992804;Place_Unknown;intent_Place
+14992804;Place_A;intent_Target
+14992805;Place_Unknown;intent_Next
+14992812;########;Hash
+14993483;No_Human;situation
+14993483;Follow_Path;expectation
+14993484;No Activity detected;activity
+14993484;Place_Outside;intent_Place
+14993578;Place_Unknown;intent_Target
+14993578;Place_Unknown;intent_Next
+14993579;########;Hash
+14994156;With_Human;situation
+14994157;Left_Arm_Down;action
+14994157;Right_Arm_Down;action
+14994158;Follow_Path;expectation
+14994250;Place_Outside;intent_Place
+14994251;Place_Unknown;intent_Target
+14994251;Place_Unknown;intent_Next
+14994251;########;Hash
+14994604;With_Human;situation
+14994607;Left_Arm_Down;action
+14994607;Right_Arm_Down;action
+14994672;Follow_Path;expectation
+14994672;No Activity detected;activity
+14994672;Place_Outside;intent_Place
+14994673;Place_Unknown;intent_Target
+14994673;Place_Unknown;intent_Next
+14994673;########;Hash

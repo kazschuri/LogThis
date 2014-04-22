@@ -1,0 +1,112 @@
+<template>
+
+############## Template X ###############
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree (http://erg.delph-in.net/logon) or formula
+
+
+<<Must-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<set>
+    <tree>
+    </tree>
+</set>
+
+<<Can-Trees>>
+# Of the kind:
+# <set>
+#   <tree>
+#       quobitree or formula
+#   </tree>
+#   ...
+# </set>
+# <set>
+# ...
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<set>
+    <tree>
+    </tree>
+    <tree>
+    </tree>
+</set>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
+#   <element= >
+#   <time= >
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=>
+    <subcat=>
+    <element=>
+    <time=0>
+    <exists=>
+    <link=>
+</cond>
+
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<slot>
+  <name=< >>
+  <category= >
+  <element= >
+</slot>
+
+<<topics>>
+# Of the kind:
+# <topic=Stand_Still;activity>
+# <topic=With_Human;situation>
+# ...
+<topic=>
+
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=>
+
+</template>
