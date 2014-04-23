@@ -22,10 +22,10 @@ public class TextModule {
 		for (int i = 0; i < scene.getSequences().length; i++) {
 
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
-			if (verbose) {
+//			if (verbose) {
 				
 				naturalLog.add("----- Sequence "+i+" -----");
-			}
+//			}
 			
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail); // pick as long as there are free topics
 			if (verbose) {
