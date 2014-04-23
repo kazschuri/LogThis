@@ -37,8 +37,8 @@ public class NaturalLogGenerator {
 		
 		KnowledgeBase knowledge = new KnowledgeBase();
 		
-//		TextModule.showMatches(knowledge, tPool, testScene, 1);
-		testScene.showAgeingOf();
+		TextModule.showMatches(knowledge, tPool, testScene, 1);
+//		testScene.showAgeingOf();
 
 		List<String> resultLog = new ArrayList<String>();
 		

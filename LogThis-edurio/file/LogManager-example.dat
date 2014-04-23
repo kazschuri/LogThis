@@ -68,7 +68,7 @@
 2216531;Partially_Attentative;situation
 2216538;Stand_Still;activity
 2216541;Partial_Attention;activity
-2216548;Move_right_Arm;activity
+2216548;Move_Right_Arm;activity
 2216549;Left_Arm_Down;action
 2216554;Taking_Tool;action
 2216558;Follow_Path;expectation
