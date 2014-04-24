@@ -8,7 +8,8 @@ public class InputProcessor
 		long startTime = System.currentTimeMillis();
 		
 //		FileReader fr = new FileReader("file/LogManager-short.dat");
-		FileReader fr = new FileReader("file/LogManager-example.dat");
+		FileReader fr = new FileReader("file/LogManager-live-tool-2.dat");
+//		FileReader fr = new FileReader("file/LogManager-example.dat");
 //		FileReader fr = new FileReader("file/LogManager-long.dat");
 		BufferedReader br = new BufferedReader(fr);
 		

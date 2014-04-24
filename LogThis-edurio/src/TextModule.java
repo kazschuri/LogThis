@@ -24,7 +24,12 @@ public class TextModule {
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 //			if (verbose) {
 				
-				naturalLog.add("----- Sequence "+i+" -----");
+//				naturalLog.add("----- Sequence "+i+" -----");
+				if (i!=0){
+					naturalLog.add("");
+//					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
+					naturalLog.add("A different situation presented itself after "+(scene.getSequenceAt(i-1).getLastTimestamp()-scene.getSequenceAt(i-1).getFirstTimestamp())+ " milliseconds");
+				}
 //			}
 			
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail); // pick as long as there are free topics

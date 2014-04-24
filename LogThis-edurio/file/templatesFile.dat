@@ -645,6 +645,15 @@
 # ...
 
 <cond>
+    <category=Knowledge>
+    <subcat=current>
+    <element=With_Human;situation>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
     <category=Sequence>
     <subcat=current>
     <element=Left_Arm_Down;action>
@@ -1499,15 +1508,6 @@
 
 <cond>
     <category=Sequence>
-    <subcat=current>
-    <element=Right_Arm_Up_And_Bowed;action>
-    <time=0>
-    <exists=true>
-    <link=AND>
-</cond>
-
-<cond>
-    <category=Sequence>
     <subcat=dying>
     <element=Taking_Tool;action>
     <time=0>
@@ -1534,6 +1534,85 @@
 <level=7>
 
 </template>
+
+#####################################################################
+######################### Template 15a ##############################
+#####################################################################
+
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree (http://erg.delph-in.net/logon) or formula
+
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{user}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \leaf{\emph{holds}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{new}}
+ \branch{1}{AP}
+ \leaf{\emph{and}}
+ \branch{1}{CONJ}
+ \leaf{\emph{shiny}}
+ \branch{1}{AP}
+ \branch{2}{AP}
+ \branch{2}{AP}
+ \leaf{\emph{tool}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{N}
+ \branch{2}{NP}
+ \branch{2}{VP}
+ \branch{2}{S}
+ 
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
+#   <element= >
+#   <time= >
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=Holding_Tool;activity>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+
+
+<<topics>>
+# Of the kind:
+# <topic=Stand_Still;activity>
+# <topic=With_Human;situation>
+# ...
+<topic=Holding_Tool;activity>
+
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=7>
+
+</template>
+
 
 <template>
 
