@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class SynTemplate {
 
+	private int synTemplateName = 0;
 	private Node template;
 	private List<List<Node>> mustUseTrees;
 	private List<List<Node>> canUseTrees;
@@ -23,11 +24,12 @@ public class SynTemplate {
 	 * @param slotCondition
 	 * @param detailLevel
 	 */
-	public SynTemplate(Node template, List<List<Node>> mustUseTrees,
+	public SynTemplate(int name, Node template, List<List<Node>> mustUseTrees,
 			List<List<Node>> canUseTrees, Node[] slots,
 			LinkedConditions linConds, List<String> topics,
 			SlotCondition[] slotCondition, int detailLevel) {
 		super();
+		this.synTemplateName = name;
 		this.template = template;
 		this.mustUseTrees = mustUseTrees;
 		this.canUseTrees = canUseTrees;
@@ -435,6 +437,24 @@ public class SynTemplate {
 		return fillers;
 		
 	}
+	/**
+	 * TODO
+	 * @return the synTemplateName
+	 */
+	public int getSynTemplateName() {
+	
+		return synTemplateName;
+	}
+
+	/**
+	 * TODO
+	 * @param synTemplateName the synTemplateName to set
+	 */
+	public void setSynTemplateName(int synTemplateName) {
+	
+		this.synTemplateName = synTemplateName;
+	}
+
 	/**
 	 * @return the template
 	 */

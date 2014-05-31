@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+
 
 
 public class Scene {
@@ -255,6 +257,73 @@ public class Scene {
 	 */
 	public void setEndTime(int endTime) {
 		this.endTime = endTime;
+	}
+	
+	/**
+	 * TODO
+	 * @param sequenceAt
+	 * @return
+	 */
+	public String elapsedTime(Sequence sequence, Boolean inMinutes) {
+		
+		String outputTime = "";
+		
+		int duration = sequence.getLastTimestamp()-sequence.getFirstTimestamp();
+		outputTime = duration + " milliseconds";
+		
+		if (inMinutes) {
+			
+//			String dateHours = new SimpleDateFormat("h").format(duration); // find some other way to present hours. it is always the first hour of the day ... 
+			String dateMinutes= new SimpleDateFormat("m").format(duration);
+			String dateSeconds= new SimpleDateFormat("s").format(duration);
+			String dateMilliseconds = new SimpleDateFormat("S").format(duration);
+			
+			String formattedOutputTime = "";
+			String minSingle = " minutes";
+			String secSingle = " seconds";
+			String milliSingle = " milliseconds";
+			
+			if (dateMinutes.equals("1")) {
+			
+				minSingle = " minute";
+				
+				if (dateSeconds.equals("1")) {
+
+					secSingle = " second";
+					
+					if (dateMilliseconds.equals("1")) {
+			
+						milliSingle = " millisecond";
+						
+					}
+				}
+			}
+			
+			if (dateMinutes.equals("0")) {
+				
+				if (dateSeconds.equals("0")) {
+				
+					if (dateMilliseconds.equals("0")) {
+						
+					} else {
+						
+						formattedOutputTime = dateMilliseconds + milliSingle;
+					}
+					
+				} else {
+					
+					formattedOutputTime = dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
+				}
+				
+			} else {
+				
+				formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
+			}
+			outputTime = formattedOutputTime;
+//			System.out.println(duration + " = " + formattedOutputTime);
+		}
+		
+		return outputTime;
 	}
     
 }

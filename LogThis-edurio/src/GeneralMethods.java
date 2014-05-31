@@ -43,4 +43,24 @@ public class GeneralMethods {
         
         return output;
     }
+	
+	/**
+	 * @param size
+	 * @param synTemplateName
+	 * @return
+	 * TODO
+	 */
+	public static String addLeadingZeros(int size, int number) {
+		
+		int neededDigits = String.valueOf(size).length();
+		int currentDigits = String.valueOf(number).length();
+		
+		String result = "";
+		for (int i = 0; i < neededDigits - currentDigits; i++) {
+			result += "0"; 	
+		}
+		
+		result += String.valueOf(number);
+		return result;
+	}
 }

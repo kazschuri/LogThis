@@ -27,7 +27,7 @@ public class TemplateBuilder {
 			
 			List<List<String>> rawContent = rawTemplateSplitter(rawTemplates.get(i), verbose);
 			
-			SynTemplate synTemplate = templateBuilder(rawContent, verbose);
+			SynTemplate synTemplate = templateBuilder(i, rawContent, verbose);
 			synTemplateList.add(synTemplate);
 						
 		}
@@ -184,7 +184,7 @@ public class TemplateBuilder {
 	 * 
 	 * @return resultTemplate the resulting Template
 	 */
-	private static SynTemplate templateBuilder(List<List<String>> listsOfContent, boolean verbose) {
+	private static SynTemplate templateBuilder(int synTemplateName, List<List<String>> listsOfContent, boolean verbose) {
 		
 		if (verbose) {
 			
@@ -474,6 +474,7 @@ public class TemplateBuilder {
 			
 		}
 		
+		resultTemplate.setSynTemplateName(synTemplateName);
 		resultTemplate.setTemplate(templateNode);
 		resultTemplate.setMustUseTrees(mustUseTrees);
 		resultTemplate.setCanUseTrees(canUseTrees);

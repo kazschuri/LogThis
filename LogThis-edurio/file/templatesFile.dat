@@ -582,8 +582,6 @@
 
 <<topics>>
 <topic=With_Human;situation>
-<topic=Left_Arm_Down;action>
-<topic=Right_Arm_Down;action>
 
 <<templateLevel>>
 # signifies for which levels the template is applicable
@@ -645,7 +643,7 @@
 # ...
 
 <cond>
-    <category=Knowledge>
+    <category=knowledge>
     <subcat=current>
     <element=With_Human;situation>
     <time=0>
@@ -1534,6 +1532,8 @@
 <level=7>
 
 </template>
+
+<template>
 
 #####################################################################
 ######################### Template 15a ##############################

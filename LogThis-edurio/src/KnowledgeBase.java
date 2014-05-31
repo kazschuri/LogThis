@@ -173,7 +173,7 @@ public class KnowledgeBase {
 	 * TODO param
 	 * @return a String representation of all the chosen Templates
 	 */
-	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence, int detail) {
+	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence, int detail, Boolean info) {
 
 		List<SynTemplate> possibleTemplates = this.checkAllTemplates(pool.findApplicableTemplates(this, sequence, detail)); // cross check with knowledge Database
 
@@ -182,11 +182,18 @@ public class KnowledgeBase {
 
 			int pick = generator.nextInt(possibleTemplates.size());					// pick one Template at random
 			
-			log.add(possibleTemplates.get(pick).buildSentence(sequence).trim());	// build the Sentence
+			String tempSentence = possibleTemplates.get(pick).buildSentence(sequence).trim(); // build the Sentence
+			
+			if (info) {
+				String formattedTemplateName = GeneralMethods.addLeadingZeros(pool.size() , possibleTemplates.get(pick).getSynTemplateName());
+				tempSentence += " (Template "+ formattedTemplateName + ")";
+			}
+			
+			log.add(tempSentence);	// add the Sentence
 
 			this.addToKnowledge(possibleTemplates.get(pick));						// add new Information to knowledge Database
 
-			log = this.checkAndPickTemplates(pool, log, sequence, detail); 			// recheck with new knowledgebase
+			log = this.checkAndPickTemplates(pool, log, sequence, detail, info); 	// recheck with new knowledgebase
 
 		}
 		

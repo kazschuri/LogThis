@@ -15,24 +15,28 @@ public class TextModule {
 	 * @return the natural log data
 	 */
 	public static List<String> LogBuilder(Scene scene, KnowledgeBase knowledge, 
-							TemplatePool pool, int detail, Boolean verbose) {
+							TemplatePool pool, int detail, Boolean info, Boolean verbose) {
 		
 		List<String> naturalLog = new ArrayList<String>();
 
 		for (int i = 0; i < scene.getSequences().length; i++) {
 
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
-//			if (verbose) {
-				
+			String verboseText ="";
+			if (info) {
+				verboseText = " (Sequence "+i+")";
+			}	
 //				naturalLog.add("----- Sequence "+i+" -----");
-				if (i!=0){
-					naturalLog.add("");
+			if (i!=0){
+				naturalLog.add("");
 //					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
-					naturalLog.add("A different situation presented itself after "+(scene.getSequenceAt(i-1).getLastTimestamp()-scene.getSequenceAt(i-1).getFirstTimestamp())+ " milliseconds");
-				}
-//			}
+				String timeElapsed = scene.elapsedTime(scene.getSequenceAt(i-1),true);
+				
+				naturalLog.add("A different situation presented itself after "+ timeElapsed + verboseText);
+			}
 			
-			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail); // pick as long as there are free topics
+			
+			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail, info); // pick as long as there are free topics
 			if (verbose) {
 			
 				naturalLog = knowledge.findUnmentionedTopicsFrom(scene.getSequenceAt(i), naturalLog);

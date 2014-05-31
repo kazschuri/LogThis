@@ -82,4 +82,13 @@ public class TemplatePool {
 		this.pool = pool;
 	}
 	
+	/**
+	 * TODO
+	 * 
+	 */
+	public int size() {
+		
+		return pool.length;
+	}
 }
+
