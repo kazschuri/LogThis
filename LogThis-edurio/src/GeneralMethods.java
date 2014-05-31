@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -62,5 +63,66 @@ public class GeneralMethods {
 		
 		result += String.valueOf(number);
 		return result;
+	}
+	
+	/**
+	 * TODO
+	 * @param duration
+	 * @return
+	 */
+	public static String formatTime(int duration) {
+
+//		String dateHours = new SimpleDateFormat("h").format(duration); // find some other way to present hours. it is always the first hour of the day ... 
+		String dateMinutes= new SimpleDateFormat("m").format(duration);
+		String dateSeconds= new SimpleDateFormat("s").format(duration);
+		String dateMilliseconds = new SimpleDateFormat("S").format(duration);
+		
+		String formattedOutputTime = "";
+		String minSingle = " minutes";
+		String secSingle = " seconds";
+		String milliSingle = " milliseconds";
+		
+		if (dateMinutes.equals("1")) {
+		
+			minSingle = " minute";
+			
+			if (dateSeconds.equals("1") && dateMilliseconds.equals("0")) {
+
+				secSingle = " second";
+				
+				if (dateMilliseconds.equals("1")) {
+		
+					milliSingle = " millisecond";
+					
+				}
+			}
+		}
+		
+		if (dateMinutes.equals("0")) {
+			
+			if (dateSeconds.equals("0") && dateMilliseconds.length() <= 2) {
+				
+				if (dateMilliseconds.equals("0")) {
+					
+				} else {
+					
+					formattedOutputTime = dateMilliseconds + milliSingle;
+				}
+				
+			} else {
+				
+//				formattedOutputTime = dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
+				formattedOutputTime = dateSeconds + "." + dateMilliseconds + secSingle;
+			}
+			
+		} else {
+			
+//			formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
+			formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + "." + dateMilliseconds + secSingle;
+		}
+		
+//		System.out.println(duration + " = " + formattedOutputTime);
+
+		return formattedOutputTime;
 	}
 }

@@ -1,7 +1,3 @@
-import java.text.SimpleDateFormat;
-
-
-
 public class Scene {
     
     private Sequence[] sequences;
@@ -29,9 +25,11 @@ public class Scene {
 		}
         this.startTime	= sequences[0].getFirstTimestamp();
         this.endTime	= sequences[sequences.length-1].getLastTimestamp();
+        
+        positionAllSequences(sequences);
     }
     
-    /**
+	/**
      * @param sequences
      * @param frameCountOfAllSequences
      * @param startingTimeOfScene
@@ -44,8 +42,23 @@ public class Scene {
         this.startTime		= startingTimeOfScene;
         this.endTime 		= endingTimeOfScene;
         
+        positionAllSequences(sequences);
     }
 
+	/**
+	 * adjusts the parentScene and position for each included Sequence
+	 * 
+	 * @param seq
+	 */
+	private void positionAllSequences(Sequence[] seq) {
+
+		for (int i = 0; i < seq.length; i++) {
+			
+			seq[i].setParentScene(this);
+			seq[i].setInScenePosition(i);
+			
+		}
+	}
     /**
 	 * output the difference between the sequences of a scene
 	 */
@@ -272,55 +285,8 @@ public class Scene {
 		outputTime = duration + " milliseconds";
 		
 		if (inMinutes) {
-			
-//			String dateHours = new SimpleDateFormat("h").format(duration); // find some other way to present hours. it is always the first hour of the day ... 
-			String dateMinutes= new SimpleDateFormat("m").format(duration);
-			String dateSeconds= new SimpleDateFormat("s").format(duration);
-			String dateMilliseconds = new SimpleDateFormat("S").format(duration);
-			
-			String formattedOutputTime = "";
-			String minSingle = " minutes";
-			String secSingle = " seconds";
-			String milliSingle = " milliseconds";
-			
-			if (dateMinutes.equals("1")) {
-			
-				minSingle = " minute";
-				
-				if (dateSeconds.equals("1")) {
-
-					secSingle = " second";
-					
-					if (dateMilliseconds.equals("1")) {
-			
-						milliSingle = " millisecond";
-						
-					}
-				}
-			}
-			
-			if (dateMinutes.equals("0")) {
-				
-				if (dateSeconds.equals("0")) {
-				
-					if (dateMilliseconds.equals("0")) {
-						
-					} else {
-						
-						formattedOutputTime = dateMilliseconds + milliSingle;
-					}
-					
-				} else {
-					
-					formattedOutputTime = dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
-				}
-				
-			} else {
-				
-				formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
-			}
-			outputTime = formattedOutputTime;
-//			System.out.println(duration + " = " + formattedOutputTime);
+		
+			outputTime = GeneralMethods.formatTime(duration);
 		}
 		
 		return outputTime;
