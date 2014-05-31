@@ -313,7 +313,7 @@
 #####################################################################
 
 <<Base-Tree>>
-# NP1^ was empty for <time> minutes
+# NP1^ was empty for <time>
 
  \leaf{\emph{NP1^}}
  \leaf{\emph{was}}
@@ -324,10 +324,6 @@
  \branch{1}{P}
  \leaf{\emph{<time>}}
  \branch{1}{ADJ}
- \leaf{\emph{minutes}}
- \branch{1}{N}
- \branch{1}{N}
- \branch{2}{N}
  \branch{1}{NP}
  \branch{2}{PP}
  \branch{2}{AP}
@@ -836,6 +832,7 @@
 # <topic=With_Human;situation>
 # ...
 <topic=Place_C;intent_placement>
+<topic=With_Human;situation>
 
 <<templateLevel>>
 # signifies for which levels the template is applicable
@@ -883,10 +880,7 @@
  \branch{1}{P}
  \leaf{\emph{<time>}}
  \branch{1}{ADJ}
- \leaf{\emph{minutes}}
  \branch{1}{N}
- \branch{1}{N}
- \branch{2}{N}
  \branch{1}{NP}
  \branch{2}{PP}
  \branch{2}{N}
@@ -1034,6 +1028,7 @@
 # ...
 <topic=Stand_Still;activity>
 <topic=Place_C;intent_placement>
+<topic=With_Human;situation>
 
 <<templateLevel>>
 # signifies for which levels the template is applicable
@@ -1133,6 +1128,7 @@
 # ...
 <topic=Partially_Paying_Attention;activity>
 <topic=Partially_Attentative;situation>
+<topic=With_Human;situation>
 
 <<templateLevel>>
 # signifies for which levels the template is applicable
