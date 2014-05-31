@@ -20,6 +20,7 @@ public class SlotCondition {
 	//TODO
 	public String fillSlot(Sequence sequence) {
 		
+		boolean dying = false;
 		String filler = "";
 		
 		if (category.equalsIgnoreCase("Sequence")) {
@@ -36,11 +37,13 @@ public class SlotCondition {
 		} else {
 			
 			boolean elementIsFound = false;
+						
 			String[] haystack = {""};
 			
 			if (this.category.equals("dying")) {
 				
 				haystack = sequence.getDyingTypes();
+				dying = true;
 				
 			}else if (this.category.equals("growing")) {
 				
@@ -58,8 +61,36 @@ public class SlotCondition {
 			elementIsFound = GeneralMethods.containsElement(haystack, this.element);	// look in appropriate category for element
 
 			if (elementIsFound) {
+				
+				int elementsFirstTimestamp = 0;
+				int elementsLastTimestamp = sequence.getLastTimestamp();
+				
+				int ageInFrames = 0;
+				
+				ageInFrames = sequence.getElementOfTypeToAgeMap(this.element);
+				
+				Scene parent = sequence.getParentScene();
+				int position = sequence.getInScenePosition();
+				
+				if (dying) {
+					
+					position--;
+					elementsLastTimestamp = parent.getSequenceAt(position).getLastTimestamp();
+					
+				}
 
-				filler = String.valueOf(sequence.getElementOfTypeToAgeMap(this.element));
+				while (ageInFrames > 0) {
+					
+					elementsFirstTimestamp = parent.getSequenceAt(position).getFirstTimestamp();
+					ageInFrames -= parent.getSequenceAt(position).getNumberOfFrames();
+					position--;
+				}
+				
+				int ageInMilliSeconds = elementsLastTimestamp - elementsFirstTimestamp;
+				String ageInFormat = GeneralMethods.formatTime(ageInMilliSeconds);
+				
+				filler = ageInFormat;
+//				filler = String.valueOf(sequence.getElementOfTypeToAgeMap(this.element));
 			}
 
 		}
