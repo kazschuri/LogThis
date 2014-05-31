@@ -6,6 +6,9 @@ import java.util.Map;
 
 public class Sequence {
 
+	private Scene parentScene;
+	private int inScenePosition;
+	
     private String[] newbornTypes;
     private String[] growingTypes;
     private String[] dyingTypes;
@@ -307,6 +310,48 @@ public class Sequence {
 	}
 
     /**
+	 * @return the parentScene
+	 */
+	public Scene getParentScene() {
+	
+		return parentScene;
+	}
+
+	/**
+	 * @param parentScene the parentScene to set
+	 */
+	public void setParentScene(Scene parentScene) {
+	
+		this.parentScene = parentScene;
+	}
+
+	/**
+	 * @return the inScenePosition
+	 */
+	public int getInScenePosition() {
+	
+		return inScenePosition;
+	}
+
+	/**
+	 * @param inScenePosition the inScenePosition to set
+	 */
+	public void setInScenePosition(int inScenePosition) {
+	
+		this.inScenePosition = inScenePosition;
+	}
+
+	/**
+	 * @return the previousSequence
+	 */
+	public Sequence getPreviousSequence() {
+		
+		Sequence previousSequence = parentScene.getSequenceAt(inScenePosition-1);
+		return previousSequence;
+		
+	}
+	
+	/**
 	 * @return the newbornTypes
 	 */
 	public String[] getNewbornTypes() {
