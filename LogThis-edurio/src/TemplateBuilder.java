@@ -27,7 +27,7 @@ public class TemplateBuilder {
 			
 			List<List<String>> rawContent = rawTemplateSplitter(rawTemplates.get(i), verbose);
 			
-			SynTemplate synTemplate = templateBuilder(i, rawContent, verbose);
+			SynTemplate synTemplate = templateBuilder(i+1, rawContent, verbose);
 			synTemplateList.add(synTemplate);
 						
 		}

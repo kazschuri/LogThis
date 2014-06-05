@@ -23,16 +23,18 @@ public class TextModule {
 
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 			String verboseText ="";
+			naturalLog.add("");
+
 			if (info) {
-				verboseText = " (Sequence "+i+")";
+				verboseText = "Sequence "+i;
+				naturalLog.add("      ----- "+verboseText+" -----");
 			}	
 //				naturalLog.add("----- Sequence "+i+" -----");
 			if (i!=0){
-				naturalLog.add("");
 //					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
 				String timeElapsed = scene.elapsedTime(scene.getSequenceAt(i-1),true);
 				
-				naturalLog.add("A different situation presented itself after "+ timeElapsed + verboseText);
+				naturalLog.add("A different situation presents itself "+ timeElapsed + " later.");
 			}
 			
 			
