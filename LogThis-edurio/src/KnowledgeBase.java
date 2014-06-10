@@ -186,7 +186,7 @@ public class KnowledgeBase {
 			
 			if (info) {
 				String formattedTemplateName = GeneralMethods.addLeadingZeros(pool.size() , possibleTemplates.get(pick).getSynTemplateName());
-				tempSentence += " (Template "+ formattedTemplateName + ")";
+				tempSentence += " Template"+ formattedTemplateName + "";
 			}
 			
 			log.add(tempSentence);	// add the Sentence
