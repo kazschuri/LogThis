@@ -23,27 +23,37 @@ public class TextModule {
 
 			knowledge.retireCurrentTopics();										// reset the knowledgebase for current Sequence
 			String verboseText ="";
-			naturalLog.add("");
-
-			if (info) {
-				verboseText = "Sequence "+i;
-				naturalLog.add("      ----- "+verboseText+" -----");
-			}	
-//				naturalLog.add("----- Sequence "+i+" -----");
-			if (i!=0){
-//					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
-				String timeElapsed = scene.elapsedTime(scene.getSequenceAt(i-1),true);
-				
-				naturalLog.add("A different situation presents itself "+ timeElapsed + " later.");
-			}
-			
+						
+			int oldSize = naturalLog.size();
 			
 			naturalLog = knowledge.checkAndPickTemplates(pool, naturalLog, scene.getSequenceAt(i), detail, info); // pick as long as there are free topics
-			if (verbose) {
 			
-				naturalLog = knowledge.findUnmentionedTopicsFrom(scene.getSequenceAt(i), naturalLog);
+			int newSize = naturalLog.size();
+			
+			if (newSize > oldSize || verbose) {
+				
+			naturalLog.add(oldSize,"");
+
+				if (info) {
+					verboseText = "Sequence "+i;
+					
+					naturalLog.add(oldSize+1,"      ----- "+verboseText+" -----");
+				}	
+	//				naturalLog.add("----- Sequence "+i+" -----");
+				if (i!=0){
+	//					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
+					String timeElapsed = scene.elapsedTime(scene.getSequenceAt(i-1),true);
+					
+					naturalLog.add(oldSize+2,"A different situation presents itself "+ timeElapsed + " later.");
+				}
 				
 			}
+			
+			if (verbose) {
+				
+				naturalLog = knowledge.findUnmentionedTopicsFrom(scene.getSequenceAt(i), naturalLog);
+				
+			}		
 		}
 		
 		return naturalLog;
