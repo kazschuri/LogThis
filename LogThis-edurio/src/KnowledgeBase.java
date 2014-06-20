@@ -31,8 +31,13 @@ public class KnowledgeBase {
 	public void retireCurrentTopics() {
 		
 		formerTopics.clear();
-		formerTopics.addAll(currentTopics);
-		currentTopics.clear();
+		if(currentTopics.size()>0) {
+		
+			formerTopics.addAll(currentTopics);
+			currentTopics.clear();
+			
+		}
+		
 		
 	}
 	
