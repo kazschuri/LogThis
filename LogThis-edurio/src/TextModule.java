@@ -30,7 +30,7 @@ public class TextModule {
 			
 			int newSize = naturalLog.size();
 			
-			if (newSize > oldSize || verbose) {
+			if (newSize > oldSize || true || verbose) {
 				
 			naturalLog.add(oldSize,"");
 
@@ -44,7 +44,14 @@ public class TextModule {
 	//					naturalLog.add("A different situation presented itself after "+scene.getSequenceAt(i-1).getNumberOfFrames()+ " frame(s)");
 					String timeElapsed = scene.elapsedTime(scene.getSequenceAt(i-1),true);
 					
-					naturalLog.add(oldSize+2,"A different situation presents itself "+ timeElapsed + " later.");
+					int position = oldSize+1;
+					
+					if (info) {
+						
+						position = oldSize+2;
+					}
+					
+					naturalLog.add(position,"A different situation presents itself "+ timeElapsed + " later.");
 				}
 				
 			}
