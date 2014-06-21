@@ -30,7 +30,7 @@ public class TextModule {
 			
 			int newSize = naturalLog.size();
 			
-			if (newSize > oldSize || true || verbose) {
+			if (newSize > oldSize || verbose) {
 				
 			naturalLog.add(oldSize,"");
 

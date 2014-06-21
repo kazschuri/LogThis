@@ -281,7 +281,8 @@ public class Scene {
 		
 		String outputTime = "";
 		
-		int duration = sequence.getLastTimestamp()-sequence.getFirstTimestamp();
+		Sequence nextSequence = sequences[sequence.getInScenePosition()+1];
+		int duration = nextSequence.getFirstTimestamp()-sequence.getFirstTimestamp();
 		outputTime = duration + " milliseconds";
 		
 		if (inMinutes) {
