@@ -79,20 +79,24 @@ public class Sequence {
 		
 		int tmpLength = timestamps.length;
 		this.lastTimestamp = timestamps[tmpLength-1][timestamps[tmpLength-1].length-1];
-		for (int i = 0; i < tmpLength; i++) {
-			
-			if (this.firstTimestamp > timestamps[i][0]) {
-			
-				this.firstTimestamp = timestamps[i][0];	
-			
-			}
-			
-			if (this.lastTimestamp > timestamps[i][timestamps[i].length-1]){
-				
-				this.lastTimestamp = timestamps[i][timestamps[i].length-1];
-			}
-						
-		}
+		
+		/*
+		 * This should already be right. I don't remember, why I had a second check.
+		 */
+//		for (int i = 0; i < tmpLength; i++) {
+//			
+//			if (this.firstTimestamp > timestamps[i][0]) {
+//			
+//				this.firstTimestamp = timestamps[i][0];	
+//			
+//			}
+//			
+//			if (this.lastTimestamp > timestamps[i][timestamps[i].length-1]){
+//				
+//				this.lastTimestamp = timestamps[i][timestamps[i].length-1];
+//			}
+//						
+//		}
 		 
 		this.numberOfFrames = timestamps.length;
 		
