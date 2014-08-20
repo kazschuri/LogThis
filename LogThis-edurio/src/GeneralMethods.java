@@ -31,29 +31,28 @@ public class GeneralMethods {
 		
 		return found;
 	}
+	
 	/**
-	 * TODO
-	 * @param input
-	 * @return
+	 * @param listWithDuplicates
+	 * @return cleaned List
 	 */
-	public static List<String> removeDuplicate(List<String> input){
+	public static List<String> removeDuplicate(List<String> listWithDuplicates){
         
-        Set<String> inputSet = new HashSet<String>(input);
+        Set<String> setWithDuplicates = new HashSet<String>(listWithDuplicates);
 
-        List<String> output = new ArrayList<String>(inputSet);
+        List<String> cleanedList = new ArrayList<String>(setWithDuplicates);
         
-        return output;
+        return cleanedList;
     }
 	
 	/**
-	 * @param size
-	 * @param synTemplateName
-	 * @return
-	 * TODO
+	 * @param neededAmountOfDigits
+	 * @param number
+	 * @return result
 	 */
-	public static String addLeadingZeros(int size, int number) {
+	public static String addLeadingZeros(int neededAmountOfDigits, int number) {
 		
-		int neededDigits = String.valueOf(size).length();
+		int neededDigits = String.valueOf(neededAmountOfDigits).length();
 		int currentDigits = String.valueOf(number).length();
 		
 		String result = "";
@@ -66,9 +65,9 @@ public class GeneralMethods {
 	}
 	
 	/**
-	 * TODO
+	 * Formatting the duration into a String containing numbers and time declarations
 	 * @param duration
-	 * @return
+	 * @return formattedOutputTime
 	 */
 	public static String formatTime(int duration) {
 
@@ -111,18 +110,14 @@ public class GeneralMethods {
 				
 			} else {
 				
-//				formattedOutputTime = dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
 				formattedOutputTime = dateSeconds + "." + dateMilliseconds + secSingle;
 			}
 			
 		} else {
 			
-//			formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + secSingle + " and " + dateMilliseconds + milliSingle;
 			formattedOutputTime = dateMinutes + minSingle + ", " + dateSeconds + "." + dateMilliseconds + secSingle;
 		}
 		
-//		System.out.println(duration + " = " + formattedOutputTime);
-
 		return formattedOutputTime;
 	}
 }

@@ -25,7 +25,9 @@ public class Frame {
 		
 	}
 
-
+	/**
+	 * @return the ArrayLength
+	 */				
 	public int getArrayLength() {
 		
 		return this.tickArray.length;
@@ -76,6 +78,7 @@ public class Frame {
 		
 		return concatenatedTypesOfThisFrame;
 	}
+	
 	/**
 	 * @return the timestampsOfThisFrame
 	 */

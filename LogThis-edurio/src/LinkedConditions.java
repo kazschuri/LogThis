@@ -9,6 +9,8 @@ public class LinkedConditions {
 	String[] links;
 	
 	/**
+	 * Constructor with parameters
+	 * 
 	 * @param conditions
 	 * @param links AND, OR, XOR
 	 */
@@ -18,7 +20,10 @@ public class LinkedConditions {
 		this.conditions = conditions;
 		this.links = links;
 	}
-
+	
+	/**
+	 * Constructor without parameters
+	 */
 	public LinkedConditions() {
 	
 		super();
@@ -100,6 +105,7 @@ public class LinkedConditions {
 		
 		this.conditions = tmpArray; 
 	}
+	
 	/**
 	 * @return the links
 	 */

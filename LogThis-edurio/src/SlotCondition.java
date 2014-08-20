@@ -17,7 +17,12 @@ public class SlotCondition {
 		this.element = element;
 	}
 
-	//TODO
+	/**
+	 * filling a slot from sequence data
+	 * 
+	 * @param sequence the sequence to look at
+	 * @return filler data
+	 */
 	public String fillSlot(Sequence sequence) {
 		
 		boolean dying = false;
@@ -90,14 +95,12 @@ public class SlotCondition {
 				String ageInFormat = GeneralMethods.formatTime(ageInMilliSeconds);
 				
 				filler = ageInFormat;
-//				filler = String.valueOf(sequence.getElementOfTypeToAgeMap(this.element));
 			}
-
 		}
 
 		return filler;
-		
 	}
+
 	/**
 	 * @return the name
 	 */
@@ -145,6 +148,4 @@ public class SlotCondition {
 	
 		this.element = element;
 	}
-	
-	
 }

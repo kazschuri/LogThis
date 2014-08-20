@@ -9,6 +9,7 @@ public class KnowledgeBase {
 	List<String> currentTopics;
 	
 	/**
+	 * Constructor with parameters
 	 * @param formerTopics
 	 * @param currentTopics
 	 */
@@ -18,7 +19,9 @@ public class KnowledgeBase {
 		this.currentTopics = currentTopics;
 	}
 	
-	//TODO
+	/**
+	 * Constructor of empty knowledgebase
+	 */
 	public KnowledgeBase() {
 		super();
 		formerTopics = new ArrayList<String>();
@@ -27,7 +30,9 @@ public class KnowledgeBase {
 	}
 
 	
-	//TODO
+	/**
+	 * push current Topics to formerTopics and clear currentTopics
+	 */
 	public void retireCurrentTopics() {
 		
 		formerTopics.clear();
@@ -94,7 +99,7 @@ public class KnowledgeBase {
 
 	
 	/**
-	 * checks all Templates if they are applicable in this knowledge state
+	 * check all Templates if they are applicable in this knowledge state
 	 * @param applicableTemplates the templates to check
 	 * 
 	 * @return possibleTemplates
@@ -113,8 +118,6 @@ public class KnowledgeBase {
 				possibleTemplates.add(applicableTemplates.get(i));
 			}
 		}
-		
-		//TODO check what happens, if List is empty
 		
 		return possibleTemplates;
 	}
@@ -169,9 +172,12 @@ public class KnowledgeBase {
 	 * checking all available Templates against the Knowledge Base, pick one 
 	 * and start again, until no more applicable Templates
 	 * 
-	 * @param applicableTemplates the Templates that are available from this Sequence
-	 * TODO param
-	 * @return a String representation of all the chosen Templates
+	 * @param pool the pool of templates that is available
+	 * @param log the current resulting log
+	 * @param sequence the current sequence
+	 * @param detail the detail level that is required
+	 * @param info flag if more information is needed
+	 * @return log with new sentences
 	 */
 	public List<String> checkAndPickTemplates(TemplatePool pool, List<String> log, Sequence sequence, int detail, Boolean info) {
 
@@ -217,10 +223,10 @@ public class KnowledgeBase {
 
 	
 	/**
-	 * @param sequenceAt
-	 * @param naturalLog
-	 * @return
-	 * TODO
+	 * finding unmentioned Topics in a Sequence and presenting them
+	 * @param sequence the sequence to search
+	 * @param updatedLog the current state of the log
+	 * @return updatedLog the updated state of the log
 	 */
 	public List<String> findUnmentionedTopicsFrom(Sequence sequence,
 			List<String> updatedLog) {

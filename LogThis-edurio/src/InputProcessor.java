@@ -3,6 +3,13 @@ import java.util.*;
 
 public class InputProcessor
 {
+	
+	/**
+	 * fileReader builds a scene from a file
+	 * 
+	 * @return sceneOfInput
+	 * @throws IOException
+	 */
 	public static Scene fileReader() throws IOException
 	{
 		long startTime = System.currentTimeMillis();
@@ -61,10 +68,10 @@ public class InputProcessor
 		Sequence[] sequenceArray = new Sequence[sequenceList.size()]; 
 		sequenceArray = sequenceList.toArray(sequenceArray);
 		
-		Scene sceneOfInput = new Scene(sequenceArray);
+		Scene sceneFromInput = new Scene(sequenceArray);
 		
 		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to read log");
-		return sceneOfInput;
+		return sceneFromInput;
 	}
 
 		

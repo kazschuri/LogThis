@@ -152,8 +152,11 @@ public class SynTemplate {
 	}
 	
 	/**
-	 * TODO
-	 * @return
+	 * Sentence builder
+	 * 
+	 * @param sequence the sequence to use
+	 * 
+	 * @return finalString
 	 */
 	public String buildSentence(Sequence sequence) {
 		
@@ -215,7 +218,15 @@ public class SynTemplate {
 		}
 	}
 
-	//TODO
+	/**
+	 * check if template is applicable
+	 * 
+	 * @param knowledge the current knowledge base
+	 * @param sequence the current sequence
+	 * @param detail the detail level required
+	 * 
+	 * @return TRUE if template is applicable
+	 */
 	public boolean isApplicable(KnowledgeBase knowledge, Sequence sequence, int detail) {
 		
 		boolean fulfilled = false;
@@ -419,7 +430,12 @@ public class SynTemplate {
 		this.canUseTrees.add(tmpList);
 	}
 	
-	//TODO
+	/**
+	 * get the filler information for slots
+	 * 
+	 * @param sequence the sequence to use
+	 * @return fillers
+	 */
 	public String[] getFillers(Sequence sequence) {
 		
 		String[] fillers = new String[slots.length];
@@ -437,8 +453,8 @@ public class SynTemplate {
 		return fillers;
 		
 	}
+	
 	/**
-	 * TODO
 	 * @return the synTemplateName
 	 */
 	public int getSynTemplateName() {
@@ -447,7 +463,6 @@ public class SynTemplate {
 	}
 
 	/**
-	 * TODO
 	 * @param synTemplateName the synTemplateName to set
 	 */
 	public void setSynTemplateName(int synTemplateName) {
@@ -495,19 +510,6 @@ public class SynTemplate {
 		return canUseTrees;
 	}
 	
-//	public void getCanUseLists() {
-//		
-//		for (int i = 0; i < canUseTrees.size(); i++) {
-//			
-//			for (int j = 0; j < canUseTrees.get(i).size(); j++) {
-//				
-//				System.out.print(canUseTrees.get(i).get(j).getData()+" ");
-//			}
-//			System.out.println();
-//			
-//		}
-//	}
-
 	/**
 	 * @param canUseTrees the canUseTrees to set
 	 */
@@ -608,9 +610,10 @@ public class SynTemplate {
 	}
 
 	/**
-	 * TODO
+	 * check if detail level of template is within required range
+	 * 
 	 * @param checkNumber
-	 * @return
+	 * @return TRUE if template is within range
 	 */
 	public boolean isDetailLevelIncluded(int checkNumber) {
 		
@@ -623,8 +626,6 @@ public class SynTemplate {
 		if (integerOfDouble%1000 == 0) {
 				
 			int powerOfTwoInt = (int) (powerOfTwoDouble);
-			
-//			System.out.println(powerOfTwoInt);
 			
 			if ((detailLevel & (1L << powerOfTwoInt)) != 0){
 

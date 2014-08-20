@@ -3,12 +3,6 @@ import java.util.Stack;
 
 public class TreeGenerator {
 
-	/* TODO
-	 * 
-	 * JavaDoc
-	 * Comments
-	 * 
-	 */
 	public static TemplatePool synTrees(boolean verbose){
 		/*
 		 * http://erg.delph-in.net/logon
@@ -36,52 +30,6 @@ public class TreeGenerator {
 		}
 
 		return tPool;
-		/*
-		 * empty workspace
-		 * workspace is empty
-		 * no human is in the workarea
-		 * nobody there but the bot
-		 */
-		
-		
-		
-		/*
-		 * workarea is empty
-		 */
-	
-		/*
-		 * a human/user/person enters the workspace
-		 * a human enters the workspace with hanging arms
-		 * a human enters with his arms hanging down/by his side
-		 * a worker comes in/into the workspace
-		 */
-	
-//		SynTemplate sentence_01 = new SynTemplate();
-//		sentence_01 = TemplateBuilder.buildFromFile("template01.dat", false);
-//		tPool.addTemplate(sentence_01);
-		
-		/* 
-		 * the worker stands still
-		 * a worker stands in the workarea
-		 * a human stands in the workspace with arms by his side
-		 */
-		
-		/*
-		 * the worker is half turned towards the robot/bot
-		 * after a couple of seconds the worker half turns towards the bot
-		 * after x seconds the worker half turns towards the bot
-		 *  
-		 */
-	
-		/*
-		 * the human ignores the robot
-		 * he does not look at the robot
-		 * he does not interact with the robot
-		 */
-//		SynTemplate sentence_03 = new SynTemplate();
-//		sentence_03 = TemplateBuilder.buildFromFile("template03.dat", false);
-//		tPool.addTemplate(sentence_03);
-		
 	}
 
 	/**
@@ -241,8 +189,6 @@ public class TreeGenerator {
 		
 		treeRoot = nodeStack.pop();
 		
-//		treeRoot.showLeafs();
-//		System.out.println();
 		return treeRoot;
 	}
 

@@ -1,7 +1,10 @@
 
 public class Statistics {
 
-	//TODO
+	/**
+	 * show number of Frames within scene
+	 * @param scene the scene to analyse
+	 */
 	public static void showFrames(Scene scene) {
 		
 		for (int i = 0; i < scene.getSequences().length; i++) {
@@ -17,8 +20,11 @@ public class Statistics {
 		
 		System.out.println();
 	}
-	
-	//TODO
+
+	/**
+	 * show information about scene (frames, start-/endtime, time per Frame)
+	 * @param scene the scene to analyse
+	 */
 	public static void sceneInfo(Scene scene) {
 
 		int numberOfSequences = scene.getSequences().length;

@@ -205,39 +205,6 @@ public class Sequence {
     	return decision;
     }
     
-//    /**
-//     * 
-//     * @param firstSetOfTypes the first Set of Types to compare
-//     * @param secondSetOfTypes the second Set of Types to compare
-//     * @return decision if Type sets are equal
-//     * 
-//     */
-//    private boolean equalTypes(String[] firstSetOfTypes, String[] secondSetOfTypes){
-//    	
-//    	boolean decision = true;
-//    	
-//    	if (firstSetOfTypes.length == secondSetOfTypes.length) {
-//		
-//    		for (int i = 0; i < firstSetOfTypes.length; i++) {
-//    			
-//    			if (firstSetOfTypes[i].compareTo(secondSetOfTypes[i]) !=0 ) {
-//				
-//    				decision = false;
-//    				break;
-//    				
-//				} else {
-//					
-//					decision = true;
-//					
-//				}
-//			}
-//		} else {
-//			
-//			decision = false;
-//			
-//		}
-//    	return decision;
-//    }
 	/**
 	 * @param filter the filter to use
 	 * @param containsFilter include or exclude filter arguments
@@ -257,7 +224,6 @@ public class Sequence {
 		Sequence filteredSequence = new Sequence(tmpNewbornTypes, tmpGrowingTypes, tmpDyingTypes, this.getTypeToAgeMap(), this.getFirstTimestamp(), this.getLastTimestamp(), this.getNumberOfFrames());
 
 		return filteredSequence;
-		
 	}
     
 	/**
@@ -463,16 +429,12 @@ public class Sequence {
 		this.numberOfFrames = numberOfFrames;
 	}
 
-
-
 	/**
 	 * @return the firstTimestamp
 	 */
 	public int getFirstTimestamp() {
 		return firstTimestamp;
 	}
-
-
 
 	/**
 	 * @param firstTimestamp the firstTimestamp to set
@@ -481,8 +443,6 @@ public class Sequence {
 		this.firstTimestamp = firstTimestamp;
 	}
 
-
-
 	/**
 	 * @return the lastTimestamp
 	 */
@@ -490,14 +450,11 @@ public class Sequence {
 		return lastTimestamp;
 	}
 
-
-
 	/**
 	 * @param lastTimestamp the lastTimestamp to set
 	 */
 	public void setLastTimestamp(int lastTimestamp) {
 		this.lastTimestamp = lastTimestamp;
 	}
-    
     
 }

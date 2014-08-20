@@ -52,9 +52,10 @@ public class TextModule {
 	/**
 	 * generates a List of Templates, that are applicable for this Scene
 	 * 
+	 * @param knowledge the current knowledge base
 	 * @param pool the templatePool to use
 	 * @param scene the scene to analyse
-	 * TODO detail
+	 * @param detail the required detail level
 	 * @return templateList the list of applicable Templates
 	 */
 	public static List<List<SynTemplate>> findAllApplicableTemplatesForScene(KnowledgeBase knowledge, TemplatePool pool, Scene scene, int detail) {
@@ -72,9 +73,11 @@ public class TextModule {
 	
 	/**
 	 * shows all Sequences and the applicable Templates
+	 * 
+	 * @param knowledge the current knowledge base
 	 * @param pool the Templatepool to use
 	 * @param scene the Scene to analyse
-	 * TODO detail
+	 * @param detail the required detail level
 	 */
 	public static void showMatches(KnowledgeBase knowledge, TemplatePool pool, Scene scene, int detail) {
 		

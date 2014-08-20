@@ -48,7 +48,15 @@ public class TemplatePool {
 		
 	}
 
-	// TODO
+	/**
+	 * find all applicable templates
+	 * 
+	 * @param knowledge the knowledge base
+	 * @param sequence the sequence to use
+	 * @param detail the required detail level
+	 * 
+	 * @return listOfApplicableTemplates
+	 */
 	public List<SynTemplate> findApplicableTemplates(KnowledgeBase knowledge, Sequence sequence, int detail) {
 		
 		List<SynTemplate> listOfApplicableTemplates = new ArrayList<SynTemplate>();
@@ -83,8 +91,7 @@ public class TemplatePool {
 	}
 	
 	/**
-	 * TODO
-	 * 
+	 * @return size of pool
 	 */
 	public int size() {
 		

@@ -125,9 +125,9 @@ public class Scene {
 		System.out.println((System.currentTimeMillis()-startTime)+" milliseconds to show output log");
 	}
 
-	//TODO
 	/**
 	 * output the difference between the sequences of a scene
+	 * @param index the index of the sequence
 	 */
 	public void showAgeingAt(int index){
 		
@@ -273,9 +273,10 @@ public class Scene {
 	}
 	
 	/**
-	 * TODO
-	 * @param sequenceAt
-	 * @return
+	 * @param sequence the sequence to analyse
+	 * @param inMinutes flag if output has to be formatted to minutes
+	 * 
+	 * @return outputTime
 	 */
 	public String elapsedTime(Sequence sequence, Boolean inMinutes) {
 		

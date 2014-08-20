@@ -36,10 +36,12 @@ public class TemplateBuilder {
 	}
 	
 	/**
-	 * @param filename
-	 * @param verbose
-	 * @return
-	 * TODO
+	 * divides a file into template chunks
+	 * 
+	 * @param filename the filename to use
+	 * @param verbose flag if output should be verbose
+	 * 
+	 * @return listOfTemplates
 	 */
 	private static List<List<String>> divideFileIntoTemplates(String filename,
 			boolean verbose) {
@@ -86,6 +88,7 @@ public class TemplateBuilder {
 		}
 		return listOfTemplates;
 	}
+	
 	/**
 	 * Method to split up a SynTemplate file into different parts
 	 * Splits file after every occurence of "words" and "-" in "<< >>"
@@ -201,8 +204,6 @@ public class TemplateBuilder {
 		LinkedConditions linConds 		= new LinkedConditions();
 		List<String> topics 			= new ArrayList<String>();
 		int detailLevel					= 0;
-//TODO
-//		String[] topics;
 		
 		for (int i = 0; i < listsOfContent.size(); i++) {
 			
