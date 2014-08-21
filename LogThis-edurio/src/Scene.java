@@ -281,8 +281,24 @@ public class Scene {
 	public String elapsedTime(Sequence sequence, Boolean inMinutes) {
 		
 		String outputTime = "";
+
+		int laterTimestamp = 0;
+		int positionOfNextSequence = sequence.getInScenePosition()+1;
+		int lengthOfSequences = sequences.length;
 		
-		int duration = sequence.getLastTimestamp()-sequence.getFirstTimestamp();
+		if (lengthOfSequences -2 < positionOfNextSequence) { // reduce by two; one to get length starting at 0 and the other because of artificial last sequence
+			
+			laterTimestamp = sequence.getLastTimestamp();
+						
+		} else {
+			
+			Sequence nextSequence = sequences[positionOfNextSequence];
+			laterTimestamp = nextSequence.getFirstTimestamp();
+			
+		}
+		
+		int duration = laterTimestamp - sequence.getFirstTimestamp();
+
 		outputTime = duration + " milliseconds";
 		
 		if (inMinutes) {

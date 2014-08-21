@@ -27,14 +27,18 @@ public class NaturalLogGenerator {
 //		String[] filter = {""};
 		String[] filter = {"hmm_movement","hmm_pose","hmm_compound","intent_next","intent_target","object"};
 //		String[] filter = {"hmm_movement","hmm_pose","hmm_compound","intent_placement","intent_next","intent_target","object"};
-
+//		input.filterScene(filter, true).showAgeingOf();
+//		input.filterScene(filter,false).showAgeingOf();
 		Scene testScene = InputProcessor.filterScene(input, filter, false);
 		
 		TemplatePool tPool = TreeGenerator.synTrees(true);
 		
+//		TreeGenerator.treeTest();
+		
 		KnowledgeBase knowledge = new KnowledgeBase();
 		
 		TextModule.showMatches(knowledge, tPool, testScene, 1);
+//		testScene.showAgeingOf();
 
 		List<String> resultLog = new ArrayList<String>();
 		
@@ -42,7 +46,7 @@ public class NaturalLogGenerator {
 		System.out.println("--------------------------------------------");
 		System.out.println("Log");
 		System.out.println();
-		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool, 4, true, true);
+		resultLog = TextModule.LogBuilder(testScene, knowledge, tPool, 4, true, false);
 		
 		for (int i = 0; i < resultLog.size(); i++) {
 			System.out.println(resultLog.get(i));

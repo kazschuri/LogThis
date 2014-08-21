@@ -339,7 +339,6 @@
          \leaf{\emph{DET-place^}}
          \leaf{\emph{workplace}}
          \branch{1}{N}
-         \branch{1}{N}
          \branch{2}{NP1}
     </tree>
     <tree>
@@ -349,7 +348,6 @@
          \leaf{\emph{DET-place^}}
          \leaf{\emph{workarea}}
          \branch{1}{N}
-         \branch{1}{N}
          \branch{2}{NP1}
     </tree>
     <tree>
@@ -358,7 +356,6 @@
         
          \leaf{\emph{DET-place^}}
          \leaf{\emph{workroom}}
-         \branch{1}{N}
          \branch{1}{N}
          \branch{2}{NP1}
     </tree>
@@ -740,15 +737,24 @@
     <element=Place_Unknown;intent_placement>
     <time=0>
     <exists=true>
-    <link=AND>
+    <link=OR>
 </cond>
 
+<cond>
+    <category=Sequence>
+    <subcat=current>
+    <element=placement_Place_Unknown;intent_placement>
+    <time=0>
+    <exists=true>
+    <link=OR>
+</cond>
 <<topics>>
 # Of the kind:
 # <topic=Stand_Still;activity>
 # <topic=With_Human;situation>
 # ...
 <topic=Place_Unknown;intent_placement>
+<topic=placement_Place_Unknown;intent_placement>
 
 <<templateLevel>>
 # signifies for which levels the template is applicable
@@ -1551,19 +1557,20 @@
  \branch{1}{V}
  \leaf{\emph{the}}
  \branch{1}{DET}
- \leaf{\emph{new}}
- \branch{1}{AP}
- \leaf{\emph{and}}
- \branch{1}{CONJ}
- \leaf{\emph{shiny}}
- \branch{1}{AP}
- \branch{2}{AP}
- \branch{2}{AP}
  \leaf{\emph{tool}}
  \branch{1}{N}
  \branch{1}{N}
- \branch{2}{N}
  \branch{2}{NP}
+ \branch{2}{VP}
+ \leaf{\emph{in}}
+ \branch{1}{P}
+ \leaf{\emph{his}}
+ \branch{1}{DET}
+ \leaf{\emph{hand}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \branch{2}{PP}
  \branch{2}{VP}
  \branch{2}{S}
  
@@ -1588,7 +1595,14 @@
     <link=AND>
 </cond>
 
-
+<cond>
+    <category=knowledge>
+    <subcat=current>
+    <element=Taking_Tool;action>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
 
 <<topics>>
 # Of the kind:
@@ -1704,7 +1718,7 @@
 <template>
 
 #####################################################################
-######################### Template 16 ###############################
+######################### Template 19 ###############################
 #####################################################################
 
 <<Base-Tree>>
@@ -1801,5 +1815,316 @@
 # of the kind:
 # <level= >
 <level=1>
+
+</template>
+
+<template>
+#####################################################################
+######################### Template 20 ###############################
+#####################################################################
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree (http://erg.delph-in.net/logon) or formula
+
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{user}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \leaf{\emph{stopped}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{paying}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{any}}
+ \branch{1}{DET}
+ \leaf{\emph{attention}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \leaf{\emph{to}}
+ \branch{1}{P}
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{robot}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \branch{2}{PP}
+ \branch{2}{N}
+ \branch{2}{NP}
+ \branch{2}{VP}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+
+<<Can-Trees>>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
+#   <element= >
+#   <time=>
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=dying>
+    <element=Partially_Paying_Attention;activity>
+    <time=0>
+    <exists=true>
+    <link=OR>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=dying>
+    <element=Partially_Attentative;situation>
+    <time=0>
+    <exists=true>
+    <link=OR>
+</cond>
+
+<cond>
+    <category=Sequence>
+    <subcat=growing>
+    <element=With_Human;situation>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<<topics>>
+# Of the kind:
+# <topic=Stand_Still;activity>
+# <topic=With_Human;situation>
+# ...
+<topic=Partially_Paying_Attention;activity>
+<topic=Partially_Attentative;situation>
+<topic=With_Human;situation>
+
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=6>
+
+</template>
+
+<template>
+#####################################################################
+######################### Template 21 ###############################
+#####################################################################
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree (http://erg.delph-in.net/logon) or formula
+
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{robot}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \leaf{\emph{enters}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{cooperation}}
+ \branch{1}{N}
+ \leaf{\emph{mode}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{N}
+ \branch{1}{NP}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+
+<<Can-Trees>>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
+#   <element= >
+#   <time=>
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=Cooperation;situation>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=knowledge>
+    <subcat=current>
+    <element=Holding_Tool;activity>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<<topics>>
+# Of the kind:
+# <topic=Stand_Still;activity>
+# <topic=With_Human;situation>
+# ...
+<topic=Cooperation;situation>
+
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=7>
+
+</template>
+
+<template>
+#####################################################################
+######################### Template 22 ###############################
+#####################################################################
+<<Base-Tree>>
+# exactly one of the kind:
+# quobitree (http://erg.delph-in.net/logon) or formula
+
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{robot}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \leaf{\emph{is}}
+ \branch{1}{V}
+ \leaf{\emph{prepared}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{to}}
+ \branch{1}{COMP}
+ \leaf{\emph{get}}
+ \branch{1}{V}
+ \branch{1}{V}
+ \leaf{\emph{an}}
+ \branch{1}{DET}
+ \leaf{\emph{object}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \leaf{\emph{for}}
+ \branch{1}{P}
+ \leaf{\emph{the}}
+ \branch{1}{DET}
+ \leaf{\emph{worker}}
+ \branch{1}{N}
+ \branch{1}{N}
+ \branch{2}{NP}
+ \branch{2}{PP}
+ \branch{2}{N}
+ \branch{2}{NP}
+ \branch{2}{VP}
+ \branch{2}{VP}
+ \branch{2}{VP}
+ \branch{2}{VP}
+ \branch{2}{S}
+
+<<Must-Trees>>
+
+<<Can-Trees>>
+
+<<linkedConditions>>
+# Of the kind:
+# <cond>
+#   <category= Sequence/timestamp   / knowledge>
+#   <subcat=newborn/dying/growing/ current/former> (former for knowledge, current for both)
+#   <element= >
+#   <time=>
+#   <exists= True/False> (True: time >= value, False: time < value)
+#   <link= AND/OR/XOR> (ignored for first condition)
+# </cond>
+# ...
+
+<cond>
+    <category=Sequence>
+    <subcat=newborn>
+    <element=Get_Object;expectation>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<cond>
+    <category=knowledge>
+    <subcat=current>
+    <element=Cooperation;situation>
+    <time=0>
+    <exists=true>
+    <link=AND>
+</cond>
+
+<<slotConditions>>
+# Of the kind:
+# <slot>
+#   <name=<...>>
+#   <category=newborn/dying/growing/current/Sequence> (for start and stop it has to be Sequence)
+#   <element=with_human/.../start/stop> (start and stop for begin and end of sequence time, else the timestamp of that name)
+# </slot>
+
+<<topics>>
+# Of the kind:
+# <topic=Stand_Still;activity>
+# <topic=With_Human;situation>
+# ...
+<topic=Get_Object;expectation>
+
+<<templateLevel>>
+# signifies for which levels the template is applicable
+# just add up the multiples of 2, that are applicable
+# 1 global information
+# 2 more detail
+# 4 all infos
+# of the kind:
+# <level= >
+<level=6>
 
 </template>
