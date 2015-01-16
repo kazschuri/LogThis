@@ -32,7 +32,7 @@ public class TextModule {
 			
 			if (newSize > oldSize || verbose) {
 				
-			naturalLog.add(oldSize,"");
+				naturalLog.add(oldSize,"");
 
 				if (info) {
 					verboseText = "Sequence "+i;

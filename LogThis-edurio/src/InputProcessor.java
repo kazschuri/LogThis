@@ -164,7 +164,7 @@ public class InputProcessor
 	/**
 	 * @param scene the scene to filter
 	 * @param filter the filter to use
-	 * @param containsFilter include or exclude filter arguments
+	 * @param containsFilter true to exclusively use the arguments or false to exclude filter arguments
 	 * 
 	 * @return the filteredSequence
 	 */
